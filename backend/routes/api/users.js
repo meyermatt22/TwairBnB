@@ -6,14 +6,9 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
-// backend/routes/api/users.js
-// ...
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-// ...
 
-// backend/routes/api/users.js
-// ...
 const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
@@ -34,8 +29,6 @@ const validateSignup = [
     handleValidationErrors
   ];
 
-// backend/routes/api/users.js
-// ...
 
 // Sign up
 router.post('/', validateSignup, async (req, res) => {

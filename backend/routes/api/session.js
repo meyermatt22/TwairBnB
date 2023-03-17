@@ -1,4 +1,4 @@
-// backend/routes/api/session.js
+
 const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
@@ -8,17 +8,11 @@ const { User } = require('../../db/models');
 
 
 
-// backend/routes/api/session.js
 const router = express.Router();
 
-// backend/routes/api/session.js
-// ...
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-// ...
 
-// backend/routes/api/session.js
-// ...
 
 const validateLogin = [
   check('credential')
@@ -31,8 +25,6 @@ const validateLogin = [
   handleValidationErrors
 ];
 
-// backend/routes/api/session.js
-// ...
 
 // Log in
 router.post('/', validateLogin, async (req, res, next) => {
@@ -74,8 +66,7 @@ router.post('/', validateLogin, async (req, res, next) => {
     }
   );
 
-  // backend/routes/api/session.js
-// ...
+
 
 // Log out
 router.delete(
@@ -86,10 +77,8 @@ router.delete(
     }
   );
 
-  // ...
 
-// backend/routes/api/session.js
-// ...
+
 
 // Restore session user
 router.get(
@@ -110,6 +99,6 @@ router.get(
     }
   );
 
-  // ...
+
 
 module.exports = router;

@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
+  //console
+
   User.init({
     id: {
       type: DataTypes.INTEGER,

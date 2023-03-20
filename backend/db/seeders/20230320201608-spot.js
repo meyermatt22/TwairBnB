@@ -1,6 +1,65 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+const { Spot } = require('../models');
+
+const spots = [
+  {
+    address: '1234 park haven',
+    city: 'melbourne',
+    state: 'kentucky',
+    country: 'Canada',
+    lat: 0.33,
+    lng: 0.33,
+    name: 'henry',
+    description: 'this is a good spot',
+    price: 2000.88
+  },
+  {
+    address: '1234 park haven',
+    city: 'melbourne',
+    state: 'kentucky',
+    country: 'Canada',
+    lat: 0.33,
+    lng: 0.33,
+    name: 'henry',
+    description: 'this is a good spot',
+    price: 2000.88
+  },
+  {
+    address: '1234 park haven',
+    city: 'melbourne',
+    state: 'kentucky',
+    country: 'Canada',
+    lat: 0.33,
+    lng: 0.33,
+    name: 'henry',
+    description: 'this is a good spot',
+    price: 2000.88
+  },
+  {
+    address: '1234 park haven',
+    city: 'melbourne',
+    state: 'kentucky',
+    country: 'Canada',
+    lat: 0.33,
+    lng: 0.33,
+    name: 'henry',
+    description: 'this is a good spot',
+    price: 2000.88
+  },
+  {
+    address: '1234 park haven',
+    city: 'melbourne',
+    state: 'kentucky',
+    country: 'Canada',
+    lat: 0.33,
+    lng: 0.33,
+    name: 'henry',
+    description: 'this is a good spot',
+    price: 2000.88
+  },
+]
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -12,6 +71,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+   await Spot.bulkCreate(spots)
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +81,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    await Spot.bulkDelete(spots)
   }
 };

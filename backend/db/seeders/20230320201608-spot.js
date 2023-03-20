@@ -81,6 +81,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await Spot.bulkDelete(spots)
+    await queryInterface.bulkDelete('Spots', null, {})
   }
 };

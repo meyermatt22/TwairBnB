@@ -30,6 +30,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await Booking.bulkDelete(bookings)
+    await queryInterface.bulkDelete('Bookings', null, {})
   }
 };

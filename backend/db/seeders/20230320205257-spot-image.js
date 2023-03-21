@@ -14,22 +14,27 @@ module.exports = {
     {
       url: 'http://runescape.com',
       preview: true,
+      spotId: 1
     },
     {
       url: 'http://runescape.com',
       preview: true,
+      spotId: 1
     },
     {
       url: 'http://runescape.com',
       preview: false,
+      spotId: 1
     },
     {
       url: 'http://runescape.com',
       preview: true,
+      spotId: 1
     },
     {
       url: 'http://runescape.com',
       preview: false,
+      spotId: 1
     },
   ], {})
   },

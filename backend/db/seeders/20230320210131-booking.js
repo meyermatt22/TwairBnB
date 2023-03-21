@@ -15,8 +15,10 @@ module.exports = {
     options.tableName = "Bookings";
     return queryInterface.bulkInsert(options, [
       {
-        startDate: 19910531,
-        endDate: 19920602,
+        startDate: '2016-01-25 10:10:10.555555-05:00',
+        endDate: '2016-01-26 10:10:10.555555-05:00',
+        spotId: 1,
+        userId: 1
       },
     ], {});
   },
@@ -25,7 +27,7 @@ module.exports = {
     options.tableName = "Bookings";
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete(options, {
-      startDate: { [Op.in]: [19910531]}
+      spotId: { [Op.in]: [1]}
     }, {})
   }
 };

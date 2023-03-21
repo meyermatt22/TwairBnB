@@ -2,28 +2,28 @@
 
 const { SpotImage } = require('../models');
 
-const spotimages = [
-  {
-    url: 'http://runescape.com',
-    preview: true,
-  },
-  {
-    url: 'http://runescape.com',
-    preview: true,
-  },
-  {
-    url: 'http://runescape.com',
-    preview: false,
-  },
-  {
-    url: 'http://runescape.com',
-    preview: true,
-  },
-  {
-    url: 'http://runescape.com',
-    preview: false,
-  },
-]
+// const spotimages = [
+//   {
+//     url: 'http://runescape.com',
+//     preview: true,
+//   },
+//   {
+//     url: 'http://runescape.com',
+//     preview: true,
+//   },
+//   {
+//     url: 'http://runescape.com',
+//     preview: false,
+//   },
+//   {
+//     url: 'http://runescape.com',
+//     preview: true,
+//   },
+//   {
+//     url: 'http://runescape.com',
+//     preview: false,
+//   },
+// ]
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -37,7 +37,28 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await SpotImage.bulkCreate(spotimages)
+   await SpotImage.bulkCreate([
+    {
+      url: 'http://runescape.com',
+      preview: true,
+    },
+    {
+      url: 'http://runescape.com',
+      preview: true,
+    },
+    {
+      url: 'http://runescape.com',
+      preview: false,
+    },
+    {
+      url: 'http://runescape.com',
+      preview: true,
+    },
+    {
+      url: 'http://runescape.com',
+      preview: false,
+    },
+  ], {})
   },
 
   async down (queryInterface, Sequelize) {

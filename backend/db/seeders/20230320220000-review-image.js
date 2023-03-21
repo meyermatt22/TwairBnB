@@ -40,7 +40,7 @@ module.exports = {
       },
       {
         url: 'http://skyrim.com/info',
-        reviewId: 1
+        reviewId: 3
       },
       {
         url: 'http://skyrim.com/info',

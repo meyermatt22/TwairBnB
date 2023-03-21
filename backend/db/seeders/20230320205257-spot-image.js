@@ -1,43 +1,16 @@
 'use strict';
 
-const { SpotImage } = require('../models');
+const bcrypt = require("bcryptjs")
 
-// const spotimages = [
-//   {
-//     url: 'http://runescape.com',
-//     preview: true,
-//   },
-//   {
-//     url: 'http://runescape.com',
-//     preview: true,
-//   },
-//   {
-//     url: 'http://runescape.com',
-//     preview: false,
-//   },
-//   {
-//     url: 'http://runescape.com',
-//     preview: true,
-//   },
-//   {
-//     url: 'http://runescape.com',
-//     preview: false,
-//   },
-// ]
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-   await SpotImage.bulkCreate([
+    options.tableName = "SpotImages";
+   return queryInterface.bulkInsert( options, [
     {
       url: 'http://runescape.com',
       preview: true,
@@ -62,12 +35,11 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-    await queryInterface.bulkDelete('SpotImages', null, {});
+
+    options.tableName = "SpotImages"
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(options, {
+      url: { [Op.in]: ['http://runescape.com']}
+    }, {});
   }
 };

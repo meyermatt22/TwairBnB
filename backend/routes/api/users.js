@@ -14,6 +14,13 @@ const validateSignup = [
       .exists({ checkFalsy: true })
       .isEmail()
       .withMessage('Please provide a valid email.'),
+    check('email').custom(value => {
+      return User.findOne( {value: value} ).then(user => {
+        if (user) {
+          return Promise.reject("User with that email already exists");
+        }
+      });
+    }),
     check('username')
       .exists({ checkFalsy: true })
       .isLength({ min: 4 })
@@ -32,10 +39,11 @@ const validateSignup = [
 
 // Sign up
 router.post('/', validateSignup, async (req, res) => {
+  console.log("**$%^** LOOK AT ME look look **$%*", User.email)
 
-      const { email, password, username, firstName, lastName } = req.body;
-      const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({ email, username, firstName, lastName, hashedPassword });
+  const { email, password, username, firstName, lastName } = req.body;
+  const hashedPassword = bcrypt.hashSync(password);
+  const user = await User.create({ email, username, firstName, lastName, hashedPassword });
 
       const safeUser = {
         id: user.id,

@@ -8,19 +8,21 @@ const router = express.Router();
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { where } = require('sequelize');
 
 const validateSignup = [
     check('email')
       .exists({ checkFalsy: true })
       .isEmail()
       .withMessage('Please provide a valid email.'),
-    check('email').custom(value => {
-      return User.findOne( {value: value} ).then(user => {
-        if (user) {
-          return Promise.reject("User with that email already exists");
-        }
-      });
-    }),
+    // check('email').custom(value => {
+    //   return User.findOne( {where: value} ).then(user => {
+    //     // console.log('&& LOOK HERE &&', user)
+    //     if (user) {
+    //       return Promise.reject("User with that email already exists");
+    //     }
+    //   });
+    // }),
     check('username')
       .exists({ checkFalsy: true })
       .isLength({ min: 4 })
@@ -29,13 +31,13 @@ const validateSignup = [
       .not()
       .isEmail()
       .withMessage('Username cannot be an email.'),
-    check('username').custom(value => {
-      return User.findOne( { value: value } ).then(user => {
-        if (user) {
-          return Promise.reject("User with that username already exists");
-        }
-      });
-    }),
+    // check('username').custom(value => {
+    //   return User.findOne( { value: value } ).then(user => {
+    //     if (user) {
+    //       return Promise.reject("User with that username already exists");
+    //     }
+    //   });
+    // }),
     check('password')
       .exists({ checkFalsy: true })
       .isLength({ min: 6 })
@@ -50,6 +52,27 @@ router.post('/', validateSignup, async (req, res) => {
 
   const { email, password, username, firstName, lastName } = req.body;
   const hashedPassword = bcrypt.hashSync(password);
+  const userEmail = await User.findOne( {where: email} )
+    // console.log('&& LOOK HERE &&', user)
+  if (userEmail) {
+    return res.json({
+      "message": "User already exists",
+      "errors": {
+        "email": "User with that email already exists"
+      }
+    });
+  }
+  const userName = await User.findOne( {where: username})
+
+  if (userName) {
+    return res.json({
+      "message": "User already exists",
+      "errors": {
+        "username": "User with that username already exists"
+      }
+    })
+  }
+
   const user = await User.create({ email, username, firstName, lastName, hashedPassword });
 
       const safeUser = {

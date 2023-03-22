@@ -19,7 +19,7 @@ module.exports = {
     {
       url: 'http://runescape.com',
       preview: true,
-      spotId: 2
+      spotId: 5
     },
     {
       url: 'http://runescape.com',

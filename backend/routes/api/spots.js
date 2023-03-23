@@ -67,12 +67,7 @@ router.get('/current', requireAuth, async (req, res) => {
             }
         ]
     })
-
-
     let spotsList = [spot.toJSON()];
-    // spot.forEach(spot => {
-    //     spotsList.push(spot.toJSON())
-    // });
 
     spotsList.forEach(spot => {
 
@@ -96,11 +91,65 @@ router.get('/current', requireAuth, async (req, res) => {
         delete spot.SpotImages
 
     })
+    const spotsListed = { Spots:  spotsList  }
 
-    const spotsListier = { Spots:  spotsList  }
-    // console.log('spot:  ', spot)
+    res.json(spotsListed)
+})
 
-    res.json(spotsListier)
+router.get('/:spotId', async (req, res) => {
+    // const spot = await Spot.findByPk(req.params.spotId)
+
+    const spot = await Spot.findAll({
+        where: {ownerId: req.params.spotId},
+        include: [
+            {
+                model: Review
+            },
+            {
+                model: SpotImage
+            },
+        ]
+    })
+    const spotOwner = await User.findByPk(req.params.spotId)
+    console.log('owner: ',spotOwner.firstName)
+
+
+
+    let spotsList = [];
+    spot.forEach(spot => {
+        spotsList.push(spot.toJSON())
+    });
+
+    spotsList.forEach(spot => {
+
+        if(spot.Owner) {
+            spot.Owner = {
+                id: spotOwner.id,
+                firstName: spotOwner.firstName,
+                lastName: spotOwner.lastName
+            }
+        } else {
+            spot.Owner = "No Owner Found"
+        }
+
+        let total = 0
+        spot.Reviews.forEach(reviewy => {
+            // console.log(reviewy)
+            total += reviewy.stars
+        })
+        spot.avgStarRating = total / spot.Reviews.length
+        // console.log('spoty',spot)
+        spot.numReviews = spot.Reviews.length
+
+        spot.SpotImages.forEach(image => {
+            delete image.spotId
+            delete image.createdAt
+            delete image.updatedAt
+        })
+
+        delete spot.Reviews
+    })
+    res.json(spotsList)
 })
 
 

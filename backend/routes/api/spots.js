@@ -160,4 +160,42 @@ router.post('/', requireAuth, async (req, res) => {
 })
 
 
+router.post('/:spotId/images', requireAuth, async (req, res, next) => {
+
+    const id = req.params.spotId
+    const { url, preview } = req.body
+    const {user} = req
+
+    if (user) {
+        const spot = await Spot.findByPk(id);
+
+        if (!spot) {
+            const err = new Error("Spot not found")
+            err.status = 404
+            next(err)
+        }
+
+        if(user.dataValues.id === spot.dataValues.ownerId) {
+
+            const imagey = await spot.createSpotImage({
+                url: url,
+                preview: preview
+            })
+
+            return res.json({
+                id: imagey.id,
+                url: imagey.url,
+                preview: imagey.preview
+            })
+        }
+
+        return res.status(403).json({
+            "message": "Forbidden"
+        })
+    }
+    return res.json({
+        message: "Authentication required"
+    })
+})
+
 module.exports = router;

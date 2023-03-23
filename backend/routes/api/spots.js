@@ -159,15 +159,14 @@ router.post('/', requireAuth, async (req, res) => {
     return res.json(spot)
 })
 
-
 router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
-    const id = req.params.spotId
+
     const { url, preview } = req.body
     const {user} = req
 
     if (user) {
-        const spot = await Spot.findByPk(id);
+        const spot = await Spot.findByPk(req.params.spotId);
 
         if (!spot) {
             const err = new Error("Spot not found")
@@ -196,6 +195,55 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     return res.json({
         message: "Authentication required"
     })
+})
+
+router.put('/:spotId', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    if(user) {
+        const spot = await Spot.findByPk(req.params.spotId)
+
+        if (!spot) {
+            const err = new Error("Spot not found")
+            err.status = 404
+            next(err)
+        }
+
+        spot.address = address
+        spot.city = city
+        spot.state = state
+        spot.counrty = country
+        spot.lat = lat
+        spot.lng = lng
+        spot.name = name
+        spot.description = description
+        spot.price = price
+
+        await spot.save()
+
+        return res.json(spot)
+    }
+})
+
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    const { user } = req
+
+    if(user) {
+        const spot = await Spot.findByPk(req.params.spotId)
+
+        if (!spot) {
+            const err = new Error("Spot not found")
+            err.status = 404
+            next(err)
+        }
+
+        // console.log(spot)
+        await spot.destroy()
+
+        return res.json({ message: "Successfully deleted"})
+    }
+
 })
 
 module.exports = router;

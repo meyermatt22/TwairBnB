@@ -111,7 +111,7 @@ router.get('/:spotId', async (req, res) => {
         ]
     })
     const spotOwner = await User.findByPk(req.params.spotId)
-    console.log('owner: ',spotOwner.firstName)
+    // console.log('owner: ',spotOwner.firstName)
 
 
 

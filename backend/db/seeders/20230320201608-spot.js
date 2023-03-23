@@ -21,7 +21,8 @@ module.exports = {
       lng: 0.33,
       name: 'henry',
       description: 'this is a good spot',
-      price: 2000.88
+      price: 2000.88,
+      ownerId: 1
     },
     {
       address: '1234 park haven',
@@ -32,7 +33,8 @@ module.exports = {
       lng: 0.33,
       name: 'henry',
       description: 'this is a good spot',
-      price: 2000.88
+      price: 2000.88,
+      ownerId: 1
     },
     {
       address: '1234 park haven',
@@ -43,7 +45,8 @@ module.exports = {
       lng: 0.33,
       name: 'henry',
       description: 'this is a good spot',
-      price: 2000.88
+      price: 2000.88,
+      ownerId: 2
     },
     {
       address: '1234 park haven',
@@ -54,7 +57,8 @@ module.exports = {
       lng: 0.33,
       name: 'henry',
       description: 'this is a good spot',
-      price: 2000.88
+      price: 2000.88,
+      ownerId: 3
     },
     {
       address: '1234 park haven',
@@ -65,13 +69,14 @@ module.exports = {
       lng: 0.33,
       name: 'henry',
       description: 'this is a good spot',
-      price: 2000.88
+      price: 2000.88,
+      ownerId: 1
     },
   ], {})
   },
 
   async down (queryInterface, Sequelize) {
-    
+
     options.tableName = 'Spots'
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {

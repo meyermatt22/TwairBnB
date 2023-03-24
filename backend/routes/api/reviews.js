@@ -68,6 +68,44 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
 })
 
+router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
+    const { user } = req
+    const { url } = req.body
+    if(user) {
+        const review = await Review.findByPk(req.params.reviewId)
+
+        const reviewImages = await ReviewImage.findAll({
+            where: {
+                reviewId: review.id
+            }
+        })
+        
+        if(reviewImages.length >= 10) {
+            const err = new Error("Maximum number of images for this resource was reached")
+            err.status = 403
+            next(err)
+        }
+
+        console.log('review: ', review)
+        if(!review) {
+            const err = new Error("Review not found")
+            err.status = 404
+            next(err)
+        }
+
+        if(user.dataValues.id === review.dataValues.userId) {
+            const newImage = await review.createReviewImage({
+                url: url
+            })
+            return res.json({
+                id: newImage.id,
+                url: newImage.url
+            })
+        }
+
+    }
+    return res.json({ message: "Authentication Required"})
+})
 
 
 module.exports = router;

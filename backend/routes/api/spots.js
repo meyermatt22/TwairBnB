@@ -261,4 +261,54 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 })
 
+
+router.get('/:spotId/reviews', async (req, res, next) => {
+
+    const { user } = req
+    // console.log('user: ' , user)
+    // console.log('params',  req.params)
+    const {spotId} = req.params
+
+    if(user) {
+
+        const oneSpotsReviews = await Review.findOne({
+            where: {
+                id: spotId
+            },
+            include: [
+                {
+                    model:User
+                },
+                {
+                    model: ReviewImage
+                }
+            ]
+        })
+
+        if (!oneSpotsReviews) {
+            const err = new Error("Spot not found")
+            err.status = 404
+            next(err)
+        }
+
+
+        if (oneSpotsReviews.User) {
+            delete oneSpotsReviews.User.dataValues.username
+        }
+
+        // delete oneSpotsReviews.ReviewImages[0].reviewId
+        oneSpotsReviews.ReviewImages.forEach( reviewimage => {
+            // console.log(reviewimage.dataValues.reviewId)
+            delete reviewimage.dataValues.reviewId
+            delete reviewimage.dataValues.createdAt
+            delete reviewimage.dataValues.updatedAt
+        })
+        // console.log('list here: ', oneSpotsReviews.User.dataValues.username)
+        const result = { Reviews: [oneSpotsReviews] }
+
+        res.json(result)
+    }
+
+})
+
 module.exports = router;

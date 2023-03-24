@@ -9,6 +9,7 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { where } = require('sequelize');
+const spot = require('../../db/models/spot');
 
 
 router.get('/', async(req, res) => {
@@ -55,45 +56,59 @@ router.get('/', async(req, res) => {
 })
 
 router.get('/current', requireAuth, async (req, res) => {
+    const { user } = req
 
-    const spot = await Spot.findOne({
-        where: req.params.current,
-        include: [
-            {
-                model: Review
-            },
-            {
-                model: SpotImage
-            }
-        ]
-    })
-    let spotsList = [spot.toJSON()];
+    if(user) {
 
-    spotsList.forEach(spot => {
+            const spots = await Spot.findAll({
+                where: {
+                    ownerId: user.id
+                },
+                include: [
+                    {
+                        model: Review
+                    },
+                    {
+                        model: SpotImage
+                    }
+                ]
+            })
+            let spotsList = [];
 
-        spot.SpotImages.forEach(image => {
-            if(image.preview === true) {
-                // console.log('image ', image)
-                spot.previewImage = image.url
-            } else {
-                spot.previewImage = 'No image URL found'
-            }
-        })
+            spots.forEach(spot => {
+                spotsList.push(spot.toJSON())
+            })
 
-        let total = 0
-        spot.Reviews.forEach(reviewy => {
-            console.log(reviewy)
-            total += reviewy.stars
-        })
-        spot.avgRating = total / spot.Reviews.length
-        // console.log('spoty',spot)
-        delete spot.Reviews
-        delete spot.SpotImages
+            spotsList.forEach(spot => {
 
-    })
-    const spotsListed = { Spots:  spotsList  }
+                spot.SpotImages.forEach(image => {
+                    if(image.preview === true) {
+                        // console.log('image ', image)
+                        spot.previewImage = image.url
+                    } else {
+                        spot.previewImage = 'No image URL found'
+                    }
+                })
 
-    res.json(spotsListed)
+                let total = 0
+                spot.Reviews.forEach(reviewy => {
+                    console.log(reviewy)
+                    total += reviewy.stars
+                })
+                spot.avgRating = total / spot.Reviews.length
+                // console.log('spoty',spot)
+
+                delete spot.Reviews
+                delete spot.SpotImages
+
+            })
+
+            const spotsListed = { Spots:  spotsList  }
+
+            res.json(spotsListed)
+
+
+    }
 })
 
 router.get('/:spotId', async (req, res) => {

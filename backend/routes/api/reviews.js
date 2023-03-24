@@ -17,7 +17,9 @@ router.get('/current', requireAuth, async (req, res, next) => {
     if(user) {
 
         const reviews = await Review.findAll({
-            where: req.params.current,
+            where: {
+                userId: user.id
+            },
             include: [
                 {
                     model: Spot
@@ -34,13 +36,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
         let reviewsList = [];
 
         reviews.forEach(review => {
-
-            // console.log()
-            // console.log(review.User.id)
-            // console.log(user.dataValues.id)
-            // if(review.User.id === user.dataValues.id) {
-
-            // }
             reviewsList.push(review.toJSON())
 
         })
@@ -62,9 +57,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
                     delete review.Spot.createdAt
                     delete review.Spot.updatedAt
                 }
-            // } else {
-            //     delete review
-            // }
 
         })
 

@@ -13,6 +13,9 @@ const spot = require('../../db/models/spot');
 
 
 router.get('/', async(req, res) => {
+
+
+
     const spots = await Spot.findAll({
         include: [
             {
@@ -23,6 +26,8 @@ router.get('/', async(req, res) => {
             }
         ]
     })
+
+
 
     let spotsList = [];
     spots.forEach(spot => {
@@ -52,7 +57,7 @@ router.get('/', async(req, res) => {
 
     })
 
-    res.json(spotsList)
+    return res.json(page, size)
 })
 
 router.get('/current', requireAuth, async (req, res) => {

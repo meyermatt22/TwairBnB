@@ -41,6 +41,48 @@ router.get('/current', requireAuth, async (req, res, next) => {
     }
 })
 
+router.put('/:bookingId', requireAuth, async (req, res, next) => {
+    const {user} = req
+    const {startDate, endDate} = req.body
+    if (user) {
+        const booking = await Booking.findByPk(req.params.bookingId)
+
+        if(!booking) {
+            const err = new Error("Booking not found")
+            err.status = 404
+            next(err)
+        }
+
+        if(user.dataValues.id === booking.dataValues.userId) {
+            booking.startDate = startDate
+            booking.endDate = endDate
+
+            await booking.save()
+
+            return res.json(booking)
+        }
+    }
+    return res.json({message: "Authentication Required"})
+})
+
+router.delete('/:bookingId', requireAuth, async (req, res, next) => {
+    const {user} = req
+    if(user) {
+        const booking = await Booking.findByPk(req.params.bookingId)
+
+        if(!booking) {
+            const err = new Error("Booking not found")
+            err.status = 404
+            next(err)
+        }
+        if(user.dataValues.id === booking.dataValues.userId) {
+            await booking.destroy()
+
+            return res.json({message: "Successfully deleted"})
+        }
+    }
+    return res.json({message: "Authentication Required"})
+})
 
 
 module.exports = router;

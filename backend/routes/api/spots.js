@@ -324,8 +324,6 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
             next(err)
         }
 
-        console.log('user values:  ', user.dataValues.id)
-        console.log(' spot values:  ', spot.dataValues.ownerId)
         if(user.dataValues.id === spot.dataValues.ownerId) {
             const newReview = await spot.createReview({
                 review: review,

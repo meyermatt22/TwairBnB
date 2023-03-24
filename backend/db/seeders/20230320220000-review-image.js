@@ -10,23 +10,28 @@ if (process.env.NODE_ENV === 'production') {
 const spotimages = [
   {
     url: 'http://skyrim.com/info',
-    preview: true
+    preview: true,
+    reviewId: 1
   },
   {
     url: 'http://skyrim.com/info',
-    preview: true
+    preview: true,
+    reviewId: 2
   },
   {
     url: 'http://skyrim.com/info',
-    preview: false
+    preview: false,
+    reviewId: 3
   },
   {
     url: 'http://skyrim.com/info',
-    preview: true
+    preview: true,
+    reviewId: 4
   },
   {
     url: 'http://skyrim.com/info',
-    preview: false
+    preview: false,
+    reviewId: 5
   },
 ]
 

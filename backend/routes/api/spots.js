@@ -345,4 +345,92 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
     return res.json({ message: "Authentication Required"})
 })
 
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const {user} = req
+    const {spotId} = req.params
+    if(user) {
+        const spot = await Spot.findByPk(req.params.spotId)
+
+        if (!spot) {
+            const err = new Error("Spot not found")
+            err.status = 404
+            next(err)
+        }
+
+        const bookings = await Booking.findAll({
+            where: {
+                userId: spotId
+            },
+            include: [
+                {
+                    model: User
+                }
+            ]
+        })
+
+
+        let bookingsList = []
+        bookings.forEach(booking => {
+            bookingsList.push(booking.toJSON())
+        })
+
+        bookingsList.forEach(booking => {
+
+            if(booking.userId === user.id) {
+                delete User.username
+
+                return res.json({Bookings: bookingsList})
+            }
+            delete booking.User
+            delete booking.userId
+            delete booking.createdAt
+            delete booking.id
+            delete booking.updatedAt
+        })
+
+        let nonOwnerResult = { Bookings: bookingsList }
+
+        return res.json(nonOwnerResult)
+    }
+    return res.json({ message: "Authentication Required"})
+})
+
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const {user} = req
+    const { startDate, endDate } = req.body
+    if(user) {
+
+        const spot = await Spot.findByPk(req.params.spotId)
+
+        if (!spot) {
+            const err = new Error("Spot not found")
+            err.status = 404
+            next(err)
+        }
+
+        if(user.dataValues.id === spot.dataValues.ownerId) {
+            const err = new Error("Bookings can not be made to spots you own")
+            next(err)
+        }
+
+        const newBooking = await spot.createBooking({
+            startDate: startDate,
+            endDate: endDate
+        })
+
+        await spot.save()
+
+        return res.json({
+            id: newBooking.id,
+            spotId: newBooking.spotId,
+            userId: newBooking.userId,
+            startDate: newBooking.startDate,
+            endDate: newBooking.endDate,
+            createdAt: newBooking.createdAt,
+            updatedAt: newBooking.updatedAt
+        })
+    }
+    return res.json({ message: "Authentication Required"})
+})
+
 module.exports = router;

@@ -311,4 +311,40 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 
 })
 
+router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
+    const { user } = req
+    const {review, stars} = req.body
+
+    if(user) {
+        const spot = await Spot.findByPk(req.params.spotId)
+
+        if (!spot) {
+            const err = new Error("Spot not found")
+            err.status = 404
+            next(err)
+        }
+
+        console.log('user values:  ', user.dataValues.id)
+        console.log(' spot values:  ', spot.dataValues.ownerId)
+        if(user.dataValues.id === spot.dataValues.ownerId) {
+            const newReview = await spot.createReview({
+                review: review,
+                stars: stars
+            })
+            return res.json({
+                id: newReview.id,
+                review: newReview.review,
+                stars: newReview.stars,
+                userId: user.dataValues.id,
+                spotId: spot.dataValues.id,
+                createdAt: newReview.createdAt,
+                updatedAt: newReview.updatedAt
+            })
+
+        }
+
+    }
+    return res.json({ message: "Authentication Required"})
+})
+
 module.exports = router;

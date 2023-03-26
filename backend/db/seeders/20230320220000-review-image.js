@@ -7,34 +7,6 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
-const spotimages = [
-  {
-    url: 'http://skyrim.com/info',
-    preview: true,
-    reviewId: 1
-  },
-  {
-    url: 'http://skyrim.com/info',
-    preview: true,
-    reviewId: 2
-  },
-  {
-    url: 'http://skyrim.com/info',
-    preview: false,
-    reviewId: 3
-  },
-  {
-    url: 'http://skyrim.com/info',
-    preview: true,
-    reviewId: 4
-  },
-  {
-    url: 'http://skyrim.com/info',
-    preview: false,
-    reviewId: 5
-  },
-]
-
 module.exports = {
   async up (queryInterface, Sequelize) {
     options.tableName = "ReviewImages";
@@ -57,7 +29,7 @@ module.exports = {
       },
       {
         url: 'http://skyrim.com/info',
-        reviewId: 2
+        reviewId: 4
       },
     ], {});
   },
@@ -66,7 +38,7 @@ module.exports = {
     options.tableName = "ReviewImages"
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      reviewId: { [Op.in]: [1,2]}
+      reviewId: { [Op.in]: [1,2,3,4]}
     }, {});
   }
 };

@@ -22,7 +22,7 @@ module.exports = {
       name: 'henry',
       description: 'this is a good spot',
       price: 2000.88,
-      ownerId: 1
+      ownerId: 4
     },
     {
       address: '1234 park haven',

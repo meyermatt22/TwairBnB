@@ -38,7 +38,7 @@ router.get('/', async(req, res) => {
 
         spot.SpotImages.forEach(image => {
             if(image.preview === true) {
-                // console.log('image ', image)
+
                 spot.previewImage = image.url
             } else {
                 spot.previewImage = 'No image URL found'
@@ -46,18 +46,18 @@ router.get('/', async(req, res) => {
         })
 
         let total = 0
-        spot.Reviews.forEach(reviewy => {
+        spot.Reviews.forEach(review => {
             console.log(reviewy)
             total += reviewy.stars
         })
         spot.avgRating = total / spot.Reviews.length
-        // console.log('spoty',spot)
+
         delete spot.Reviews
         delete spot.SpotImages
 
     })
 
-    return res.json(page, size)
+    return res.json({Spots: spotsList})
 })
 
 router.get('/current', requireAuth, async (req, res) => {
@@ -88,7 +88,7 @@ router.get('/current', requireAuth, async (req, res) => {
 
                 spot.SpotImages.forEach(image => {
                     if(image.preview === true) {
-                        // console.log('image ', image)
+
                         spot.previewImage = image.url
                     } else {
                         spot.previewImage = 'No image URL found'
@@ -101,7 +101,7 @@ router.get('/current', requireAuth, async (req, res) => {
                     total += reviewy.stars
                 })
                 spot.avgRating = total / spot.Reviews.length
-                // console.log('spoty',spot)
+
 
                 delete spot.Reviews
                 delete spot.SpotImages
@@ -116,60 +116,47 @@ router.get('/current', requireAuth, async (req, res) => {
     }
 })
 
-router.get('/:spotId', async (req, res) => {
-    // const spot = await Spot.findByPk(req.params.spotId)
+router.get('/:spotId', async (req, res, next) => {
 
-    const spot = await Spot.findAll({
-        where: {ownerId: req.params.spotId},
-        include: [
-            {
-                model: Review
-            },
-            {
-                model: SpotImage
-            },
-        ]
-    })
-    const spotOwner = await User.findByPk(req.params.spotId)
-    // console.log('owner: ',spotOwner.firstName)
+    const id = req.params.spotId
 
-
-
-    let spotsList = [];
-    spot.forEach(spot => {
-        spotsList.push(spot.toJSON())
-    });
-
-    spotsList.forEach(spot => {
-
-        if(spot.Owner) {
-            spot.Owner = {
-                id: spotOwner.id,
-                firstName: spotOwner.firstName,
-                lastName: spotOwner.lastName
-            }
-        } else {
-            spot.Owner = "No Owner Found"
+    const spot = await Spot.findByPk(
+        id,
+        {
+            include: ["Reviews", "SpotImages", "User"]
         }
+    )
 
-        let total = 0
-        spot.Reviews.forEach(reviewy => {
-            // console.log(reviewy)
-            total += reviewy.stars
-        })
-        spot.avgStarRating = total / spot.Reviews.length
-        // console.log('spoty',spot)
-        spot.numReviews = spot.Reviews.length
+    if (!spot) {
+        const err = new Error("Spot not found")
+        err.status = 404
+        next(err)
+    }
 
-        spot.SpotImages.forEach(image => {
-            delete image.spotId
-            delete image.createdAt
-            delete image.updatedAt
-        })
 
-        delete spot.Reviews
+
+    spot.toJSON()
+
+    console.log('spot here: ',  spot)
+
+
+    delete spot.dataValues.User.dataValues.username
+    spot.dataValues.Owner = spot.dataValues.User
+    delete spot.dataValues.User
+    let total = 0
+    spot.Reviews.forEach(review => {
+        total += review.stars
     })
-    res.json(spotsList)
+    spot.dataValues.avgStarRating = total / spot.dataValues.Reviews.length
+    spot.dataValues.numReviews = spot.dataValues.Reviews.length
+    spot.dataValues.SpotImages.forEach(image => {
+        delete image.dataValues.spotId
+        delete image.dataValues.createdAt
+        delete image.dataValues.updatedAt
+    })
+    delete spot.dataValues.Reviews
+
+    return res.json(spot)
 })
 
 router.post('/', requireAuth, async (req, res) => {
@@ -229,21 +216,25 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
             err.status = 404
             next(err)
         }
+        if(user.dataValues.id === spot.dataValues.ownerId) {
 
-        spot.address = address
-        spot.city = city
-        spot.state = state
-        spot.counrty = country
-        spot.lat = lat
-        spot.lng = lng
-        spot.name = name
-        spot.description = description
-        spot.price = price
 
-        await spot.save()
+            spot.address = address
+            spot.city = city
+            spot.state = state
+            spot.country = country
+            spot.lat = lat
+            spot.lng = lng
+            spot.name = name
+            spot.description = description
+            spot.price = price
 
-        return res.json(spot)
+            await spot.save()
+
+            return res.json(spot)
+        }
     }
+    return res.json({message: "Authentication Required"})
 })
 
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
@@ -258,11 +249,14 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
             next(err)
         }
 
-        // console.log(spot)
+        if(user.dataValues.id === spot.dataValues.ownerId) {
+
         await spot.destroy()
 
         return res.json({ message: "Successfully deleted"})
+        }
     }
+    return res.json({message: "Authentication Required"})
 
 })
 

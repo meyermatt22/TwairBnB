@@ -404,8 +404,9 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const { startDate, endDate } = req.body
     if(user) {
 
-        const startTime = new Date(startDate)
-        const endTime = new Date(endDate)
+        const startTime = new Date(startDate).getTime()
+        const endTime = new Date(endDate).getTime()
+        const currentTime = new Date().getTime()
 
         if(startTime > endTime) {
             const err = new Error("endDate cannot be on or before startDate")
@@ -413,9 +414,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
             next(err)
         }
 
-
-        console.log('startDate: ', startTime.getTime())
-        console.log('endDate: ', endTime.getTime())
 
         const spot = await Spot.findByPk(req.params.spotId)
 
@@ -433,8 +431,14 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
         bookings.forEach(booking => {
 
+            if(startTime >= booking.dataValues.startDate.getTime() && startTime <= booking.dataValues.endDate.getTime()) {
+                const err = new Error("Sorry, this spot is already booked for the specified dates")
+                err.status = 403
+                next(err)
+            }
         })
-        console.log('bookings: ', bookings)
+
+        console.log('how many bookings: ', bookings.length)
 
         if(user.dataValues.id === spot.dataValues.ownerId) {
             const err = new Error("Bookings can not be made to spots you own")

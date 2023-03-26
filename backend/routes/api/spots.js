@@ -102,6 +102,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 })
                 spot.avgRating = total / spot.Reviews.length
 
+                console.log('spoty: ',spot.createdAt.toTimeString())
 
                 delete spot.Reviews
                 delete spot.SpotImages
@@ -251,9 +252,9 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
         if(user.dataValues.id === spot.dataValues.ownerId) {
 
-        await spot.destroy()
+            await spot.destroy()
 
-        return res.json({ message: "Successfully deleted"})
+            return res.json({ message: "Successfully deleted"})
         }
     }
     return res.json({message: "Authentication Required"})
@@ -264,15 +265,22 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 router.get('/:spotId/reviews', async (req, res, next) => {
 
     const { user } = req
-    // console.log('user: ' , user)
-    // console.log('params',  req.params)
     const {spotId} = req.params
 
     if(user) {
 
-        const oneSpotsReviews = await Review.findOne({
+        const spot = await Spot.findByPk(req.params.spotId)
+
+        if (!spot) {
+            const err = new Error("Spot not found")
+            err.status = 404
+            next(err)
+        }
+
+
+        const usersReviews = await Review.findAll({
             where: {
-                id: spotId
+                spotId: spot.id
             },
             include: [
                 {
@@ -284,26 +292,18 @@ router.get('/:spotId/reviews', async (req, res, next) => {
             ]
         })
 
-        if (!oneSpotsReviews) {
-            const err = new Error("Spot not found")
-            err.status = 404
-            next(err)
-        }
-
-
-        if (oneSpotsReviews.User) {
-            delete oneSpotsReviews.User.dataValues.username
-        }
-
-        // delete oneSpotsReviews.ReviewImages[0].reviewId
-        oneSpotsReviews.ReviewImages.forEach( reviewimage => {
-            // console.log(reviewimage.dataValues.reviewId)
-            delete reviewimage.dataValues.reviewId
-            delete reviewimage.dataValues.createdAt
-            delete reviewimage.dataValues.updatedAt
+        usersReviews.forEach( review => {
+            if(review.User) delete review.User.dataValues.username
+            if(review.ReviewImages.length) {
+                review.ReviewImages.forEach(image => {
+                    delete image.dataValues.reviewId
+                    delete image.dataValues.updatedAt
+                    delete image.dataValues.createdAt
+                })
+            }
         })
-        // console.log('list here: ', oneSpotsReviews.User.dataValues.username)
-        const result = { Reviews: [oneSpotsReviews] }
+
+        const result = { Reviews: usersReviews }
 
         res.json(result)
     }
@@ -323,22 +323,28 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
             next(err)
         }
 
-        if(user.dataValues.id === spot.dataValues.ownerId) {
-            const newReview = await spot.createReview({
-                review: review,
-                stars: stars
-            })
-            return res.json({
-                id: newReview.id,
-                review: newReview.review,
-                stars: newReview.stars,
-                userId: user.dataValues.id,
-                spotId: spot.dataValues.id,
-                createdAt: newReview.createdAt,
-                updatedAt: newReview.updatedAt
-            })
+        const reviews = await Review.findAll({
+            where: {
+                userId: user.id
+            }
+        })
 
-        }
+        reviews.forEach(review => {
+            if(review.dataValues.userId === user.id) {
+                const err = new Error("User already has a review for this spot")
+                err.status = 403
+                next(err)
+            }
+        })
+
+        const newReview = await spot.createReview({
+            review: review,
+            stars: stars,
+            userId: user.id
+        })
+
+        await spot.save()
+        return res.json(newReview)
 
     }
     return res.json({ message: "Authentication Required"})

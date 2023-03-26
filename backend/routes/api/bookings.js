@@ -61,7 +61,6 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
         const startTime = new Date(startDate).getTime()
         const endTime = new Date(endDate).getTime()
-
         const currentTime = new Date().getTime()
 
 
@@ -82,6 +81,21 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
             err.status = 403
             next(err)
         }
+
+        const bookings = await Booking.findAll({
+            where: {
+                spotId: spot.id
+            }
+        })
+        
+        bookings.forEach(booking => {
+
+            if(startTime >= booking.dataValues.startDate.getTime() && startTime <= booking.dataValues.endDate.getTime()) {
+                const err = new Error("Sorry, this spot is already booked for the specified dates")
+                err.status = 403
+                next(err)
+            }
+        })
 
         if(user.dataValues.id === booking.dataValues.userId) {
             booking.startDate = startDate

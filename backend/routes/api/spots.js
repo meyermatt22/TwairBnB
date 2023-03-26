@@ -11,9 +11,44 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { where } = require('sequelize');
 const spot = require('../../db/models/spot');
 
+// const paginatedResults = (model) => {
+//     return (req, res, next) {
 
-router.get('/', async(req, res) => {
+//     }
+// }
 
+router.get('/', async(req, res, next) => {
+
+
+    let { page, size} = req.query
+    // let page = parseInt(req.query.page)
+    // let size = parseInt(req.query.size)
+
+    let errors = {}
+
+    if(!page) {
+        page = 1
+    }
+    if(page < 1) {
+        errors.page = "Page must be greater than or equal to 1"
+    }
+    if(!size) {
+        size = 20
+    }
+    if (size < 1) {
+
+        errors.size = "Size must be greater than or equal to 1"
+    }
+
+
+    if(Object.keys(errors).length) {
+        res.status(400)
+        return res.json({message: "bad request", errors:errors})
+    }
+
+
+    const startIndex = (page - 1) * size
+    const endIndex = page * size
 
 
     const spots = await Spot.findAll({
@@ -24,10 +59,10 @@ router.get('/', async(req, res) => {
             {
                 model: SpotImage
             }
-        ]
+        ],
+        page,
+        size
     })
-
-
 
     let spotsList = [];
     spots.forEach(spot => {
@@ -57,7 +92,9 @@ router.get('/', async(req, res) => {
 
     })
 
-    return res.json({Spots: spotsList})
+    const results = spotsList.slice(startIndex, endIndex)
+
+    return res.json({Spots: results, page, size})
 })
 
 router.get('/current', requireAuth, async (req, res) => {

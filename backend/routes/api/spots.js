@@ -47,8 +47,8 @@ router.get('/', async(req, res) => {
 
         let total = 0
         spot.Reviews.forEach(review => {
-            console.log(reviewy)
-            total += reviewy.stars
+
+            total += review.stars
         })
         spot.avgRating = total / spot.Reviews.length
 

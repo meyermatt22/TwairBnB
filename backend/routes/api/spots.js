@@ -364,7 +364,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
         const bookings = await Booking.findAll({
             where: {
-                userId: spotId
+                spotId: spotId
             },
             include: [
                 {
@@ -381,21 +381,20 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
         bookingsList.forEach(booking => {
 
-            if(booking.userId === user.id) {
-                delete User.username
+            delete booking.User.username
 
-                return res.json({Bookings: bookingsList})
-            }
+            if(booking.userId !== user.id) {
             delete booking.User
             delete booking.userId
             delete booking.createdAt
             delete booking.id
             delete booking.updatedAt
+            }
         })
 
-        let nonOwnerResult = { Bookings: bookingsList }
+        let result = { Bookings: bookingsList }
 
-        return res.json(nonOwnerResult)
+        return res.json(result)
     }
     return res.json({ message: "Authentication Required"})
 })
@@ -405,6 +404,19 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const { startDate, endDate } = req.body
     if(user) {
 
+        const startTime = new Date(startDate)
+        const endTime = new Date(endDate)
+
+        if(startTime > endTime) {
+            const err = new Error("endDate cannot be on or before startDate")
+            err.status = 400
+            next(err)
+        }
+
+
+        console.log('startDate: ', startTime.getTime())
+        console.log('endDate: ', endTime.getTime())
+
         const spot = await Spot.findByPk(req.params.spotId)
 
         if (!spot) {
@@ -412,6 +424,17 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
             err.status = 404
             next(err)
         }
+
+        const bookings = await Booking.findAll({
+            where: {
+                spotId: spot.id
+            }
+        })
+
+        bookings.forEach(booking => {
+
+        })
+        console.log('bookings: ', bookings)
 
         if(user.dataValues.id === spot.dataValues.ownerId) {
             const err = new Error("Bookings can not be made to spots you own")

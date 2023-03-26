@@ -25,19 +25,31 @@ router.get('/current', requireAuth, async (req, res, next) => {
             ]
         })
 
+
         let bookingsList = [];
 
         bookings.forEach(booking => {
             bookingsList.push(booking.toJSON())
         });
 
+        const previewImages = await SpotImage.findAll({
+            where: {
+                spotId: user.id
+            }
+        })
+
         bookingsList.forEach( booking => {
             delete booking.Spot.createdAt
             delete booking.Spot.updatedAt
-            // console.log('here please: ', booking.Spot)
+            previewImages.forEach(image => {
+                if(image.dataValues.preview === true) {
+                    booking.Spot.previewImage = image.dataValues.url
+                }
+            })
+
         })
 
-        res.json(bookingsList)
+        res.json({Bookings: bookingsList})
     }
 })
 
@@ -47,9 +59,27 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     if (user) {
         const booking = await Booking.findByPk(req.params.bookingId)
 
+        const startTime = new Date(startDate).getTime()
+        const endTime = new Date(endDate).getTime()
+
+        const currentTime = new Date().getTime()
+
+
+        if(startTime > endTime) {
+            const err = new Error("endDate cannot be on or before startDate")
+            err.status = 400
+            next(err)
+        }
+
         if(!booking) {
             const err = new Error("Booking not found")
             err.status = 404
+            next(err)
+        }
+
+        if(currentTime > endTime) {
+            const err = new Error("Past bookings can't be modified")
+            err.status = 403
             next(err)
         }
 
@@ -68,6 +98,10 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     const {user} = req
     if(user) {
+        const startTime = new Date(startDate).getTime()
+        const endTime = new Date(endDate).getTime()
+        const currentTime = new Date().getTime()
+
         const booking = await Booking.findByPk(req.params.bookingId)
 
         if(!booking) {
@@ -75,7 +109,14 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
             err.status = 404
             next(err)
         }
-        if(user.dataValues.id === booking.dataValues.userId) {
+
+        if(currentTime > startTime) {
+            const err = new Error("Bookings that have been started can't be deleted")
+            err.status = 403
+            next(err)
+        }
+
+        if(user.dataValues.id === booking.dataValues.userId || user.dataValues.id === booking.dataValues.spotId) {
             await booking.destroy()
 
             return res.json({message: "Successfully deleted"})

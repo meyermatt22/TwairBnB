@@ -166,9 +166,7 @@ router.get('/:spotId', async (req, res, next) => {
     )
 
     if (!spot) {
-        const err = new Error("Spot not found")
-        err.status = 404
-        next(err)
+        return res.status(404).json({message: "Spot not found"})
     }
 
     spot.toJSON()
@@ -290,9 +288,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
 
         if (!spot) {
-            const err = new Error("Spot not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Spot not found"})
         }
 
         if(user.dataValues.id === spot.dataValues.ownerId) {
@@ -317,9 +313,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
 
         if (!spot) {
-            const err = new Error("Spot not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Spot not found"})
         }
 
 
@@ -363,9 +357,7 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
 
         if (!spot) {
-            const err = new Error("Spot not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Spot not found"})
         }
 
         const reviews = await Review.findAll({
@@ -373,8 +365,6 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
                 userId: user.id
             }
         })
-
-        console.log('here', reviews)
 
         let reviewsList = [];
 
@@ -425,11 +415,8 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             ]
         })
 
-        // console.log('bookings !! : ', bookings)
-
         let bookingsList = []
         bookings.forEach(booking => {
-            // console.log(booking)
             bookingsList.push(booking.toJSON())
         })
 
@@ -437,7 +424,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
             if(booking.User) {
                 delete booking.User.username
-
                 if(booking.userId !== user.id) {
                 delete booking.User
                 delete booking.userId
@@ -445,7 +431,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
                 delete booking.id
                 delete booking.updatedAt
                 }
-
             }
         })
 
@@ -492,8 +477,6 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         })
 
 
-        console.log('how many bookings: ', bookings.length)
-
         if(user.dataValues.id === spot.dataValues.ownerId) {
             errors.message = "Bookings can not be made to spots you own"
         }
@@ -507,18 +490,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
             endDate: endDate,
             userId: user.id
         })
-
-        // await spot.save()
         return res.json(newBooking)
-        // return res.json({
-        //     id: newBooking.id,
-        //     spotId: newBooking.spotId,
-        //     userId: user.id,
-        //     startDate: newBooking.startDate,
-        //     endDate: newBooking.endDate,
-        //     createdAt: newBooking.createdAt,
-        //     updatedAt: newBooking.updatedAt
-        // })
     }
     return res.json({ message: "Authentication Required"})
 })

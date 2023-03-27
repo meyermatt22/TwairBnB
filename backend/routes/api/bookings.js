@@ -62,6 +62,9 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
         const booking = await Booking.findByPk(req.params.bookingId)
 
+        if(!booking) {
+            return res.status(404).json({message: "Booking not found"})
+        }
         const startTime = new Date(startDate).getTime()
         const endTime = new Date(endDate).getTime()
         const currentTime = new Date().getTime()
@@ -71,9 +74,6 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
             errors.message = "endDate cannot be on or before startDate"
         }
 
-        if(!booking) {
-            errors.message = "Booking not found"
-        }
 
         if(currentTime > endTime) {
             errors.message = "Past bookings can't be modified"
@@ -139,7 +139,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
             return res.json({message: "Successfully deleted"})
         }
     }
-    return res.status(403).json({message: "Booking must belong to the current user"})
+    return res.status(403).json({message: "You can only delete Bookings that belong to you"})
 })
 
 

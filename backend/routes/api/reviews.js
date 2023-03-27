@@ -41,9 +41,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
         })
 
         reviewsList.forEach(review => {
-            // if(review.User.id !== null && review.User.id === user.dataValues.id) {
+
                 if(review.User) {
-                    // console.log('looky looky i got a hooky: ',review.User.username)
                     delete review.User.username
                 }
                 if(review.ReviewImages) {
@@ -61,7 +60,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         })
 
 
-        reviewsListed = { Reviews: reviewsList}
+        let reviewsListed = { Reviews: reviewsList}
 
         res.json(reviewsListed)
     }
@@ -75,9 +74,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         const review = await Review.findByPk(req.params.reviewId)
 
         if (!review) {
-            const err = new Error("Review not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Review not found"})
         }
 
         const reviewImages = await ReviewImage.findAll({
@@ -87,15 +84,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         })
 
         if(reviewImages.length >= 10) {
-            const err = new Error("Maximum number of images for this resource was reached")
-            err.status = 403
-            next(err)
-        }
-
-        if(!review) {
-            const err = new Error("Review not found")
-            err.status = 404
-            next(err)
+            return res.status(403).json({message: "Maximum number of images for this resource was reached"})
         }
 
         if(user.dataValues.id === review.dataValues.userId) {
@@ -109,7 +98,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         }
 
     }
-    return res.json({ message: "Review must belong to you"})
+    return res.status(403).json({ message: "Review must belong to you"})
 })
 
 router.put('/:reviewId', requireAuth, async (req, res, next) => {
@@ -120,9 +109,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
         const reviewy = await Review.findByPk(req.params.reviewId)
 
         if (!reviewy) {
-            const err = new Error("Review not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Review not found"})
         }
         if(user.dataValues.id === reviewy.dataValues.userId) {
             reviewy.review = review
@@ -133,7 +120,7 @@ router.put('/:reviewId', requireAuth, async (req, res, next) => {
             return res.json(reviewy)
         }
     }
-    return res.json({ message: "Authentication Required"})
+    return res.status(403).json({ message: "Review must belong to you"})
 })
 
 router.delete('/:reviewId', requireAuth, async (req, res, next) => {
@@ -142,9 +129,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
         const review = await Review.findByPk(req.params.reviewId)
 
         if(!review) {
-            const err = new Error("Review not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Review not found"})
         }
 
         if(user.dataValues.id === review.dataValues.userId) {
@@ -153,7 +138,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
             return res.json({message: "Successfully deleted"})
         }
     }
-    return res.json({ message: "Authentication Required"})
+    return res.status(403).json({ message: "Review must belong to you"})
 })
 
 module.exports = router;

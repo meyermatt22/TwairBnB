@@ -25,7 +25,6 @@ const validateLogin = [
   handleValidationErrors
 ];
 
-
 // Log in
 router.post('/', validateLogin, async (req, res, next) => {
 
@@ -66,8 +65,6 @@ router.post('/', validateLogin, async (req, res, next) => {
     }
   );
 
-
-
 // Log out
 router.delete(
     '/',
@@ -76,9 +73,6 @@ router.delete(
       return res.json({ message: 'success' });
     }
   );
-
-
-
 
 // Restore session user
 router.get(
@@ -99,12 +93,5 @@ router.get(
       } else return res.json({ user: null });
     }
   );
-
-  //get the current user
-  // router.get(
-  //   '/',
-
-  // )
-
 
 module.exports = router;

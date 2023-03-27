@@ -10,19 +10,14 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { where } = require('sequelize');
 const spot = require('../../db/models/spot');
+const user = require('../../db/models/user');
 
-// const paginatedResults = (model) => {
-//     return (req, res, next) {
-
-//     }
-// }
 
 router.get('/', async(req, res, next) => {
 
 
     let { page, size} = req.query
-    // let page = parseInt(req.query.page)
-    // let size = parseInt(req.query.size)
+
 
     let errors = {}
 
@@ -85,7 +80,8 @@ router.get('/', async(req, res, next) => {
 
             total += review.stars
         })
-        spot.avgRating = total / spot.Reviews.length
+
+        spot.avgRating = (Math.round(((total / spot.Reviews.length) * 100) / 100).toFixed(2))
 
         delete spot.Reviews
         delete spot.SpotImages
@@ -137,7 +133,9 @@ router.get('/current', requireAuth, async (req, res) => {
                     console.log(reviewy)
                     total += reviewy.stars
                 })
-                spot.avgRating = total / spot.Reviews.length
+
+                spot.avgRating = (Math.round(((total / spot.Reviews.length) * 100) / 100).toFixed(2))
+
 
                 console.log('spoty: ',spot.createdAt.toTimeString())
 
@@ -158,6 +156,8 @@ router.get('/:spotId', async (req, res, next) => {
 
     const id = req.params.spotId
 
+    const {user} = req
+
     const spot = await Spot.findByPk(
         id,
         {
@@ -171,12 +171,7 @@ router.get('/:spotId', async (req, res, next) => {
         next(err)
     }
 
-
-
     spot.toJSON()
-
-    console.log('spot here: ',  spot)
-
 
     delete spot.dataValues.User.dataValues.username
     spot.dataValues.Owner = spot.dataValues.User
@@ -185,8 +180,9 @@ router.get('/:spotId', async (req, res, next) => {
     spot.Reviews.forEach(review => {
         total += review.stars
     })
-    spot.dataValues.avgStarRating = total / spot.dataValues.Reviews.length
+    spot.dataValues.avgStarRating = (Math.round(((total / spot.dataValues.Reviews.length) * 100) / 100).toFixed(2))
     spot.dataValues.numReviews = spot.dataValues.Reviews.length
+
     spot.dataValues.SpotImages.forEach(image => {
         delete image.dataValues.spotId
         delete image.dataValues.createdAt
@@ -198,8 +194,22 @@ router.get('/:spotId', async (req, res, next) => {
 })
 
 router.post('/', requireAuth, async (req, res) => {
-    const { address, city, state, country, lat, lng, name, description, price, ownerId } = req.body;
-    const spot = await Spot.create({ address, city, state, country, lat, lng, name, description, price, ownerId })
+
+    const {user} = req
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const spot = await Spot.create({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+        ownerId: user.id
+    })
 
     return res.json(spot)
 })
@@ -214,12 +224,13 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId);
 
         if (!spot) {
+            return res.status(404).json({message: "Spot not found"})
             const err = new Error("Spot not found")
             err.status = 404
             next(err)
         }
 
-        if(user.dataValues.id === spot.dataValues.ownerId) {
+        if(user.id === spot.id) {
 
             const imagey = await spot.createSpotImage({
                 url: url,
@@ -229,12 +240,13 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
             return res.json({
                 id: imagey.id,
                 url: imagey.url,
-                preview: imagey.preview
+                preview: imagey.preview,
+                // spotId: user.id
             })
         }
 
         return res.status(403).json({
-            "message": "Forbidden"
+            message: "Forbidden"
         })
     }
     return res.json({
@@ -254,6 +266,8 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
             err.status = 404
             next(err)
         }
+console.log(user.dataValues.id ,spot.dataValues.ownerId )
+
         if(user.dataValues.id === spot.dataValues.ownerId) {
 
 
@@ -272,7 +286,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
             return res.json(spot)
         }
     }
-    return res.json({message: "Authentication Required"})
+    return res.json({message: "Must own location to edit"})
 })
 
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
@@ -367,10 +381,10 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
         })
 
         reviews.forEach(review => {
-            if(review.dataValues.userId === user.id) {
-                const err = new Error("User already has a review for this spot")
-                err.status = 403
-                next(err)
+            console.log('review: ',  review.spotId, review.userId, user.id)
+            if(spot.id === user.id) {
+                res.status(403)
+                return res.json({message: "User already has a review for this spot"})
             }
         })
 
@@ -440,24 +454,21 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const {user} = req
     const { startDate, endDate } = req.body
     if(user) {
+        let errors = {}
 
         const startTime = new Date(startDate).getTime()
         const endTime = new Date(endDate).getTime()
         const currentTime = new Date().getTime()
 
         if(startTime > endTime) {
-            const err = new Error("endDate cannot be on or before startDate")
-            err.status = 400
-            next(err)
+            errors.message = "endDate cannot be on or before startDate"
         }
 
 
         const spot = await Spot.findByPk(req.params.spotId)
 
         if (!spot) {
-            const err = new Error("Spot not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Spot not found"})
         }
 
         const bookings = await Booking.findAll({
@@ -466,38 +477,42 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
             }
         })
 
+
         bookings.forEach(booking => {
 
             if(startTime >= booking.dataValues.startDate.getTime() && startTime <= booking.dataValues.endDate.getTime()) {
-                const err = new Error("Sorry, this spot is already booked for the specified dates")
-                err.status = 403
-                next(err)
+                errors.message = "Sorry, this spot is already booked for the specified dates"
             }
         })
+
 
         console.log('how many bookings: ', bookings.length)
 
         if(user.dataValues.id === spot.dataValues.ownerId) {
-            const err = new Error("Bookings can not be made to spots you own")
-            next(err)
+            errors.message = "Bookings can not be made to spots you own"
         }
 
+        if(Object.keys(errors).length) {
+            res.status(403)
+            return res.json({message: "bad request", errors:errors})
+        }
         const newBooking = await spot.createBooking({
             startDate: startDate,
-            endDate: endDate
+            endDate: endDate,
+            userId: user.id
         })
 
-        await spot.save()
-
-        return res.json({
-            id: newBooking.id,
-            spotId: newBooking.spotId,
-            userId: newBooking.userId,
-            startDate: newBooking.startDate,
-            endDate: newBooking.endDate,
-            createdAt: newBooking.createdAt,
-            updatedAt: newBooking.updatedAt
-        })
+        // await spot.save()
+        return res.json(newBooking)
+        // return res.json({
+        //     id: newBooking.id,
+        //     spotId: newBooking.spotId,
+        //     userId: user.id,
+        //     startDate: newBooking.startDate,
+        //     endDate: newBooking.endDate,
+        //     createdAt: newBooking.createdAt,
+        //     updatedAt: newBooking.updatedAt
+        // })
     }
     return res.json({ message: "Authentication Required"})
 })

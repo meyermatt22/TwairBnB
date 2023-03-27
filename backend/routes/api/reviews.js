@@ -92,7 +92,6 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
             next(err)
         }
 
-        console.log('review: ', review)
         if(!review) {
             const err = new Error("Review not found")
             err.status = 404
@@ -110,7 +109,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         }
 
     }
-    return res.json({ message: "Authentication Required"})
+    return res.json({ message: "Review must belong to you"})
 })
 
 router.put('/:reviewId', requireAuth, async (req, res, next) => {

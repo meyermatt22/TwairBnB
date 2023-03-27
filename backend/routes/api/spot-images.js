@@ -17,9 +17,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         const image = await SpotImage.findByPk(req.params.imageId)
 
         if(!image) {
-            const err = new Error("Image not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Image not found"})
         }
         if(user.dataValues.id === image.dataValues.spotId) {
             await image.destroy()
@@ -28,7 +26,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         }
 
     }
-    return res.json({message: "Authentication Required"})
+    return res.status(403).json({message: "Image must belong to the current user"})
 })
 
 

@@ -30,52 +30,6 @@ const validateSignup = [
     handleValidationErrors
   ];
 
-
-// Sign up
-// router.post('/', validateSignup, async (req, res) => {
-//   // console.log("**$%^** LOOK AT ME look look **$%*", User.email)
-
-//   const { email, password, username, firstName, lastName } = req.body;
-//   const hashedPassword = bcrypt.hashSync(password);
-//   const userEmail = await User.findOne( {where: email} )
-//     // console.log('&& LOOK HERE &&', user)
-//   if (userEmail) {
-//     return res.json({
-//       "message": "User already exists",
-//       "errors": {
-//         "email": "User with that email already exists"
-//       }
-//     });
-//   }
-//   const userName = await User.findOne( {where: username})
-
-//   if (userName) {
-//     return res.json({
-//       "message": "User already exists",
-//       "errors": {
-//         "username": "User with that username already exists"
-//       }
-//     })
-//   }
-
-//   const user = await User.create({ email, username, firstName, lastName, hashedPassword });
-
-//       const safeUser = {
-//         id: user.id,
-//         email: user.email,
-//         username: user.username,
-//         firstName: user.firstName,
-//         lastName: user.lastName
-//       };
-
-//       await setTokenCookie(res, safeUser);
-
-//       return res.json({
-//         user: safeUser
-//       });
-//     }
-//   );
-
 router.post(
   '/',
   validateSignup,

@@ -365,9 +365,13 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
             }
         })
 
+        if(spot.ownerId === user.id) {
+            res.status(403)
+            return res.json({message: "Reviews can not be made to spots you own"})
+        }
         reviews.forEach(review => {
 
-            if(review.userId === user.id) {
+            if(review.spotId === spot.id) {
                 res.status(403)
                 return res.json({message: "User already has a review for this spot"})
             }

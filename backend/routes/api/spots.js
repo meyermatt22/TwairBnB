@@ -447,7 +447,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         const currentTime = new Date().getTime()
 
         if(startTime > endTime) {
-            errors.message = "endDate cannot be on or before startDate"
+            errors.endDate = "endDate cannot be on or before startDate"
         }
 
 
@@ -467,18 +467,21 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         bookings.forEach(booking => {
 
             if(startTime >= booking.dataValues.startDate.getTime() && startTime <= booking.dataValues.endDate.getTime()) {
-                errors.message = "Sorry, this spot is already booked for the specified dates"
+                errors.startDate = "Start date conflicts with an existing booking"
+            }
+            if(endTime >= booking.dataValues.startDate.getTime() && endTime <= booking.dataValues.endDate.getTime()) {
+                errors.endDate = "End date conflicts with an existing booking"
             }
         })
 
 
         if(user.dataValues.id === spot.dataValues.ownerId) {
-            errors.message = "Bookings can not be made to spots you own"
+            return res.status(403).json({message: "Bookings can not be made to spots you own"})
         }
 
         if(Object.keys(errors).length) {
             res.status(403)
-            return res.json({message: "bad request", errors:errors})
+            return res.json({message: "Bad Request", errors:errors})
         }
         const newBooking = await spot.createBooking({
             startDate: startDate,

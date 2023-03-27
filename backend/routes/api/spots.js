@@ -259,11 +259,8 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
 
         if (!spot) {
-            const err = new Error("Spot not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Spot not found"})
         }
-console.log(user.dataValues.id ,spot.dataValues.ownerId )
 
         if(user.dataValues.id === spot.dataValues.ownerId) {
 

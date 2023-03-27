@@ -377,8 +377,17 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
             }
         })
 
+        console.log('here', reviews)
+
+        let reviewsList = [];
+
         reviews.forEach(review => {
-            console.log('review: ',  review.spotId, review.userId, user.id)
+            reviewsList.push(review.toJSON())
+
+        })
+
+        reviewsList.forEach(review => {
+            console.log('review: ',  review.spotId, review.id, user.id)
             if(spot.id === user.id) {
                 res.status(403)
                 return res.json({message: "User already has a review for this spot"})

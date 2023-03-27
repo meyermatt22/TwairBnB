@@ -57,6 +57,9 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const {user} = req
     const {startDate, endDate} = req.body
     if (user) {
+
+        let errors = {}
+
         const booking = await Booking.findByPk(req.params.bookingId)
 
         const startTime = new Date(startDate).getTime()
@@ -65,37 +68,34 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
 
         if(startTime > endTime) {
-            const err = new Error("endDate cannot be on or before startDate")
-            err.status = 400
-            next(err)
+            errors.message = "endDate cannot be on or before startDate"
         }
 
         if(!booking) {
-            const err = new Error("Booking not found")
-            err.status = 404
-            next(err)
+            errors.message = "Booking not found"
         }
 
         if(currentTime > endTime) {
-            const err = new Error("Past bookings can't be modified")
-            err.status = 403
-            next(err)
+            errors.message = "Past bookings can't be modified"
         }
 
         const bookings = await Booking.findAll({
             where: {
-                spotId: spot.id
+                spotId: user.id
             }
         })
-        
+
         bookings.forEach(booking => {
 
             if(startTime >= booking.dataValues.startDate.getTime() && startTime <= booking.dataValues.endDate.getTime()) {
-                const err = new Error("Sorry, this spot is already booked for the specified dates")
-                err.status = 403
-                next(err)
+                errors.message = "Sorry, this spot is already booked for the specified dates"
             }
         })
+
+        if(Object.keys(errors).length) {
+            res.status(403)
+            return res.json({message: "bad request", errors:errors})
+        }
 
         if(user.dataValues.id === booking.dataValues.userId) {
             booking.startDate = startDate
@@ -106,28 +106,31 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
             return res.json(booking)
         }
     }
-    return res.json({message: "Authentication Required"})
+    return res.status(403).json({message: "You may only edit Bookings that belong to you"})
 })
 
 router.delete('/:bookingId', requireAuth, async (req, res, next) => {
     const {user} = req
     if(user) {
-        const startTime = new Date(startDate).getTime()
-        const endTime = new Date(endDate).getTime()
-        const currentTime = new Date().getTime()
-
         const booking = await Booking.findByPk(req.params.bookingId)
 
+        let errors = {}
         if(!booking) {
-            const err = new Error("Booking not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({message: "Booking not found"})
         }
 
+
+        const startTime = new Date(booking.dataValues.startDate).getTime()
+        const endTime = new Date(booking.dataValues.endDate).getTime()
+        const currentTime = new Date().getTime()
+
         if(currentTime > startTime) {
-            const err = new Error("Bookings that have been started can't be deleted")
-            err.status = 403
-            next(err)
+            errors.message = "Bookings that have been started can't be deleted"
+        }
+
+        if(Object.keys(errors).length) {
+            res.status(403)
+            return res.json({message: "bad request", errors:errors})
         }
 
         if(user.dataValues.id === booking.dataValues.userId || user.dataValues.id === booking.dataValues.spotId) {
@@ -136,7 +139,7 @@ router.delete('/:bookingId', requireAuth, async (req, res, next) => {
             return res.json({message: "Successfully deleted"})
         }
     }
-    return res.json({message: "Authentication Required"})
+    return res.status(403).json({message: "Booking must belong to the current user"})
 })
 
 

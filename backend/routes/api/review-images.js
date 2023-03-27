@@ -28,7 +28,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         }
 
     }
-    return res.json({message: "Authentication Required"})
+    return res.status(403).json({message: "Review must belong to the current user"})
 })
 
 

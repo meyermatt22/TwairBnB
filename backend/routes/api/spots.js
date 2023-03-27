@@ -236,15 +236,14 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
                 id: imagey.id,
                 url: imagey.url,
                 preview: imagey.preview,
-                // spotId: user.id
             })
         }
 
         return res.status(403).json({
-            message: "Forbidden"
+            message: "Must own location to add images"
         })
     }
-    return res.json({
+    return res.status(403).json({
         message: "Authentication required"
     })
 })
@@ -278,7 +277,7 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
             return res.json(spot)
         }
     }
-    return res.json({message: "Must own location to edit"})
+    return res.status(403).json({message: "Must own location to edit"})
 })
 
 router.delete('/:spotId', requireAuth, async (req, res, next) => {
@@ -344,7 +343,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 
         const result = { Reviews: usersReviews }
 
-        res.json(result)
+        return res.json(result)
     }
 
 })
@@ -366,16 +365,9 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
             }
         })
 
-        let reviewsList = [];
-
         reviews.forEach(review => {
-            reviewsList.push(review.toJSON())
 
-        })
-
-        reviewsList.forEach(review => {
-            console.log('review: ',  review.spotId, review.id, user.id)
-            if(spot.id === user.id) {
+            if(review.userId === user.id) {
                 res.status(403)
                 return res.json({message: "User already has a review for this spot"})
             }
@@ -387,7 +379,6 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
             userId: user.id
         })
 
-        await spot.save()
         return res.json(newReview)
 
     }

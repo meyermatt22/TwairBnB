@@ -71,12 +71,12 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
 
         if(startTime > endTime) {
-            errors.message = "endDate cannot be on or before startDate"
+            errors.endDate = "endDate cannot be on or before startDate"
         }
 
 
         if(currentTime > endTime) {
-            errors.message = "Past bookings can't be modified"
+            return res.status(403).json({message: "Past bookings can't be modified"})
         }
 
         const bookings = await Booking.findAll({
@@ -88,7 +88,10 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         bookings.forEach(booking => {
 
             if(startTime >= booking.dataValues.startDate.getTime() && startTime <= booking.dataValues.endDate.getTime()) {
-                errors.message = "Sorry, this spot is already booked for the specified dates"
+                errors.startDate = "Start date conflicts with an existing booking"
+            }
+            if(endTime >= booking.dataValues.startDate.getTime() && endTime <= booking.dataValues.endDate.getTime()) {
+                errors.endDate = "End date conflicts with an existing booking"
             }
         })
 

@@ -225,9 +225,6 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 
         if (!spot) {
             return res.status(404).json({message: "Spot not found"})
-            const err = new Error("Spot not found")
-            err.status = 404
-            next(err)
         }
 
         if(user.id === spot.id) {
@@ -308,7 +305,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
             return res.json({ message: "Successfully deleted"})
         }
     }
-    return res.json({message: "Authentication Required"})
+    return res.status(403).json({message: "Review must belong to the current user"})
 
 })
 
@@ -408,9 +405,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
 
         if (!spot) {
-            const err = new Error("Spot not found")
-            err.status = 404
-            next(err)
+            return res.status(404).json({mesage: "Spot not found"})
         }
 
         const bookings = await Booking.findAll({
@@ -424,22 +419,27 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             ]
         })
 
+        // console.log('bookings !! : ', bookings)
 
         let bookingsList = []
         bookings.forEach(booking => {
+            // console.log(booking)
             bookingsList.push(booking.toJSON())
         })
 
         bookingsList.forEach(booking => {
 
-            delete booking.User.username
+            if(booking.User) {
+                delete booking.User.username
 
-            if(booking.userId !== user.id) {
-            delete booking.User
-            delete booking.userId
-            delete booking.createdAt
-            delete booking.id
-            delete booking.updatedAt
+                if(booking.userId !== user.id) {
+                delete booking.User
+                delete booking.userId
+                delete booking.createdAt
+                delete booking.id
+                delete booking.updatedAt
+                }
+
             }
         })
 

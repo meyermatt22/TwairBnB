@@ -98,58 +98,45 @@ router.get('/current', requireAuth, async (req, res) => {
 
     if(user) {
 
-            const spots = await Spot.findAll({
-                where: {
-                    ownerId: user.id
+        const spots = await Spot.findAll({
+            where: {
+                ownerId: user.id
+            },
+            include: [
+                {
+                    model: Review
                 },
-                include: [
-                    {
-                        model: Review
-                    },
-                    {
-                        model: SpotImage
-                    }
-                ]
+                {
+                    model: SpotImage
+                }
+            ]
+        })
+        let spotsList = [];
+        spots.forEach(spot => {
+            spotsList.push(spot.toJSON())
+        })
+        spotsList.forEach(spot => {
+            spot.SpotImages.forEach(image => {
+                if(image.preview === true) {
+                    spot.previewImage = image.url
+                } else {
+                    spot.previewImage = 'No image URL found'
+                }
             })
-            let spotsList = [];
-
-            spots.forEach(spot => {
-                spotsList.push(spot.toJSON())
+            let total = 0
+            spot.Reviews.forEach(reviewy => {
+                console.log(reviewy)
+                total += reviewy.stars
             })
-
-            spotsList.forEach(spot => {
-
-                spot.SpotImages.forEach(image => {
-                    if(image.preview === true) {
-
-                        spot.previewImage = image.url
-                    } else {
-                        spot.previewImage = 'No image URL found'
-                    }
-                })
-
-                let total = 0
-                spot.Reviews.forEach(reviewy => {
-                    console.log(reviewy)
-                    total += reviewy.stars
-                })
-
-                spot.avgRating = (Math.round(((total / spot.Reviews.length) * 100) / 100).toFixed(2))
+            spot.avgRating = (Math.round(((total / spot.Reviews.length) * 100) / 100).toFixed(2))
+            delete spot.Reviews
+            delete spot.SpotImages
+        })
+        const spotsListed = { Spots:  spotsList  }
+        res.json(spotsListed)
 
 
-                console.log('spoty: ',spot.createdAt.toTimeString())
-
-                delete spot.Reviews
-                delete spot.SpotImages
-
-            })
-
-            const spotsListed = { Spots:  spotsList  }
-
-            res.json(spotsListed)
-
-
-    }
+    } 
 })
 
 router.get('/:spotId', async (req, res, next) => {

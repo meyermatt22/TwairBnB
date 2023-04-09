@@ -124,9 +124,9 @@ router.get('/current', requireAuth, async (req, res) => {
                 }
             })
             let total = 0
-            spot.Reviews.forEach(reviewy => {
-                console.log(reviewy)
-                total += reviewy.stars
+            spot.Reviews.forEach(review => {
+
+                total += review.stars
             })
             spot.avgRating = (Math.round(((total / spot.Reviews.length) * 100) / 100).toFixed(2))
             delete spot.Reviews
@@ -136,7 +136,7 @@ router.get('/current', requireAuth, async (req, res) => {
         res.json(spotsListed)
 
 
-    } 
+    }
 })
 
 router.get('/:spotId', async (req, res, next) => {

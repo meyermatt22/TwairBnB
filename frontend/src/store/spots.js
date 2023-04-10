@@ -1,5 +1,6 @@
 
 const GET_ALL_SPOTS = "/spots.getAllSpots"
+const GET_SPOT_IMAGES = "/spots.getSpotImages"
 
 //regular action creator
 const loadSpots = (spots) => {
@@ -21,12 +22,13 @@ export const getAllSpots = () => async (dispatch) => {
   }
 }
 
+
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS: {
-            // console.log('actions.spots: ', action.spots.Spots)
+            console.log('actions.spots: ', action.spots.Spots)
             const newState = {};
             action.spots.Spots.forEach(s => (newState[s.id] = s));
             return newState

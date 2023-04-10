@@ -10,6 +10,7 @@ import * as sessionActions from "./store/session"
 import { ModalProvider, Modal } from './context/Modal';
 import SpotList from './components/Spots';
 
+
 const store = configureStore();
 
 if (process.env.NODE_ENV !== 'production') {

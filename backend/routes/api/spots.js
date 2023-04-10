@@ -15,9 +15,7 @@ const user = require('../../db/models/user');
 
 router.get('/', async(req, res, next) => {
 
-
     let { page, size} = req.query
-
 
     let errors = {}
 

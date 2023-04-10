@@ -8,6 +8,7 @@ import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from "./store/session"
 import { ModalProvider, Modal } from './context/Modal';
+import SpotList from './components/Spots';
 
 const store = configureStore();
 
@@ -26,6 +27,7 @@ function Root() {
         <BrowserRouter>
           <App />
           <Modal />
+          <SpotList />
         </BrowserRouter>
       </ReduxProvider>
     </ModalProvider>

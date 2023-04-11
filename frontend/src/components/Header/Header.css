@@ -4,3 +4,7 @@
     align-items: center;
     border-bottom: solid black 2px;
 }
+
+.logo {
+    width: 80px;
+}

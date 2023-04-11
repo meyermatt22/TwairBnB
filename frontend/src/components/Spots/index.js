@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSpots } from '../../store/spots';
+import './Spots.css'
 // import Tooltip from "./Tooltip";
 
 const SpotList = () => {
@@ -15,6 +16,7 @@ const SpotList = () => {
         dispatch(getAllSpots());
     }, [dispatch]);
 
+    console.log('preview', spotList[0])
     return (
         <>
             <h1>Available Spots</h1>
@@ -22,7 +24,7 @@ const SpotList = () => {
 
                 <div>
                 {/* <Tooltip> */}
-                <div data-role='tile' key={id}>{previewImage} {city} {state} {avgRating} {price} night </div>
+                <div data-role='tile' key={id}> <img className='previewImg' src={previewImage}></img> {city} {state} {avgRating} {price} night </div>
                 {/* </Tooltip> */}
                 </div>
 

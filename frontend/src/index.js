@@ -11,6 +11,8 @@ import { ModalProvider, Modal } from './context/Modal';
 import SpotList from './components/Spots';
 import { Header } from './components/Header';
 import SpotDetails from './components/SpotDetails';
+import ReviewList from './components/Reviews';
+
 
 
 const store = configureStore();
@@ -34,7 +36,7 @@ function Root() {
           </Header>
           <Switch>
             <Route exact path="/" component={SpotList}/>
-            <Route exact path='/spots/:spotId' component={SpotDetails} />
+            <Route exact path='/spots/:spotId' component={SpotDetails} ></Route>
           </Switch>
         </BrowserRouter>
       </ReduxProvider>

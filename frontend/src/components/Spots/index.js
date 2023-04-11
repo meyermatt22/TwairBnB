@@ -18,18 +18,33 @@ const SpotList = () => {
 
     console.log('preview', spotList[0])
     return (
-        <>
-            <h1>Available Spots</h1>
+        <div className='spotList'>
+
             {spotList?.map(({ id, city, state, previewImage, name, avgRating, price }) => (
 
-                <div>
+                <div className='spotTile'>
                 {/* <Tooltip> */}
-                <div data-role='tile' key={id}> <img className='previewImg' src={previewImage}></img> {city} {state} {avgRating} {price} night </div>
-                {/* </Tooltip> */}
+                    <div data-role='tile' key={id}>
+                        <img className='previewImg' src={previewImage}></img>
+                        <div className='spotInfo'>
+                            <div className='localPrice'>
+                                <div>
+                                {city}, {state}
+                                </div>
+                                <div>
+                                {price} night
+                                </div>
+                            </div>
+                            <div className='rating'>
+                            {avgRating}
+                            </div>
+                        </div>
+                    </div>
+                    {/* </Tooltip> */}
                 </div>
 
             ))}
-        </>
+        </div>
     )
 }
 export default SpotList

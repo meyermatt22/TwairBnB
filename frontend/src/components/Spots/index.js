@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllSpots } from '../../store/spots';
 import './Spots.css'
+import { Link } from "react-router-dom";
 // import Tooltip from "./Tooltip";
 
 const SpotList = () => {
@@ -22,26 +23,28 @@ const SpotList = () => {
 
             {spotList?.map(({ id, city, state, previewImage, name, avgRating, price }) => (
 
-                <div className='spotTile'>
-                {/* <Tooltip> */}
-                    <div data-role='tile' key={id}>
-                        <img className='previewImg' src={previewImage}></img>
-                        <div className='spotInfo'>
-                            <div className='localPrice'>
-                                <div>
-                                {city}, {state}
+                <Link to={`/spots/${id}`}>
+                    <div className='spotTile'>
+                    {/* <Tooltip> */}
+                        <div data-role='tile' key={id}>
+                            <img alt='' className='previewImg' src={previewImage}></img>
+                            <div className='spotInfo'>
+                                <div className='localPrice'>
+                                    <div>
+                                    {city}, {state}
+                                    </div>
+                                    <div>
+                                    {price} night
+                                    </div>
                                 </div>
-                                <div>
-                                {price} night
+                                <div className='rating'>
+                                {avgRating}
                                 </div>
-                            </div>
-                            <div className='rating'>
-                            {avgRating}
                             </div>
                         </div>
+                        {/* </Tooltip> */}
                     </div>
-                    {/* </Tooltip> */}
-                </div>
+                </Link>
 
             ))}
         </div>

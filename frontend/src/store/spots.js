@@ -1,14 +1,20 @@
 
 const GET_ALL_SPOTS = "/spots.getAllSpots"
-const GET_SPOT_IMAGES = "/spots.getSpotImages"
+const GET_DETAILS = "/spots/GET_DETAILS"
+
 
 //regular action creator
-const loadSpots = (spots) => {
+export const loadSpots = (spots) => {
     return {
         type: GET_ALL_SPOTS,
         spots
     };
 };
+
+export const loadDetails = (spot) => ({
+    type: GET_DETAILS,
+    spot,
+})
 
 //thunk action creator
 export const getAllSpots = () => async (dispatch) => {
@@ -19,8 +25,21 @@ export const getAllSpots = () => async (dispatch) => {
 
     dispatch(loadSpots(data));
     return data
-  }
-}
+  };
+};
+
+export const getOneSpot = (spotId) => async (dispatch) => {
+    const res = await fetch(`/api/spots/${spotId}`)
+
+    if(res.ok) {
+        console.log('res: ', res)
+        const spotDetails = await res.json()
+        dispatch(loadDetails(spotDetails))
+    } else {
+        const errors = await res.json()
+        return errors
+    };
+};
 
 
 const initialState = {};
@@ -28,10 +47,12 @@ const initialState = {};
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS: {
-            console.log('actions.spots: ', action.spots.Spots)
             const newState = {};
             action.spots.Spots.forEach(s => (newState[s.id] = s));
             return newState
+        }
+        case GET_DETAILS: {
+            return { ...state, [action.spot.id]: action.spot};
         }
         default:
             return state

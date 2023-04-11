@@ -1,0 +1,25 @@
+.infoBox {
+    border: 2px solid black;
+    padding: 15px;
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+
+}
+
+.topInfoBox {
+    display: flex;
+    justify-content: space-between;
+    /* border: red 2px dotted; */
+}
+
+.bottomInfoBox {
+    display: flex;
+    justify-content: center;
+
+    /* border: blue 2px dotted; */
+}
+
+.reserve {
+    padding: 10px 125px
+}

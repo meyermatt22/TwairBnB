@@ -32,8 +32,8 @@ export const getOneSpot = (spotId) => async (dispatch) => {
     const res = await fetch(`/api/spots/${spotId}`)
 
     if(res.ok) {
-        console.log('res: ', res)
         const spotDetails = await res.json()
+        console.log('spotdetails: ', spotDetails)
         dispatch(loadDetails(spotDetails))
     } else {
         const errors = await res.json()

@@ -34,3 +34,14 @@
 .dot {
     width: 20px;
 }
+
+.information {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+}
+
+.infoBar {
+    display: flex;
+    align-items: center;
+}

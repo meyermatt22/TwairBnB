@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot } from "../../store/spots";
 import '../Spots/Spots.css'
 import './SpotDetails.css'
+import ReviewList from "../Reviews";
 
 const SpotDetails = () => {
     const { spotId } = useParams()
@@ -18,7 +19,7 @@ const SpotDetails = () => {
         ownerFirstName = details.Owner.firstName
         ownerLastName = details.Owner.lastName
     }
-    console.log('details: ',details)
+    // console.log('details: ',details)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -38,7 +39,7 @@ const SpotDetails = () => {
     let reviewNum;
     if(details ) {
         reviewNum = details.numReviews
-        console.log('reviewNum: ', reviewNum)
+        // console.log('reviewNum: ', reviewNum)
 
     }
     let dot = <img className="dot" alt="" src="https://cdn-icons-png.flaticon.com/512/7500/7500224.png"></img>
@@ -65,22 +66,35 @@ const SpotDetails = () => {
                     <img alt="" className="previewImg" src={url}></img>
                 ))}
             </div>
-            <div className="infoLeft">
-                <h1>Hosted by {ownerFirstName} {ownerLastName}</h1>
-                <p>{details.description}</p>
-            </div>
-            <div className="infoBox">
-                <div className="topInfoBox">
-                    <div className="topInfoLeft">
-                    ${details.price} night
+            <div className="information">
+                <div className="infoLeft">
+                    <h1>Hosted by {ownerFirstName} {ownerLastName}</h1>
+                    <p>{details.description}</p>
+                </div>
+                <div className="infoBox">
+                    <div className="topInfoBox">
+                        <div className="topInfoLeft">
+                        ${details.price} night
+                        </div>
+                        <div className="topInfoRight">
+                        <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
+                        {details.avgStarRating} {dot} {reviewNum} {reviewText}
+                        </div>
                     </div>
-                    <div className="topInfoRight">
-                    <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
-                    {details.avgStarRating} {dot} {reviewNum} {reviewText}
+                    <div className="bottomInfoBox">
+                        <button className="reserve">Reserve</button>
                     </div>
                 </div>
-                <div className="bottomInfoBox">
-                    <button className="reserve">Reserve</button>
+            </div>
+            <div className="reviewDiv">
+                <div className="infoBar">
+                    <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
+                    {details.avgStarRating} {dot} {reviewNum} {reviewText}
+                </div>
+                <div className="orderedReviews">
+                    <div>
+                    <ReviewList/>
+                    </div>
                 </div>
             </div>
          </div>

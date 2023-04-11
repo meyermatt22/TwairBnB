@@ -12,27 +12,27 @@ module.exports = {
     options.tableName = "SpotImages";
    return queryInterface.bulkInsert( options, [
     {
-      url: 'http://runescape.com',
+      url: 'https://static.wikia.nocookie.net/ahistoryofthemushroomkingdom/images/9/91/Peach%27s_Castle_64.png/revision/latest?cb=20120218023353',
       preview: true,
       spotId: 3
     },
     {
-      url: 'http://runescape.com',
+      url: 'https://static.wikia.nocookie.net/southpark/images/6/65/McCormickFormerResidence.png/revision/latest?cb=20210305234148',
       preview: true,
       spotId: 1
     },
     {
-      url: 'http://runescape.com',
+      url: 'https://www.commonsensemedia.org/sites/default/files/styles/ratio_16_9_small/public/screenshots/csm-movie/monster-house-ss3.jpg',
       preview: false,
       spotId: 4
     },
     {
-      url: 'http://runescape.com',
+      url: 'https://static01.nyt.com/images/2011/08/24/arts/disney-2/disney-2-jumbo.jpg?quality=75&auto=webp&disable=upscale',
       preview: true,
       spotId: 2
     },
     {
-      url: 'http://runescape.com',
+      url: 'https://static.wikia.nocookie.net/kingofthehill/images/a/a4/HILL.png/revision/latest?cb=20170706011030',
       preview: false,
       spotId: 1
     },

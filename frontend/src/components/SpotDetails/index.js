@@ -16,12 +16,27 @@ const SpotDetails = () => {
         dispatch(getOneSpot(spotId))
     }, [dispatch, spotId]);
 
+    const spotImgs = []
+    if(details.SpotImages) {
+        details.SpotImages.forEach(i => {
+            spotImgs.push(i)
+        });
+    }
+    // console.log('spotimgs: ', spotImgs)
+
     return (
         <>
          <div>
-            {details.name}
-            {details.city}, {details.state}, {details.country}
-            {details.SpotImages[0].id}
+            <h1>{details.name}</h1>
+            <h4>{details.city}, {details.state}, {details.country}</h4>
+            <div className="spotImages">
+                {spotImgs?.map(({ url }) => (
+                    <img alt="" src={url}></img>
+                ))}
+            </div>
+            {/* <img src={details.SpotImages[0].url}></img> */}
+            <h1>Hosted by {details.firstName} {details.lastName}</h1>
+
          </div>
         </>
     )

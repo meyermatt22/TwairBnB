@@ -10,7 +10,14 @@
 .topInfoBox {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     /* border: red 2px dotted; */
+}
+
+.topInfoRight {
+    /* border: red dotted 2px; */
+    display: flex;
+    align-items: center;
 }
 
 .bottomInfoBox {
@@ -22,4 +29,8 @@
 
 .reserve {
     padding: 10px 125px
+}
+
+.dot {
+    width: 20px;
 }

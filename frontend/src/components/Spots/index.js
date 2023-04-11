@@ -38,6 +38,7 @@ const SpotList = () => {
                                     </div>
                                 </div>
                                 <div className='rating'>
+                                <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
                                 {avgRating}
                                 </div>
                             </div>

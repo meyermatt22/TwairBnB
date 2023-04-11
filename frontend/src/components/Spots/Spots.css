@@ -25,3 +25,13 @@
     padding: 10px;
     justify-content: space-between;
 }
+
+.icon {
+    width: 12px;
+    padding: 3px;
+}
+
+.rating {
+    display: flex;
+    align-items: flex-start;
+}

@@ -31,6 +31,28 @@ const SpotDetails = () => {
             spotImgs.push(i)
         });
     }
+    if(details && details.avgStarRating) {
+        if(details.avgStarRating === "NaN") details.avgStarRating = "New"
+    }
+    let reviewText = 'Reviews'
+    let reviewNum;
+    if(details ) {
+        reviewNum = details.numReviews
+        console.log('reviewNum: ', reviewNum)
+
+    }
+    let dot = <img className="dot" alt="" src="https://cdn-icons-png.flaticon.com/512/7500/7500224.png"></img>
+
+    if(details && details.numReviews) {
+        if(details.numReviews === 1) reviewText = 'Review'
+    }
+    if(details) {
+        if(!details.numReviews) {
+            reviewText = ""
+            reviewNum = ""
+            dot = ""
+        }
+    }
     // console.log('spotimgs: ', spotImgs)
 
     if(details) { return (
@@ -53,7 +75,8 @@ const SpotDetails = () => {
                     ${details.price} night
                     </div>
                     <div className="topInfoRight">
-                        {details.avgStarRating} - {details.numReviews} reviews
+                    <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
+                    {details.avgStarRating} {dot} {reviewNum} {reviewText}
                     </div>
                 </div>
                 <div className="bottomInfoBox">

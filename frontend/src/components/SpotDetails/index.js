@@ -61,11 +61,11 @@ const SpotDetails = () => {
          <div>
             <h1>{details.name}</h1>
             <h4>{details.city}, {details.state}, {details.country}</h4>
-            {/* <div className="spotImages">
+            <div className="spotImages">
                 {spotImgs?.map(({ url }) => (
                     <img alt="" className="previewImg" src={url}></img>
                 ))}
-            </div> */}
+            </div>
             <div className="information">
                 <div className="infoLeft">
                     <h1>Hosted by {ownerFirstName} {ownerLastName}</h1>

@@ -17,7 +17,47 @@ module.exports = {
       spotId: 3
     },
     {
-      url: 'https://static.wikia.nocookie.net/southpark/images/6/65/McCormickFormerResidence.png/revision/latest?cb=20210305234148',
+      url: 'https://freepngimg.com/thumb/temple/32338-1-temple-photos-thumb.png',
+      preview: true,
+      spotId: 3
+    },
+    {
+      url: 'https://freepngimg.com/thumb/logo/84274-arts-flower-thrones-theon-of-greyjoy-visual-thumb.png',
+      preview: true,
+      spotId: 3
+    },
+    {
+      url: 'https://freepngimg.com/thumb/temple/32204-3-temple-transparent-image-thumb.png',
+      preview: true,
+      spotId: 3
+    },
+    {
+      url: 'https://freepngimg.com/thumb/house/155425-house-modern-luxurious-download-hq-thumb.png',
+      preview: true,
+      spotId: 3
+    },
+    {
+      url: 'https://freepngimg.com/thumb/dragon/88982-mythical-robert-tyrion-character-fictional-lannister-baratheon-thumb.png',
+      preview: true,
+      spotId: 1
+    },
+    {
+      url: 'https://freepngimg.com/thumb/white_house/32365-9-white-house-hd-thumb.png',
+      preview: true,
+      spotId: 1
+    },
+    {
+      url: 'https://freepngimg.com/thumb/tv_shows/33567-4-house-targaryen-file-thumb.png',
+      preview: true,
+      spotId: 1
+    },
+    {
+      url: 'https://freepngimg.com/thumb/temple/32338-1-temple-photos-thumb.png',
+      preview: true,
+      spotId: 1
+    },
+    {
+      url: 'https://freepngimg.com/thumb/signs/57113-6-biological-hazard-sign-image-free-hq-image-thumb.png',
       preview: true,
       spotId: 1
     },
@@ -27,14 +67,74 @@ module.exports = {
       spotId: 4
     },
     {
-      url: 'https://static01.nyt.com/images/2011/08/24/arts/disney-2/disney-2-jumbo.jpg?quality=75&auto=webp&disable=upscale',
+      url: 'https://freepngimg.com/thumb/gas_mask/11-2-gas-mask-png-file-thumb.png',
+      preview: true,
+      spotId: 4
+    },
+    {
+      url: 'https://freepngimg.com/thumb/knife/9-2-knife-free-png-image-thumb.png',
+      preview: true,
+      spotId: 4
+    },
+    {
+      url: 'https://freepngimg.com/thumb/rocket_raccoon/171107-raccoon-cartoon-rocket-png-download-free-thumb.png',
+      preview: true,
+      spotId: 4
+    },
+    {
+      url: 'https://freepngimg.com/thumb/kitten/160935-little-kitten-free-png-hq-thumb.png',
+      preview: true,
+      spotId: 4
+    },
+    {
+      url: 'https://freepngimg.com/thumb/home/36223-3-cabin-clipart-thumb.png',
       preview: true,
       spotId: 2
     },
     {
-      url: 'https://static.wikia.nocookie.net/kingofthehill/images/a/a4/HILL.png/revision/latest?cb=20170706011030',
+      url: 'https://freepngimg.com/thumb/mirror/10-2-mirror-free-download-png-thumb.png',
       preview: true,
-      spotId: 1
+      spotId: 2
+    },
+    {
+      url: 'https://freepngimg.com/thumb/home/36223-3-cabin-clipart-thumb.png',
+      preview: true,
+      spotId: 2
+    },
+    {
+      url: 'https://freepngimg.com/thumb/the_addams_family/105235-character-the-addams-family-png-free-photo-thumb.png',
+      preview: true,
+      spotId: 2
+    },
+    {
+      url: 'https://freepngimg.com/thumb/gift/61358-family-silhouette-christ-parent-latter-day-of-child-thumb.png',
+      preview: true,
+      spotId: 2
+    },
+    {
+      url: 'https://freepngimg.com/thumb/warehouse/27129-9-warehouse-transparent-thumb.png',
+      preview: true,
+      spotId: 5
+    },
+    {
+      url: 'https://freepngimg.com/thumb/shopping%20bag/10-shopping-bag-png-image-thumb.png',
+      preview: true,
+      spotId: 5
+    },
+    {
+      url: 'https://freepngimg.com/thumb/cpu/34053-6-cpu-cabinet-photos-thumb.png',
+      preview: true,
+      spotId: 5
+    },
+    {
+      url: 'https://freepngimg.com/thumb/gift/175918-box-gift-free-download-png-hd-thumb.png',
+      preview: true,
+      spotId: 5
+    },
+    {
+      url: 'https://freepngimg.com/thumb/kirk_hammett/2-2-kirk-hammett-picture-thumb.png',
+      preview: true,
+      spotId: 5
     },
   ], {})
   },

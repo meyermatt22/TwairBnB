@@ -11,7 +11,7 @@ import { ModalProvider, Modal } from './context/Modal';
 import SpotList from './components/Spots';
 import { Header } from './components/Header';
 import SpotDetails from './components/SpotDetails';
-import ReviewList from './components/Reviews';
+
 
 
 

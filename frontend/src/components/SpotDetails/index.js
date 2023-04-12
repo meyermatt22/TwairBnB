@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot } from "../../store/spots";
 import '../Spots/Spots.css'
 import './SpotDetails.css'
-import ReviewList from "../Reviews";
+import ReviewList from "../ReviewList";
 
 const SpotDetails = () => {
     const { spotId } = useParams()
@@ -38,8 +38,8 @@ const SpotDetails = () => {
     let reviewText = 'Reviews'
     let reviewNum;
     if(details ) {
+        console.log('details: ', details)
         reviewNum = details.numReviews
-        // console.log('reviewNum: ', reviewNum)
 
     }
     let dot = <img className="dot" alt="" src="https://cdn-icons-png.flaticon.com/512/7500/7500224.png"></img>
@@ -61,11 +61,11 @@ const SpotDetails = () => {
          <div>
             <h1>{details.name}</h1>
             <h4>{details.city}, {details.state}, {details.country}</h4>
-            <div className="spotImages">
+            {/* <div className="spotImages">
                 {spotImgs?.map(({ url }) => (
                     <img alt="" className="previewImg" src={url}></img>
                 ))}
-            </div>
+            </div> */}
             <div className="information">
                 <div className="infoLeft">
                     <h1>Hosted by {ownerFirstName} {ownerLastName}</h1>

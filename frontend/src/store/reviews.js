@@ -1,44 +1,46 @@
-const GET_ALL_REVIEWS = "/reviews.GET_ALL_REVIEWS"
-const GET_REVIEWS = "/reviews.GET_REVIEWS"
+import { csrfFetch } from "./csrf";
 
-export const loadReviews = (spot) => ({
-    type: GET_REVIEWS,
-    spot
-})
+const GET_REVIEWS = "/spots/:spotId/reviews"
 
-
-
-export const getAllReviews = () => async (dispatch) => {
-    const res = await fetch('/api/reviews');
-
-    if(res.ok) {
-        console.log('res, ', res)
-      const data = await res.json();
-
-      dispatch(loadReviews(data));
-      return data
-    };
-  };
-
-export const getReviews = (spotId) => async (dispatch) => {
-    const res = await fetch(`/api/spots/${spotId}/reviews`)
-
-    if(res.ok) {
-        const data = await res.json()
-        console.log('data stuff: ',res)
+export const loadReviews = (reviews) => {
+    console.log('loadReviews running: ')
+    return {
+        type: GET_REVIEWS,
+        reviews,
     }
 }
 
-const initialState = {}
+export const getOneSpotsReviews = (spotId) => async (dispatch) => {
+    console.log('getonespotsreviews running')
+    const res = await csrfFetch(`/api/spots/${spotId}/reviews`)
+    console.log('this is res from fetch reviews')
+
+    if(res.ok) {
+        console.log('res is .ok')
+        const spotReviews = await res.json()
+        console.log('spot reviews: ', spotReviews)
+        dispatch(loadReviews(spotReviews.Reviews))
+    } else {
+        console.log('res is not ok')
+        const errors = await res.json()
+        return errors
+    };
+};
+
+const initialState = {};
 
 const reviewReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_REVIEWS: {
-            return { ...state, [action.review.spotId]: action.review}
+            console.log('get reviews case runnign in Reducer')
+            const newState = {};
+            action.reviews.forEach(r => (newState[r.id] = r))
+            return newState
         }
         default:
+            console.log('review reducer: default case')
             return state
     }
 }
 
-export default reviewReducer
+export default reviewReducer;

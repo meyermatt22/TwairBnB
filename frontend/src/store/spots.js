@@ -1,5 +1,5 @@
 
-const GET_ALL_SPOTS = "/spots.getAllSpots"
+const GET_ALL_SPOTS = "/spots/getAllSpots"
 const GET_DETAILS = "/spots/GET_DETAILS"
 
 

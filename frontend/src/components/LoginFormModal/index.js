@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -55,6 +56,7 @@ function LoginFormModal() {
           <p>{errors.credential}</p>
         )}
         <button type="submit" disabled={dis}>Log In</button>
+
       </form>
     </>
   );

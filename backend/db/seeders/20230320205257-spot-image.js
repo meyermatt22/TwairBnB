@@ -12,7 +12,7 @@ module.exports = {
     options.tableName = "SpotImages";
    return queryInterface.bulkInsert( options, [
     {
-      url: 'https://static.wikia.nocookie.net/ahistoryofthemushroomkingdom/images/9/91/Peach%27s_Castle_64.png/revision/latest?cb=20120218023353',
+      url: 'https://freepngimg.com/thumb/temple/31704-3-buddha-temple-transparent-background.png',
       preview: true,
       spotId: 3
     },
@@ -23,7 +23,7 @@ module.exports = {
     },
     {
       url: 'https://www.commonsensemedia.org/sites/default/files/styles/ratio_16_9_small/public/screenshots/csm-movie/monster-house-ss3.jpg',
-      preview: false,
+      preview: true,
       spotId: 4
     },
     {
@@ -33,7 +33,7 @@ module.exports = {
     },
     {
       url: 'https://static.wikia.nocookie.net/kingofthehill/images/a/a4/HILL.png/revision/latest?cb=20170706011030',
-      preview: false,
+      preview: true,
       spotId: 1
     },
   ], {})

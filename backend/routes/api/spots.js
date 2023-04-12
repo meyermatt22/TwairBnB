@@ -289,47 +289,43 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 router.get('/:spotId/reviews', async (req, res, next) => {
 
+    console.log('*** GET REVIEWS ROUTE RUNNING ***')
+
     const { user } = req
     const {spotId} = req.params
 
-    if(user) {
-
-        const spot = await Spot.findByPk(req.params.spotId)
-
-        if (!spot) {
-            return res.status(404).json({message: "Spot not found"})
-        }
 
 
-        const usersReviews = await Review.findAll({
-            where: {
-                spotId: spot.id
-            },
-            include: [
-                {
-                    model:User
-                },
-                {
-                    model: ReviewImage
-                }
-            ]
-        })
-
-        usersReviews.forEach( review => {
-            if(review.User) delete review.User.dataValues.username
-            if(review.ReviewImages.length) {
-                review.ReviewImages.forEach(image => {
-                    delete image.dataValues.reviewId
-                    delete image.dataValues.updatedAt
-                    delete image.dataValues.createdAt
-                })
-            }
-        })
-
-        const result = { Reviews: usersReviews }
-
-        return res.json(result)
+    const spot = await Spot.findByPk(req.params.spotId)
+    if (!spot) {
+        return res.status(404).json({message: "Spot not found"})
     }
+    const usersReviews = await Review.findAll({
+        where: {
+            spotId: spot.id
+        },
+        include: [
+            {
+                model:User
+            },
+            {
+                model: ReviewImage
+            }
+        ]
+    })
+    usersReviews.forEach( review => {
+        if(review.User) delete review.User.dataValues.username
+        if(review.ReviewImages.length) {
+            review.ReviewImages.forEach(image => {
+                delete image.dataValues.reviewId
+                delete image.dataValues.updatedAt
+                delete image.dataValues.createdAt
+            })
+        }
+    })
+    const result = { Reviews: usersReviews }
+    console.log('END OF REVIEW BACKEND ROUTE: ', result)
+    return res.json(result)
 
 })
 

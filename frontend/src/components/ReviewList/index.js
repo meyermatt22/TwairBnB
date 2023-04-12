@@ -29,9 +29,21 @@ const ReviewList = () => {
 
     return (
         <>
-            <h1>
-                Reviews Look Here
-            </h1>
+            <div className='spotReviews'>
+                {reviews?.map(({ review, User, createdAt }) => (
+                    <div className='reviewSection'>
+                        <div className='userInfo'>
+                            <h3>
+                            {User.firstName}
+                            </h3>
+                            {createdAt}
+                        </div>
+                        <p>
+                        {review}
+                        </p>
+                    </div>
+                ))}
+            </div>
         </>
     )
 }

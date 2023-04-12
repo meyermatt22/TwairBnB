@@ -34,7 +34,7 @@ const SpotList = () => {
                                     {city}, {state}
                                     </div>
                                     <div>
-                                    {price} night
+                                    ${price} night
                                     </div>
                                 </div>
                                 <div className='rating'>

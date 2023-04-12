@@ -7,7 +7,20 @@ import './Navigation.css';
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
+  if(sessionUser) console.log('user logged in **')
+
   return (
+    <div className='headerBoxRight'>
+      <NavLink to='/spots/new' className='createNewSpot'>
+      {sessionUser ? (
+        <>
+          Create a New Spot
+        </>
+      ) : (
+        <>
+        </>
+      )}
+      </NavLink>
     <ul>
       <li>
         <NavLink exact to="/">Home</NavLink>
@@ -18,6 +31,7 @@ function Navigation({ isLoaded }){
         </li>
       )}
     </ul>
+    </div>
   );
 }
 

@@ -23,7 +23,7 @@ const SpotList = () => {
 
             {spotList?.map(({ id, city, state, previewImage, name, avgRating, price }) => (
 
-                <Link to={`/spots/${id}`}>
+                <Link to={`/spots/${id}`} key={name}>
                     <div className='spotTile'>
                     {/* <Tooltip> */}
                         <div data-role='tile' key={id}>

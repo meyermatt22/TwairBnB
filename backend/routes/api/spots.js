@@ -15,6 +15,7 @@ const user = require('../../db/models/user');
 
 router.get('/', async(req, res, next) => {
 
+    console.log('GET ALL SPOTS RUNNING *** SPOTS')
     let { page, size} = req.query
 
     let errors = {}
@@ -178,6 +179,7 @@ router.get('/:spotId', async (req, res, next) => {
 
 router.post('/', requireAuth, async (req, res) => {
 
+    console.log('POST ROUTE RUNNING ****')
     const {user} = req
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;

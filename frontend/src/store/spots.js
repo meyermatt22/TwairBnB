@@ -3,7 +3,6 @@ const GET_ALL_SPOTS = "/spots/getAllSpots"
 const GET_DETAILS = "/spots/GET_DETAILS"
 
 
-//regular action creator
 export const loadSpots = (spots) => {
     return {
         type: GET_ALL_SPOTS,
@@ -14,7 +13,9 @@ export const loadSpots = (spots) => {
 export const loadDetails = (spot) => ({
     type: GET_DETAILS,
     spot,
-})
+});
+
+
 
 //thunk action creator
 export const getAllSpots = () => async (dispatch) => {
@@ -41,6 +42,22 @@ export const getOneSpot = (spotId) => async (dispatch) => {
     };
 };
 
+export const createSpot = (spot) => async (dispatch) => {
+    const res = await fetch("/api/spots", {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(spot)
+    });
+
+    if(res.ok) {
+        const newSpot = await res.json();
+        dispatch(loadDetails(newSpot));
+        return newSpot;
+    } else {
+        const errors = await res.json()
+        return errors
+    }
+}
 
 const initialState = {};
 

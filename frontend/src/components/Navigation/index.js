@@ -11,16 +11,16 @@ function Navigation({ isLoaded }){
 
   return (
     <div className='headerBoxRight'>
-      <NavLink to='/spots/new' className='createNewSpot'>
       {sessionUser ? (
         <>
+      <NavLink to={`/spots`}>
           Create a New Spot
+        </NavLink>
         </>
       ) : (
         <>
         </>
       )}
-      </NavLink>
     <ul>
       <li>
         <NavLink exact to="/">Home</NavLink>

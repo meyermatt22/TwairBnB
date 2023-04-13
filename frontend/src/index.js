@@ -37,8 +37,8 @@ function Root() {
           </Header>
           <Switch>
             <Route exact path="/" component={SpotList}/>
+            <Route path='/spots/new' component={CreateSpotForm}></Route>
             <Route exact path='/spots/:spotId' component={SpotDetails} ></Route>
-            <Route path='/spots' component={CreateSpotForm}></Route>
           </Switch>
         </BrowserRouter>
       </ReduxProvider>

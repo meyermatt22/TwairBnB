@@ -1,3 +1,4 @@
+import { csrfFetch } from "./csrf";
 
 const GET_ALL_SPOTS = "/spots/getAllSpots"
 const GET_DETAILS = "/spots/GET_DETAILS"
@@ -53,6 +54,24 @@ export const createSpot = (spot) => async (dispatch) => {
         const newSpot = await res.json();
         dispatch(loadDetails(newSpot));
         return newSpot;
+    } else {
+        const errors = await res.json()
+        return errors
+    }
+}
+
+export const createSpotImages = (spot) => async (dispatch) => {
+    console.log('CREATE SPOT IMAGES HIT ***')
+    const res = await csrfFetch(`/api/spots/${spot}/images`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(spot)
+    });
+
+    if(res.ok) {
+        const newSpotImg = await res.json();
+        dispatch(loadDetails(newSpotImg));
+        return newSpotImg;
     } else {
         const errors = await res.json()
         return errors

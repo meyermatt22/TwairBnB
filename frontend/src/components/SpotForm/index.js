@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { createSpot } from "../../store/spots"
+import SpotImageForm from "../SpotImageForm";
 
 const SpotForm = ({ spot }) => {
-    console.log('SpotForm')
+    console.log('SpotForm hit ***')
     const history = useHistory();
     const [address, setAddress] = useState(spot?.address)
     const [city, setCity] = useState(spot?.city)
@@ -18,6 +19,7 @@ const SpotForm = ({ spot }) => {
     const dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
+        console.log('SpotForm handle submit hit ***')
         e.preventDefault();
         setErrors({});
         spot = { ...spot, address, city, state, country, name, description, price };
@@ -26,11 +28,13 @@ const SpotForm = ({ spot }) => {
             const newSpot = await dispatch(createSpot(spot))
             spot = newSpot;
         // }
+        console.log('history update1: ',history)
         if(spot.errors) {
             setErrors(spot.errors)
         } else {
             history.push(`/spots/${spot.id}`)
         }
+        console.log('history update2: ',history)
     };
 
     return (
@@ -114,10 +118,11 @@ const SpotForm = ({ spot }) => {
                     onChange={(e) => setPrice(e.target.value)}
                 />
                 </label>
+            </div>
+            {/* {SpotImageForm(spot)} */}
                 <div className="submitButton">
                  <button type="submit">Create new Spot</button>
                 </div>
-            </div>
         </form>
     )
 }

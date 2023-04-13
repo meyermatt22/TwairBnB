@@ -13,7 +13,7 @@ function Navigation({ isLoaded }){
     <div className='headerBoxRight'>
       {sessionUser ? (
         <>
-      <NavLink to={`/spots`}>
+      <NavLink to={`/spots/new`}>
           Create a New Spot
         </NavLink>
         </>

@@ -1,4 +1,4 @@
-import CreateSpotImageForm from "../CreateSpotImgForm";
+// import CreateSpotImageForm from "../CreateSpotImgForm";
 import SpotForm from "../SpotForm";
 
 const CreateSpotForm = () => {
@@ -10,8 +10,15 @@ const CreateSpotForm = () => {
         country: "Country",
         name: "Name of your spot",
         description: "Please write at least 30 characters",
-        price: "Price per night(USD)"
-
+        price: "Price per night(USD)",
+        lat: 50,
+        lng: -50,
+        url: "Preview Image URL",
+        url1: "Image URL",
+        url2: "Image URL",
+        url3: "Image URL",
+        url4: "Image URL",
+        preview: true
     }
 
     return (

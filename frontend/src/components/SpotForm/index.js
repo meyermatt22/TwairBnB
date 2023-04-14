@@ -35,7 +35,7 @@ const SpotForm = ({ spot }) => {
         //     url: "https://freepngimg.com/thumb/temple/31704-3-buddha-temple-transparent-background.png",
         //     preview: true
         // }
-        const images = [ {url, preview}, {url1, preview}, {url2, preview}, {url3, preview}, {url4, preview} ]
+        const images = [ {url, preview}, {url1:url, preview:false}, {url2:url, preview:false}, {url3:url, preview:false}, {url4:url, preview:false} ]
         // if(images.length) {
         //     let count = 0
         //     images.forEach(i => {

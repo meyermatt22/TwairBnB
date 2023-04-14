@@ -69,7 +69,7 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
 
             if(res.ok) {
                 dispatch(loadDetails(newSpotImg));
-                return newSpotImg;
+                // return newSpotImg;
             } else {
                 const errors = await res.json()
                 return errors

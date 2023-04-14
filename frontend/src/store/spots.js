@@ -4,8 +4,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_SPOTS = "/spots/getAllSpots"
 const GET_DETAILS = "/spots/GET_DETAILS"
 const UPDATE_SPOT = "/spots/UPDATE_SPOT"
-const GET_USERS_SPOTS = "/spots/GET_USER_SPOTS"
-
+const REMOVE_SPOT = "/spots/REMOVE_SPOT"
 
 export const loadSpots = (spots) => {
     return {
@@ -18,14 +17,6 @@ export const loadDetails = (spot) => ({
     type: GET_DETAILS,
     spot,
 });
-
-export const loadUsersSpots = (spots) => {
-    console.log('load user spots running ***')
-    return {
-        type: GET_USERS_SPOTS,
-        spots
-    }
-}
 
 export const editSpot = (spot) => ({
     type: UPDATE_SPOT,
@@ -45,7 +36,7 @@ export const getCurrentUsersSpots = () => async (dispatch) => {
         return errors
     }
 }
-//thunk action creator
+
 export const getAllSpots = () => async (dispatch) => {
   const res = await fetch('/api/spots');
 
@@ -106,12 +97,12 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
     return newSpot;
 }
 
-export const updateSpot = (spot) => async (dispatch) => {
+export const updateSpot = (spot, imgs) => async (dispatch) => {
     const currentspots = await csrfFetch('/api/spots/current')
 
     console.log('current spots: ', currentspots)
 
-    const res = await csrfFetch(`/api/spots/${spot.id}`, {
+    let res = await csrfFetch(`/api/spots/${spot.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(spot)
@@ -119,14 +110,31 @@ export const updateSpot = (spot) => async (dispatch) => {
     console.log('res is here? :', res)
 
     if(res.ok) {
+
         console.log('res is ok: ', res)
         const updatedSpot = await res.json()
         dispatch(editSpot(updatedSpot));
-        return updateSpot;
-    } else {
-        const errors = await res.json();
-        return errors
+
+        for (let i = 0; i <= imgs.length; i++) {
+            res = await csrfFetch(`/api/spots/${updatedSpot.id}/images`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json"},
+                body: JSON.stringify(imgs[i])
+            });
+        }
+
+        const updatedImgs = await res.json()
+
+        if(res.ok) {
+            dispatch(loadDetails(updatedImgs));
+            // return newSpotImg;
+        } else {
+            const errors = await res.json()
+            console.log(errors)
+            return errors
+        }
     }
+    return updateSpot;
 }
 
 const initialState = {};

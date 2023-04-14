@@ -1,4 +1,4 @@
-// import CreateSpotImageForm from "../CreateSpotImgForm";
+
 import SpotForm from "../SpotForm";
 
 const CreateSpotForm = () => {

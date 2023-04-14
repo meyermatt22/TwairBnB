@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAllSpots, getOneSpot } from "../../store/spots";
+import { getOneSpot } from "../../store/spots";
 
 import SpotForm from "../SpotForm";
 

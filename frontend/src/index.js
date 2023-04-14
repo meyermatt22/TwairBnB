@@ -12,6 +12,8 @@ import SpotList from './components/Spots';
 import { Header } from './components/Header';
 import SpotDetails from './components/SpotDetails';
 import CreateSpotForm from './components/CreateSpotForm';
+import EditSpotForm from './components/EditSpotForm';
+import UserSpotList from './components/UserSpotList';
 
 
 
@@ -38,7 +40,9 @@ function Root() {
           <Switch>
             <Route exact path="/" component={SpotList}/>
             <Route path='/spots/new' component={CreateSpotForm}></Route>
+            <Route exact path='/spots/current' component={UserSpotList}></Route>
             <Route exact path='/spots/:spotId' component={SpotDetails} ></Route>
+            <Route exact path='/spots/:spotId/edit' component={EditSpotForm} ></Route>
           </Switch>
         </BrowserRouter>
       </ReduxProvider>

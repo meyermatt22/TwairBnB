@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
-import { createSpot } from "../../store/spots"
+import { createSpot, updateSpot } from "../../store/spots"
 
 
-const SpotForm = ({ spot }) => {
+const SpotForm = ({ spot, formType }) => {
     console.log('SpotForm hit ***')
     const history = useHistory();
     const [address, setAddress] = useState(spot?.address)
@@ -31,27 +31,18 @@ const SpotForm = ({ spot }) => {
         setErrors({});
         spot = { ...spot, address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview };
 
-        // const Imgs = {
-        //     url: "https://freepngimg.com/thumb/temple/31704-3-buddha-temple-transparent-background.png",
-        //     preview: true
-        // }
-        const images = [ {url, preview}, {url1:url, preview:false}, {url2:url, preview:false}, {url3:url, preview:false}, {url4:url, preview:false} ]
-        // if(images.length) {
-        //     let count = 0
-        //     images.forEach(i => {
-        //         count += 1
-        //         if(count > 1) {
-        //             i.preview = false
-        //         }
-        //         console.log('preview ***',i.preview)
-        //     })
-        // }
+
+        const images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
+
 
         console.log('images : ** ', images)
-        // if(formType === "Create Spot") {
+        if(formType === "Update Spot") {
+            const editedSpot = await dispatch(updateSpot(spot))
+            return editedSpot
+        } else if(formType === "Create Spot") {
             const newSpot = await dispatch(createSpot(spot,images))
             spot = newSpot;
-        // }
+        }
         console.log('new spot: ',spot)
         if(spot.errors) {
             setErrors(spot.errors)
@@ -63,7 +54,7 @@ const SpotForm = ({ spot }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h1>Create a new Spot</h1>
+            <h1>{formType}</h1>
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
             {/* {formType} */}
@@ -199,7 +190,7 @@ const SpotForm = ({ spot }) => {
                 </div>
             </div>
                 <div className="submitButton">
-                 <button type="submit">Create new Spot</button>
+                 <button type="submit">{formType}</button>
                 </div>
         </form>
     )

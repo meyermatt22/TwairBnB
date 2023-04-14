@@ -1,7 +1,10 @@
+// import { use } from "../../../backend/routes/api/spots";
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_SPOTS = "/spots/getAllSpots"
 const GET_DETAILS = "/spots/GET_DETAILS"
+const UPDATE_SPOT = "/spots/UPDATE_SPOT"
+const GET_USERS_SPOTS = "/spots/GET_USER_SPOTS"
 
 
 export const loadSpots = (spots) => {
@@ -16,8 +19,32 @@ export const loadDetails = (spot) => ({
     spot,
 });
 
+export const loadUsersSpots = (spots) => {
+    console.log('load user spots running ***')
+    return {
+        type: GET_USERS_SPOTS,
+        spots
+    }
+}
 
+export const editSpot = (spot) => ({
+    type: UPDATE_SPOT,
+    spot
+})
 
+export const getCurrentUsersSpots = () => async (dispatch) => {
+    const res = await csrfFetch(`api/spots/current`)
+    console.log('res from get current user revviews', res)
+    if(res.ok) {
+        const userSpots = await res.json()
+        console.log('user spots', userSpots)
+        dispatch(loadUsersSpots(userSpots))
+    } else {
+        console.log('res iss not ok')
+        const errors = await res.json()
+        return errors
+    }
+}
 //thunk action creator
 export const getAllSpots = () => async (dispatch) => {
   const res = await fetch('/api/spots');
@@ -55,7 +82,7 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
     if(res.ok) {
         dispatch(loadDetails(newSpot));
 
-        for (let i = 0; i < imgs.length; i++) {
+        for (let i = 0; i <= imgs.length; i++) {
             res = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json"},
@@ -72,19 +99,34 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
                 // return newSpotImg;
             } else {
                 const errors = await res.json()
+                console.log(errors)
                 return errors
             }
-
-
-     } //else {
-    //     const errors = await res.json()
-    //     return errors
-    // }
+     }
     return newSpot;
 }
 
-export const createSpotImages = (spot) => async (dispatch) => {
-    console.log('CREATE SPOT IMAGES HIT ***')
+export const updateSpot = (spot) => async (dispatch) => {
+    const currentspots = await csrfFetch('/api/spots/current')
+
+    console.log('current spots: ', currentspots)
+
+    const res = await csrfFetch(`/api/spots/${spot.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify(spot)
+    });
+    console.log('res is here? :', res)
+
+    if(res.ok) {
+        console.log('res is ok: ', res)
+        const updatedSpot = await res.json()
+        dispatch(editSpot(updatedSpot));
+        return updateSpot;
+    } else {
+        const errors = await res.json();
+        return errors
+    }
 }
 
 const initialState = {};
@@ -96,7 +138,16 @@ const spotsReducer = (state = initialState, action) => {
             action.spots.Spots.forEach(s => (newState[s.id] = s));
             return newState
         }
+        case GET_USERS_SPOTS: {
+            const newState = {}
+            console.log('action spots : **',action.spots)
+            action.spots.Spots.forEach(s => newState[s.id] = s)
+            return newState
+        }
         case GET_DETAILS: {
+            return { ...state, [action.spot.id]: action.spot};
+        }
+        case UPDATE_SPOT: {
             return { ...state, [action.spot.id]: action.spot};
         }
         default:

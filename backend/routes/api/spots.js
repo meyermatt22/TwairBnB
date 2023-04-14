@@ -236,6 +236,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 })
 
 router.put('/:spotId', requireAuth, async (req, res, next) => {
+    console.log('PUT ROUTE RUNNING ***')
     const { user } = req
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 

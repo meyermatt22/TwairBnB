@@ -23,8 +23,7 @@ const CreateSpotForm = () => {
 
     return (
         <div>
-            <SpotForm spot={spot} />
-            {/* <CreateSpotImageForm spot={spot}/> */}
+            <SpotForm spot={spot} formType="Create Spot"/>
         </div>
     )
 }

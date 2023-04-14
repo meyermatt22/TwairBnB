@@ -33,12 +33,12 @@ export const editSpot = (spot) => ({
 })
 
 export const getCurrentUsersSpots = () => async (dispatch) => {
-    const res = await csrfFetch(`api/spots/current`)
+    const res = await csrfFetch(`/api/spots/current`)
     console.log('res from get current user revviews', res)
     if(res.ok) {
         const userSpots = await res.json()
         console.log('user spots', userSpots)
-        dispatch(loadUsersSpots(userSpots))
+        dispatch(loadSpots(userSpots))
     } else {
         console.log('res iss not ok')
         const errors = await res.json()
@@ -138,12 +138,12 @@ const spotsReducer = (state = initialState, action) => {
             action.spots.Spots.forEach(s => (newState[s.id] = s));
             return newState
         }
-        case GET_USERS_SPOTS: {
-            const newState = {}
-            console.log('action spots : **',action.spots)
-            action.spots.Spots.forEach(s => newState[s.id] = s)
-            return newState
-        }
+        // case GET_USERS_SPOTS: {
+        //     const newState = {}
+        //     console.log('action spots : **',action.spots)
+        //     action.spots.Spots.forEach(s => newState[s.id] = s)
+        //     return newState
+        // }
         case GET_DETAILS: {
             return { ...state, [action.spot.id]: action.spot};
         }

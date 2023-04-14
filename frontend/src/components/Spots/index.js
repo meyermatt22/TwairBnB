@@ -20,6 +20,7 @@ const SpotList = () => {
     // console.log('preview', spotList[0])
     return (
         <div className='spotList'>
+            
 
             {spotList?.map(({ id, city, state, previewImage, name, avgRating, price }) => (
 

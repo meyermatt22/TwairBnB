@@ -1,5 +1,6 @@
 import {  useHistory, Redirect, NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
+import DeleteSpot from "../DeleteSpotModal";
 
 
 
@@ -60,7 +61,7 @@ const UserSpotList = () => {
                 </div>
                 <div className="UDbuttons">
                     <button className="updateButton" onClick={(e) => handleButtonClick(id,e, 'edit')}>Update</button>
-                    <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<h2>wonka</h2>}/>
+                    <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteSpot id={id} />}/>
                 </div>
             </div>
         ))}

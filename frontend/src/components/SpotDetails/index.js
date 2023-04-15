@@ -54,6 +54,10 @@ const SpotDetails = () => {
             dot = ""
         }
     }
+    const handleClick = (e) => {
+        e.preventDefault();
+        alert("Feature coming soon");
+    };
     // console.log('spotimgs: ', spotImgs)
 
     if(details) { return (
@@ -82,7 +86,7 @@ const SpotDetails = () => {
                         </div>
                     </div>
                     <div className="bottomInfoBox">
-                        <button className="reserve">Reserve</button>
+                        <button className="reserve" onClick={handleClick}>Reserve</button>
                     </div>
                 </div>
             </div>

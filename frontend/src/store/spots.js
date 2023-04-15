@@ -23,6 +23,11 @@ export const editSpot = (spot) => ({
     spot
 })
 
+export const removeSpot = (spotId) => ({
+    type: REMOVE_SPOT,
+    spotId
+})
+
 export const getCurrentUsersSpots = () => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/current`)
     console.log('res from get current user revviews', res)
@@ -32,6 +37,19 @@ export const getCurrentUsersSpots = () => async (dispatch) => {
         dispatch(loadSpots(userSpots))
     } else {
         console.log('res iss not ok')
+        const errors = await res.json()
+        return errors
+    }
+}
+
+export const deleteSpot = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "DELETE",
+    });
+
+    if(res.ok) {
+        dispatch(removeSpot(spotId));
+    } else {
         const errors = await res.json()
         return errors
     }
@@ -146,17 +164,17 @@ const spotsReducer = (state = initialState, action) => {
             action.spots.Spots.forEach(s => (newState[s.id] = s));
             return newState
         }
-        // case GET_USERS_SPOTS: {
-        //     const newState = {}
-        //     console.log('action spots : **',action.spots)
-        //     action.spots.Spots.forEach(s => newState[s.id] = s)
-        //     return newState
-        // }
         case GET_DETAILS: {
             return { ...state, [action.spot.id]: action.spot};
         }
         case UPDATE_SPOT: {
             return { ...state, [action.spot.id]: action.spot};
+        }
+        case REMOVE_SPOT: {
+            const newState = {...state};
+            console.log('newState here ; ', newState)
+            delete newState[action.spotId];
+            return newState;
         }
         default:
             return state

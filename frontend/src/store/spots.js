@@ -115,7 +115,7 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
     return newSpot;
 }
 
-export const updateSpot = (spot, imgs) => async (dispatch) => {
+export const updateSpot = (spot) => async (dispatch) => {
     const currentspots = await csrfFetch('/api/spots/current')
 
     console.log('current spots: ', currentspots)
@@ -125,34 +125,18 @@ export const updateSpot = (spot, imgs) => async (dispatch) => {
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(spot)
     });
-    console.log('res is here? :', res)
+    // console.log('res is here? :', res)
 
     if(res.ok) {
-
-        console.log('res is ok: ', res)
+        // console.log('res is ok: ', res)
         const updatedSpot = await res.json()
         dispatch(editSpot(updatedSpot));
-
-        for (let i = 0; i <= imgs.length; i++) {
-            res = await csrfFetch(`/api/spots/${updatedSpot.id}/images`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json"},
-                body: JSON.stringify(imgs[i])
-            });
-        }
-
-        const updatedImgs = await res.json()
-
-        if(res.ok) {
-            dispatch(loadDetails(updatedImgs));
-            // return newSpotImg;
-        } else {
-            const errors = await res.json()
-            console.log(errors)
-            return errors
-        }
+        return updatedSpot;
+    }  else {
+        const errors = await res.json()
+        // console.log(errors)
+        return errors
     }
-    return updateSpot;
 }
 
 const initialState = {};

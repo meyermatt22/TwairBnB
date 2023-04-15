@@ -40,7 +40,7 @@ const SpotForm = ({ spot, formType }) => {
             const editedSpot = await dispatch(updateSpot(spot, images))
             spot = editedSpot
         } else if(formType === "Create Spot") {
-            const newSpot = await dispatch(createSpot(spot,images))
+            const newSpot = await dispatch(createSpot(spot))
             spot = newSpot;
         }
         console.log('new spot: ',spot)

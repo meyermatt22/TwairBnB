@@ -2,11 +2,15 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOneSpotsReviews } from '../../store/reviews';
 import { useParams } from "react-router-dom";
+import OpenModalButton from '../OpenModalButton';
+// import PostReviewModal from '../PostReviewModal';
+import ReviewForm from '../ReviewForm';
 
 
 const ReviewList = () => {
-    const { spotId } = useParams()
+    const { spotId, ownerId } = useParams()
 
+    const user = useSelector((state) => (state.session.user))
     const dispatch = useDispatch();
     const reviewsObj = useSelector((state) => state.reviews)
     const reviews = Object.values(reviewsObj)
@@ -18,12 +22,33 @@ const ReviewList = () => {
         dispatch(getOneSpotsReviews(spotId))
     }, [dispatch, spotId]);
 
-    if(!reviews.length) return <>null</>
+    console.log('OwnerId : **',ownerId, 'spotId ** : ', spotId)
+
+    let reviewFound = false
+    if(user) {
+        reviews.forEach(r => {
+            if(r.userId === user.id || ownerId === user.id) {
+                reviewFound = true
+            }
+        })
+    }
+    if(!user) {
+        reviewFound = true
+    }
+    function PostAReview() {
+        if(reviewFound === false) {
+            return (
+                <OpenModalButton modalComponent={<ReviewForm/>} buttonText="Post a Review"/>
+            )
+        }
+    }
+    // if(!reviews.length) return <>null</>
 
 
     return (
         <>
             <div className='spotReviews'>
+                <PostAReview/>
                 {reviews?.map(({ review, User, createdAt }) => (
                     <div className='reviewSection'>
                         <div className='userInfo'>

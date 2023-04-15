@@ -1,4 +1,7 @@
-import {  Link, Redirect } from "react-router-dom";
+import {  useHistory, Redirect, NavLink } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
+import DeleteSpot from "../DeleteSpotModal";
+
 
 
 const { useEffect } = require("react");
@@ -9,6 +12,7 @@ const { getCurrentUsersSpots } = require("../../store/spots");
 const UserSpotList = () => {
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const user = useSelector((state) => (state.session.user))
 
@@ -18,7 +22,12 @@ const UserSpotList = () => {
     useEffect(() => {
         console.log('useEffect on user spot list')
         dispatch(getCurrentUsersSpots())
-    }, [dispatch, user])
+    }, [dispatch])
+
+    const handleButtonClick = (spotId, e, action) => {
+        e.stopPropagation();
+        history.push(`/spots/${spotId}/${action}`)
+    }
 
     if(!user) {
         return <Redirect to={"/"}></Redirect>
@@ -30,9 +39,11 @@ const UserSpotList = () => {
         <>
         <h1>Manage Your Spots</h1>
         <div className="userSpots">
-            {userSpotList.length < 1 && <h1>Create a New Spot</h1>}
+            {userSpotList.length < 1 && <NavLink to={`/spots/new`}>
+          Create a New Spot
+        </NavLink>}
         {userSpotList.map(({ city, state, price, previewImage, avgRating, name, id }) => (
-            <Link to={`/spots/${id}`} key={name}>
+            <div onClick={ () => history.push(`/spots/${id}`)} key={id}>
                  <img alt='' className='previewImg' src={previewImage}></img>
                  <div className='spotInfo'>
                     <div className='localPrice'>
@@ -48,11 +59,11 @@ const UserSpotList = () => {
                     {avgRating}
                     </div>
                 </div>
-                <div className="buttons">
-                    <button className="updateButton">Update</button>
-                    <button className="deleteButton">Delete</button>
+                <div className="UDbuttons">
+                    <button className="updateButton" onClick={(e) => handleButtonClick(id,e, 'edit')}>Update</button>
+                    <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteSpot id={id} />}/>
                 </div>
-            </Link>
+            </div>
         ))}
 
 

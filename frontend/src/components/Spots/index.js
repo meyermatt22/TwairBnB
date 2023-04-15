@@ -20,15 +20,15 @@ const SpotList = () => {
     // console.log('preview', spotList[0])
     return (
         <div className='spotList'>
-            
+
 
             {spotList?.map(({ id, city, state, previewImage, name, avgRating, price }) => (
 
-                <Link to={`/spots/${id}`} key={name}>
-                    <div className='spotTile'>
+                <Link to={`/spots/${id}`} key={id} >
+                    <div className='spotTile' title={name}>
                     {/* <Tooltip> */}
                         <div data-role='tile' key={id}>
-                            <img alt='' className='previewImg' src={previewImage}></img>
+                            <img alt='' className='previewImg' src={previewImage} ></img>
                             <div className='spotInfo'>
                                 <div className='localPrice'>
                                     <div>
@@ -44,7 +44,6 @@ const SpotList = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* </Tooltip> */}
                     </div>
                 </Link>
 

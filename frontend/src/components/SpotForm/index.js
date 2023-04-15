@@ -32,13 +32,13 @@ const SpotForm = ({ spot, formType }) => {
         spot = { ...spot, address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview };
 
 
-        const images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
+        let images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
 
 
         console.log('images : ** ', images)
         if(formType === "Update Spot") {
-            const editedSpot = await dispatch(updateSpot(spot))
-            return editedSpot
+            const editedSpot = await dispatch(updateSpot(spot, images))
+            spot = editedSpot
         } else if(formType === "Create Spot") {
             const newSpot = await dispatch(createSpot(spot,images))
             spot = newSpot;

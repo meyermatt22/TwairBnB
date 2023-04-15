@@ -115,7 +115,7 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
     return newSpot;
 }
 
-export const updateSpot = (spot, imgs) => async (dispatch) => {
+export const updateSpot = (spot) => async (dispatch) => {
     const currentspots = await csrfFetch('/api/spots/current')
 
     console.log('current spots: ', currentspots)
@@ -125,35 +125,40 @@ export const updateSpot = (spot, imgs) => async (dispatch) => {
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(spot)
     });
-    console.log('res is here? :', res)
+    // console.log('res is here? :', res)
 
     if(res.ok) {
-
-        console.log('res is ok: ', res)
+        // console.log('res is ok: ', res)
         const updatedSpot = await res.json()
         dispatch(editSpot(updatedSpot));
-
-        for (let i = 0; i <= imgs.length; i++) {
-            res = await csrfFetch(`/api/spots/${updatedSpot.id}/images`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json"},
-                body: JSON.stringify(imgs[i])
-            });
-        }
-
-        const updatedImgs = await res.json()
-
-        if(res.ok) {
-            dispatch(loadDetails(updatedImgs));
-            // return newSpotImg;
-        } else {
-            const errors = await res.json()
-            console.log(errors)
-            return errors
-        }
+        return updatedSpot;
+    }  else {
+        const errors = await res.json()
+        // console.log(errors)
+        return errors
     }
-    return updateSpot;
 }
+
+// export const createSpotReview = (spot) => async (dispatch) => {
+//     console.log('spot : ', spot)
+//     const { spotId, review, stars } = spot
+//     const newReview = {review, stars}
+
+//     const res = await csrfFetch(`/api/spot/${spotId}/reviews`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json"},
+//         body: JSON.stringify(newReview)
+//     });
+
+//     if(res.ok) {
+//         const newReview = await res.json();
+//         dispatch(loadDetails(newReview));
+//         return newReview
+//     } else {
+//         const errors = await res.json();
+//         return errors
+//     }
+// }
 
 const initialState = {};
 
@@ -172,7 +177,7 @@ const spotsReducer = (state = initialState, action) => {
         }
         case REMOVE_SPOT: {
             const newState = {...state};
-            console.log('newState here ; ', newState)
+            // console.log('newState here ; ', newState)
             delete newState[action.spotId];
             return newState;
         }

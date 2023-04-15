@@ -289,7 +289,6 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 })
 
-
 router.get('/:spotId/reviews', async (req, res, next) => {
 
     console.log('*** GET REVIEWS ROUTE RUNNING ***')

@@ -139,6 +139,27 @@ export const updateSpot = (spot) => async (dispatch) => {
     }
 }
 
+// export const createSpotReview = (spot) => async (dispatch) => {
+//     console.log('spot : ', spot)
+//     const { spotId, review, stars } = spot
+//     const newReview = {review, stars}
+
+//     const res = await csrfFetch(`/api/spot/${spotId}/reviews`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json"},
+//         body: JSON.stringify(newReview)
+//     });
+
+//     if(res.ok) {
+//         const newReview = await res.json();
+//         dispatch(loadDetails(newReview));
+//         return newReview
+//     } else {
+//         const errors = await res.json();
+//         return errors
+//     }
+// }
+
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
@@ -156,7 +177,7 @@ const spotsReducer = (state = initialState, action) => {
         }
         case REMOVE_SPOT: {
             const newState = {...state};
-            console.log('newState here ; ', newState)
+            // console.log('newState here ; ', newState)
             delete newState[action.spotId];
             return newState;
         }

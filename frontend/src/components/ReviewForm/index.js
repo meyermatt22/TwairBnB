@@ -1,13 +1,14 @@
-import PostReviewModal from "../PostReviewModal";
+// import PostReviewModal from "../PostReviewModal";
 
 
-const ReviewForm = () => {
-    const data = {
-        review: "",
-        stars: 0
-    }
+// const ReviewForm = () => {
 
-    return <PostReviewModal data={data} />
-}
+//     const data = {
+//         review: "",
+//         stars: 0
+//     }
 
-export default ReviewForm
+//     return <PostReviewModal data={data} />
+// }
+
+// export default ReviewForm

@@ -3,36 +3,41 @@ import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import OpenModalButton from "../OpenModalButton";
+import { createSpotReview } from "../../store/reviews";
+import { getOneSpotsReviews } from "../../store/reviews";
 
 
-const PostReviewModal = ({ data }) => {
+const PostReviewModal = ({ spotId }) => {
 
     const dispatch = useDispatch();
     const [review, setReview] = useState("")
-    const [stars, setStars] = useState(0)
+    const [stars, setStars] = useState(1)
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
     const history = useHistory()
 
-    const createReview = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
 
-        data = { ...data, stars, review};
+        const newReview = {
+            spotId, stars, review
+        }
 
-        const newReview = await dispatch(createReview(data))
-        data = newReview
+        const resReview = await dispatch(createSpotReview(newReview))
 
-        if(data.errors) {
-            setErrors(data.errors)
+
+        if(resReview.errors) {
+            setErrors(resReview.errors)
         } else {
-            history.push(`/spots/${data.id}`)
+            dispatch(getOneSpotsReviews(spotId))
+            closeModal()
         }
 
     }
 
     return (
-        <form className="reviewModal" onSubmit={createReview}>
+        <form className="reviewModal" onSubmit={handleSubmit}>
             <h1>How was your stay?</h1>
             <textarea
                 value={review}

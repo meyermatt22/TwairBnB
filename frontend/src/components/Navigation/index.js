@@ -10,25 +10,23 @@ function Navigation({ isLoaded }){
   if(sessionUser) console.log('user logged in **')
 
   return (
-    <div className='headerBoxRight'>
+    <div id='headerBoxRight'>
       {sessionUser ? (
-        <>
-      <NavLink to={`/spots/new`}>
+        <div id='createSpotButton'>
+      <NavLink to={`/spots/new`} id='createSpotButton'>
           Create a New Spot
         </NavLink>
-        </>
+        </div>
       ) : (
         <>
         </>
       )}
     <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
+
       {isLoaded && (
-        <li>
+        <div id='profileArea'>
           <ProfileButton user={sessionUser} />
-        </li>
+        </div>
       )}
     </ul>
     </div>

@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const GET_REVIEWS = "/spots/:spotId/reviews"
 const CREATE_REVIEW = "/reviews/CREATE_REVIEW"
+const REMOVE_REVIEW = "/reviews/REMOVE_REVIEWS"
 
 export const loadReviews = (reviews) => {
     console.log('loadReviews running: ')
@@ -15,6 +16,25 @@ export const createReview = (review) => ({
     type: CREATE_REVIEW,
     review
 })
+
+export const removeReview = (reviewId) => ({
+    type: REMOVE_REVIEW,
+    reviewId
+})
+
+export const deleteReview = (reviewId) => async (dispatch) => {
+    console.log('review id in delte review: ', reviewId)
+    const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: 'DELETE',
+    });
+
+    if(res.ok) {
+        dispatch(removeReview(reviewId))
+    } else {
+        const errors = await res.json()
+        return errors
+    }
+}
 
 export const createSpotReview = (spot) => async (dispatch) => {
     console.log('spot : ', spot)
@@ -68,6 +88,14 @@ const reviewReducer = (state = initialState, action) => {
         case CREATE_REVIEW: {
             const newState = {...state, spot: {...state.spot}}
             newState.spot[action.review.id] = action.review
+            return newState
+        }
+        case REMOVE_REVIEW: {
+            const newState = {...state, spot: {...state.spot}};
+            console.log('action review id: ', action.reviewId)
+            console.log('new state from reducer1: ', newState)
+            delete newState[action.reviewId];
+            console.log('new state from reducer2: ', newState)
             return newState
         }
         default:

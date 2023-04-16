@@ -91,7 +91,7 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
     if(res.ok) {
         dispatch(loadDetails(newSpot));
 
-        for (let i = 0; i <= imgs.length; i++) {
+        for (let i = 0; i < imgs.length; i++) {
             res = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json"},
@@ -139,27 +139,6 @@ export const updateSpot = (spot) => async (dispatch) => {
     }
 }
 
-// export const createSpotReview = (spot) => async (dispatch) => {
-//     console.log('spot : ', spot)
-//     const { spotId, review, stars } = spot
-//     const newReview = {review, stars}
-
-//     const res = await csrfFetch(`/api/spot/${spotId}/reviews`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json"},
-//         body: JSON.stringify(newReview)
-//     });
-
-//     if(res.ok) {
-//         const newReview = await res.json();
-//         dispatch(loadDetails(newReview));
-//         return newReview
-//     } else {
-//         const errors = await res.json();
-//         return errors
-//     }
-// }
-
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
@@ -177,8 +156,11 @@ const spotsReducer = (state = initialState, action) => {
         }
         case REMOVE_SPOT: {
             const newState = {...state};
+            console.log('action review id: ', action.reviewId)
+            console.log('new state from reducer1: ', newState)
             // console.log('newState here ; ', newState)
-            delete newState[action.spotId];
+            delete newState.spot[action.spotId];
+            console.log('new state from reducer1: ', newState)
             return newState;
         }
         default:

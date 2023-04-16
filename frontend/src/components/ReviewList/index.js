@@ -3,33 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOneSpotsReviews } from '../../store/reviews';
 import { useParams } from "react-router-dom";
 import OpenModalButton from '../OpenModalButton';
-// import PostReviewModal from '../PostReviewModal';
-import ReviewForm from '../ReviewForm';
 import PostReviewModal from '../PostReviewModal';
+import DeleteReview from '../DeleteReviewModal';
 
 
-const ReviewList = () => {
-    const { spotId, ownerId } = useParams()
+const ReviewList = ({OwnerId}) => {
+    const { spotId } = useParams()
 
     const user = useSelector((state) => (state.session.user))
     const dispatch = useDispatch();
     const reviewsObj = useSelector((state) => state.reviews.spot)
     const reviews = Object.values(reviewsObj)
 
-    console.log('list o reviews: ', reviews)
-
+    // console.log('reviews object: ', reviewsObj)
     useEffect(() => {
         console.log('useEffect, reviewList: ')
         dispatch(getOneSpotsReviews(spotId))
     }, [dispatch, spotId, reviews.length]);
 
-    console.log('OwnerId : **',ownerId, 'spotId ** : ', spotId)
-    // if(!reviewsObj) return null
+
+    console.log('owner id : ', OwnerId)
 
     let reviewFound = false
     if(user) {
         reviews.forEach(r => {
-            if(r.userId === user.id || ownerId === user.id) {
+            if(r.userId === user.id || OwnerId === user.id ) {
                 reviewFound = true
             }
         })
@@ -40,25 +38,35 @@ const ReviewList = () => {
     function PostAReview() {
         if(reviewFound === false) {
             return (
-                <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post a Review"/>
+                <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review"/>
             )
         }
     }
-    if(reviews.length) {
-        reviews.forEach(r => console.log('user information: ',r.User))
+    function BeTheFirst() {
+        if(reviewFound === false && reviews.length === 0) {
+            return (
+                <p>Be the first to post a review!</p>
+            )
+        }
     }
 
-    // reviews.map(({review, User, createdAt}) => {
-    //     if(!review || !User || !createdAt) return null
-    // })
+
+    
+
     for( let i = 0; i < reviews.length; i++) {
         let r = reviews[i]
-        if(!r.review || !r.User || !r.createdAt) return null
+        if(!r.review) return null
+        if(r.User.firstName === user.firstName) {
+            console.log("r.review.id", r)
+            r.User.deleteOption = <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteReview id={r.id} spotId={spotId} />}/>
+        }
     }
+
     return (
         <>
             <div className='spotReviews'>
                 <PostAReview/>
+                <BeTheFirst/>
                 {reviews?.map(({ review, User, createdAt }) => (
                     <div className='reviewSection' key={review.id}>
                         <div className='userInfo'>
@@ -70,6 +78,7 @@ const ReviewList = () => {
                         <p>
                         {review}
                         </p>
+                        {User.deleteOption}
                     </div>
                 ))}
             </div>

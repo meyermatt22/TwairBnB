@@ -5,6 +5,7 @@ import { getOneSpot } from "../../store/spots";
 import '../Spots/Spots.css'
 import './SpotDetails.css'
 import ReviewList from "../ReviewList";
+import { getOneSpotsReviews } from "../../store/reviews";
 
 const SpotDetails = () => {
     const { spotId } = useParams()
@@ -19,11 +20,14 @@ const SpotDetails = () => {
         ownerFirstName = details.Owner.firstName
         ownerLastName = details.Owner.lastName
     }
-    // console.log('details: ',details)
+    // console.log('details: ',details.ownerId)
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getOneSpot(spotId))
+    }, [dispatch, spotId]);
+    useEffect(() => {
+        dispatch(getOneSpotsReviews(spotId))
     }, [dispatch, spotId]);
 
     const spotImgs = []
@@ -32,6 +36,7 @@ const SpotDetails = () => {
             spotImgs.push(i)
         });
     }
+    console.log('spot images : ', spotImgs)
     if(details && details.avgStarRating) {
         if(details.avgStarRating === "NaN") details.avgStarRating = "New"
     }
@@ -59,6 +64,8 @@ const SpotDetails = () => {
         alert("Feature coming soon");
     };
     // console.log('spotimgs: ', spotImgs)
+    if(!details) return
+    const OwnerId = details.ownerId
 
     if(details) { return (
         <>
@@ -66,9 +73,9 @@ const SpotDetails = () => {
             <h1>{details.name}</h1>
             <h4>{details.city}, {details.state}, {details.country}</h4>
             <div className="spotImages">
-                {spotImgs?.map(({ url }) => (
-                    <img alt="" className="previewImg" src={url}></img>
-                ))}
+                {spotImgs?.map(({ url, id }, i) => (
+                    <img alt="" className={"previewImg" + i} src={url} key={id}></img>
+                    ))}
             </div>
             <div className="information">
                 <div className="infoLeft">
@@ -97,7 +104,7 @@ const SpotDetails = () => {
                 </div>
                 <div className="orderedReviews">
                     <div>
-                    <ReviewList/>
+                    <ReviewList OwnerId={OwnerId}/>
                     </div>
                 </div>
             </div>

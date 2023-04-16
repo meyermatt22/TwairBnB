@@ -7,26 +7,27 @@ import PostReviewModal from '../PostReviewModal';
 import DeleteReview from '../DeleteReviewModal';
 
 
-const ReviewList = () => {
-    const { spotId, ownerId } = useParams()
+const ReviewList = ({OwnerId}) => {
+    const { spotId } = useParams()
 
     const user = useSelector((state) => (state.session.user))
     const dispatch = useDispatch();
     const reviewsObj = useSelector((state) => state.reviews.spot)
     const reviews = Object.values(reviewsObj)
 
-    console.log('reviews object: ', reviewsObj)
+    // console.log('reviews object: ', reviewsObj)
     useEffect(() => {
         console.log('useEffect, reviewList: ')
         dispatch(getOneSpotsReviews(spotId))
     }, [dispatch, spotId, reviews.length]);
 
 
+    console.log('owner id : ', OwnerId)
 
     let reviewFound = false
     if(user) {
         reviews.forEach(r => {
-            if(r.userId === user.id || ownerId === user.id) {
+            if(r.userId === user.id || OwnerId === user.id ) {
                 reviewFound = true
             }
         })
@@ -37,12 +38,20 @@ const ReviewList = () => {
     function PostAReview() {
         if(reviewFound === false) {
             return (
-                <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post a Review"/>
+                <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review"/>
+            )
+        }
+    }
+    function BeTheFirst() {
+        if(reviewFound === false && reviews.length === 0) {
+            return (
+                <p>Be the first to post a review!</p>
             )
         }
     }
 
 
+    
 
     for( let i = 0; i < reviews.length; i++) {
         let r = reviews[i]
@@ -57,6 +66,7 @@ const ReviewList = () => {
         <>
             <div className='spotReviews'>
                 <PostAReview/>
+                <BeTheFirst/>
                 {reviews?.map(({ review, User, createdAt }) => (
                     <div className='reviewSection' key={review.id}>
                         <div className='userInfo'>

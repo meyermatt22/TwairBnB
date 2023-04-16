@@ -40,10 +40,14 @@ const SpotForm = ({ spot, formType }) => {
         if(formType === "Update Spot") {
             const editedSpot = await dispatch(updateSpot(spot))
             spot = editedSpot
+            // classForImgs = "hidden"
         } else if(formType === "Create Spot") {
             const newSpot = await dispatch(createSpot(spot, images))
             spot = newSpot;
         }
+
+
+
         // console.log('new spot: ',spot)
         if(spot.errors) {
             setErrors(spot.errors)
@@ -52,7 +56,8 @@ const SpotForm = ({ spot, formType }) => {
         }
         // console.log('history update2: ',history)
     };
-
+    if(!formType) return
+    const classForImgs = "spotImageForm" + (formType === "Update Spot" ? " hidden": "")
     return (
         <form onSubmit={handleSubmit} id="spotForm">
             <div></div>
@@ -90,7 +95,7 @@ const SpotForm = ({ spot, formType }) => {
                         type="text"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                    /> ,
+                    />
                     </label>
                     <label>
                     State <div className="errors">{errors.state}</div>
@@ -98,7 +103,7 @@ const SpotForm = ({ spot, formType }) => {
                         type="text"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
-                    />
+                        />
                     </label>
                 </div>
             </div>
@@ -138,7 +143,7 @@ const SpotForm = ({ spot, formType }) => {
                 </label>
             </div>
 
-            <div className="spotImageForm">
+            <div className={classForImgs}>
                 <h3>Liven up your spot with photos</h3>
                 <p>Submit a link to at least one photo to publish your spot.</p>
                 <div>

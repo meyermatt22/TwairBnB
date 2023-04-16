@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { createSpot, updateSpot } from "../../store/spots"
+import './SpotForm.css'
 
 
 const SpotForm = ({ spot, formType }) => {
@@ -35,25 +36,27 @@ const SpotForm = ({ spot, formType }) => {
         let images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
 
 
-        console.log('images : ** ', images)
+        // console.log('images : ** ', images)
         if(formType === "Update Spot") {
-            const editedSpot = await dispatch(updateSpot(spot, images))
+            const editedSpot = await dispatch(updateSpot(spot))
             spot = editedSpot
         } else if(formType === "Create Spot") {
-            const newSpot = await dispatch(createSpot(spot))
+            const newSpot = await dispatch(createSpot(spot, images))
             spot = newSpot;
         }
-        console.log('new spot: ',spot)
+        // console.log('new spot: ',spot)
         if(spot.errors) {
             setErrors(spot.errors)
         } else {
             history.push(`/spots/${spot.id}`)
         }
-        console.log('history update2: ',history)
+        // console.log('history update2: ',history)
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="spotForm">
+            <div></div>
+            <div id="centerColumn">
             <h1>{formType}</h1>
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
@@ -63,7 +66,7 @@ const SpotForm = ({ spot, formType }) => {
                 <div>
                     <label>
                     Country <div className="errors">{errors.country}</div>
-                    <input
+                    <input className="inputBox"
                         type="text"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
@@ -73,25 +76,25 @@ const SpotForm = ({ spot, formType }) => {
                 <div>
                     <label>
                     Street Address <div className="errors">{errors.address}</div>
-                    <input
+                    <input className="inputBox"
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                     />
                     </label>
                 </div>
-                <div>
+                <div className="cityState">
                     <label>
                     City <div className="errors">{errors.city}</div>
-                    <input
+                    <input className="city"
                         type="text"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                    />
+                    /> ,
                     </label>
-                    <label> ,
+                    <label>
                     State <div className="errors">{errors.state}</div>
-                    <input
+                    <input className="state"
                         type="text"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
@@ -104,7 +107,7 @@ const SpotForm = ({ spot, formType }) => {
                 <p>Mention the best features of your space, any special amentities like fast wif or parking, and what you love about the neighborhood.</p>
                 <label>
                   <div className="errors">{errors.description}</div>
-                  <textarea
+                  <textarea className="textArea"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
@@ -115,7 +118,7 @@ const SpotForm = ({ spot, formType }) => {
                 <h3>Create a title for your spot</h3>
                 <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
                 <div className="errors">{errors.name}</div>
-                <input
+                <input className="inputBox"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -127,7 +130,7 @@ const SpotForm = ({ spot, formType }) => {
                 <h3>Set a base price for your spot</h3>
                 <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                 <div className="errors">{errors.price}</div>
-                $ <input
+                $ <input className="moneyInput"
                     type="text"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
@@ -139,9 +142,9 @@ const SpotForm = ({ spot, formType }) => {
                 <h3>Liven up your spot with photos</h3>
                 <p>Submit a link to at least one photo to publish your spot.</p>
                 <div>
-                    <label>
+                    <label className="inputs">
                      <div className="errors">{errors.url}</div>
-                       <input
+                       <input className="urlInput"
                            type="text"
                            value={url}
                            onChange={(e) => setUrl(e.target.value)}
@@ -149,9 +152,9 @@ const SpotForm = ({ spot, formType }) => {
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className="inputs">
                      <div className="errors">{errors.url1}</div>
-                       <input
+                       <input className="urlInput"
                            type="text"
                            value={url1}
                            onChange={(e) => setUrl1(e.target.value)}
@@ -159,9 +162,9 @@ const SpotForm = ({ spot, formType }) => {
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className="inputs">
                      <div className="errors">{errors.url2}</div>
-                       <input
+                       <input className="urlInput"
                            type="text"
                            value={url2}
                            onChange={(e) => setUrl2(e.target.value)}
@@ -169,9 +172,9 @@ const SpotForm = ({ spot, formType }) => {
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className="inputs">
                      <div className="errors">{errors.url3}</div>
-                       <input
+                       <input className="urlInput"
                            type="text"
                            value={url3}
                            onChange={(e) => setUrl3(e.target.value)}
@@ -179,9 +182,9 @@ const SpotForm = ({ spot, formType }) => {
                     </label>
                 </div>
                 <div>
-                    <label>
+                    <label className="inputs">
                      <div className="errors">{errors.url4}</div>
-                       <input
+                       <input className="urlInput"
                            type="text"
                            value={url4}
                            onChange={(e) => setUrl4(e.target.value)}
@@ -192,6 +195,8 @@ const SpotForm = ({ spot, formType }) => {
                 <div className="submitButton">
                  <button type="submit">{formType}</button>
                 </div>
+            </div>
+            <div></div>
         </form>
     )
 }

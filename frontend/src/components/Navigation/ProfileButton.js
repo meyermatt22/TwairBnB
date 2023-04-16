@@ -43,37 +43,40 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
+    <button onClick={openMenu} id="rightSide">
+    <img className="hamburger" src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-hamburger-menu-button-list-content-png-image_5288864.png"></img>
+    </button>
+      <button onClick={openMenu} id="profButton">
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>Hello, {user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <NavLink to={`/spots/current`} >
+            <div>Hello, {user.firstName} {user.lastName}</div>
+            <div>{user.email}</div>
+            <NavLink to={`/spots/current`} className='navLink'>
               Manage Spots
             </NavLink>
-            <li>
+            <div>
               <button onClick={logout}>Log Out</button>
-            </li>
+            </div>
           </>
         ) : (
           <>
-            <li>
+            <div>
               <OpenModalButton
                 buttonText="Log In"
                 onButtonClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
-            </li>
-            <li>
+            </div>
+            <div>
               <OpenModalButton
                 buttonText="Sign Up"
                 onButtonClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
-            </li>
+            </div>
           </>
         )}
       </ul>

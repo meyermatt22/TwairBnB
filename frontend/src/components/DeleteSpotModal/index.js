@@ -18,7 +18,12 @@ const DeleteSpot = ({id}) => {
 
     return (
         <>
-            <button onClick={handleDelete} >DELETE</button>
+            <div className="deleteBox">
+                <h2>Confirm Delete</h2>
+                <p>Are you sure you want to remove this spot from the listings?</p>
+                <button onClick={handleDelete} >Yes (Delete Spot)</button>
+                <button onClick={closeModal} >No (Keep Spot)</button>
+            </div>
         </>
     )
 }

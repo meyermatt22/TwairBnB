@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOneSpotsReviews } from '../../store/reviews';
 import { useParams } from "react-router-dom";
 import OpenModalButton from '../OpenModalButton';
-// import PostReviewModal from '../PostReviewModal';
-import ReviewForm from '../ReviewForm';
 import PostReviewModal from '../PostReviewModal';
+import DeleteReview from '../DeleteReviewModal';
 
 
 const ReviewList = () => {
@@ -16,15 +15,13 @@ const ReviewList = () => {
     const reviewsObj = useSelector((state) => state.reviews.spot)
     const reviews = Object.values(reviewsObj)
 
-    console.log('list o reviews: ', reviews)
-
+    console.log('reviews object: ', reviewsObj)
     useEffect(() => {
         console.log('useEffect, reviewList: ')
         dispatch(getOneSpotsReviews(spotId))
     }, [dispatch, spotId, reviews.length]);
 
-    console.log('OwnerId : **',ownerId, 'spotId ** : ', spotId)
-    // if(!reviewsObj) return null
+
 
     let reviewFound = false
     if(user) {
@@ -44,17 +41,18 @@ const ReviewList = () => {
             )
         }
     }
-    if(reviews.length) {
-        reviews.forEach(r => console.log('user information: ',r.User))
-    }
 
-    // reviews.map(({review, User, createdAt}) => {
-    //     if(!review || !User || !createdAt) return null
-    // })
+
+
     for( let i = 0; i < reviews.length; i++) {
         let r = reviews[i]
-        if(!r.review || !r.User || !r.createdAt) return null
+        if(!r.review) return null
+        if(r.User.firstName === user.firstName) {
+            console.log("r.review.id", r)
+            r.User.deleteOption = <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteReview id={r.id} spotId={spotId} />}/>
+        }
     }
+
     return (
         <>
             <div className='spotReviews'>
@@ -70,6 +68,7 @@ const ReviewList = () => {
                         <p>
                         {review}
                         </p>
+                        {User.deleteOption}
                     </div>
                 ))}
             </div>

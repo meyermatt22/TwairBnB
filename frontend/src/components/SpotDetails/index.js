@@ -5,6 +5,7 @@ import { getOneSpot } from "../../store/spots";
 import '../Spots/Spots.css'
 import './SpotDetails.css'
 import ReviewList from "../ReviewList";
+import { getOneSpotsReviews } from "../../store/reviews";
 
 const SpotDetails = () => {
     const { spotId } = useParams()
@@ -24,6 +25,9 @@ const SpotDetails = () => {
 
     useEffect(() => {
         dispatch(getOneSpot(spotId))
+    }, [dispatch, spotId]);
+    useEffect(() => {
+        dispatch(getOneSpotsReviews(spotId))
     }, [dispatch, spotId]);
 
     const spotImgs = []

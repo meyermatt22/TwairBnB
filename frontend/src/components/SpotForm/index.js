@@ -32,9 +32,7 @@ const SpotForm = ({ spot, formType }) => {
         setErrors({});
         spot = { ...spot, address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview };
 
-
         let images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
-
 
         // console.log('images : ** ', images)
         if(formType === "Update Spot") {
@@ -43,10 +41,12 @@ const SpotForm = ({ spot, formType }) => {
             // classForImgs = "hidden"
         } else if(formType === "Create Spot") {
             const newSpot = await dispatch(createSpot(spot, images))
+            // if(newSpot && newSpot.errors) {
+            //     setErrors(newSpot.errors)
+            // }
             spot = newSpot;
         }
-
-
+        if(address.length < 4)
 
         // console.log('new spot: ',spot)
         if(spot.errors) {
@@ -58,6 +58,7 @@ const SpotForm = ({ spot, formType }) => {
     };
     if(!formType) return
     const classForImgs = "spotImageForm" + (formType === "Update Spot" ? " hidden": "")
+    console.log('errors: ** : ', errors)
     return (
         <form onSubmit={handleSubmit} id="spotForm">
             <div></div>
@@ -70,7 +71,11 @@ const SpotForm = ({ spot, formType }) => {
             <div className="locationInfo">
                 <div>
                     <label>
-                    Country <div className="errors">{errors.country}</div>
+                    Country <div className="errors">
+                    {errors.country && (
+                       <p>{errors.country}</p>
+                     )}
+                        </div>
                     <input className="inputBox"
                         type="text"
                         value={country}

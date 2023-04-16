@@ -44,7 +44,7 @@ function ProfileButton({ user }) {
   return (
     <>
     <button onClick={openMenu} id="rightSide">
-    <img className="hamburger" src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-hamburger-menu-button-list-content-png-image_5288864.png"></img>
+    <img className="hamburger" src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-hamburger-menu-button-list-content-png-image_5288864.png" alt=""></img>
     </button>
       <button onClick={openMenu} id="profButton">
         <i className="fas fa-user-circle" />

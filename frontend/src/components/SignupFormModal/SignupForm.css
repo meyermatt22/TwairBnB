@@ -1,0 +1,33 @@
+#signUpForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+}
+
+
+
+.submitArea {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 20px;
+}
+
+#signupButton {
+    padding: 10px 120px;
+    width: 100%;
+}
+
+#nameDiv {
+    margin: 20px
+}
+#emailUser {
+    margin: 20px
+}
+#passwords {
+    margin: 20px
+}
+.signupTextBox {
+    width: 100%;
+}

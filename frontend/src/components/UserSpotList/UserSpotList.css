@@ -1,0 +1,27 @@
+.userSpots {
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr;
+    padding: 10px;
+    /* grid-row: inherit; */
+
+}
+
+.userSpotTile {
+    border: cyan 2px dotted;
+    margin: 10px;
+    /* display: flex;
+    justify-content: center;
+    padding: 10px; */
+}
+
+/* .previewImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+} */
+
+.UDbuttons {
+    display: flex;
+    border: 2px dotted cyan;
+    justify-content: space-around;
+}

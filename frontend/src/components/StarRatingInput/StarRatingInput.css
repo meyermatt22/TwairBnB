@@ -1,0 +1,12 @@
+.stars-input {
+    display: flex;
+}
+
+.stars-input .filled {
+  color: black;
+}
+
+.stars-input .empty {
+  color: rgb(219, 206, 206);
+
+}

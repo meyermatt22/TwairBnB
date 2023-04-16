@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom"
 import OpenModalButton from "../OpenModalButton";
 import { createSpotReview } from "../../store/reviews";
 import { getOneSpotsReviews } from "../../store/reviews";
+import StarRatingInput from "../StarRatingInput";
+import './PostReviewModal.css'
 
 
 const PostReviewModal = ({ spotId }) => {
@@ -35,16 +37,24 @@ const PostReviewModal = ({ spotId }) => {
         }
 
     }
+    const onChange = (number) => {
+        setStars(parseInt(number));
+    };
 
     return (
         <form className="reviewModal" onSubmit={handleSubmit}>
             <h1>How was your stay?</h1>
             <textarea
+                className="reviewBox"
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
             />
-            <div>{stars}</div>
-            <button type="submit">Submit Your Review</button>
+            <div className="starsInput">
+                <StarRatingInput
+                    disabled={false} onChange={onChange} stars={stars}
+                /> Stars
+            </div>
+            <button type="submit" className="submitReview">Submit Your Review</button>
         </form>
     )
 }

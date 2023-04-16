@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import OpenModalButton from '../OpenModalButton';
 import PostReviewModal from '../PostReviewModal';
 import DeleteReview from '../DeleteReviewModal';
+import "./ReviewList.css"
 
 
 const ReviewList = ({OwnerId}) => {
@@ -38,7 +39,9 @@ const ReviewList = ({OwnerId}) => {
     function PostAReview() {
         if(reviewFound === false) {
             return (
-                <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review"/>
+                <div >
+                    <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review"/>
+                </div>
             )
         }
     }
@@ -51,16 +54,23 @@ const ReviewList = ({OwnerId}) => {
     }
 
 
-    
 
-    for( let i = 0; i < reviews.length; i++) {
-        let r = reviews[i]
-        if(!r.review) return null
-        if(r.User.firstName === user.firstName) {
-            console.log("r.review.id", r)
-            r.User.deleteOption = <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteReview id={r.id} spotId={spotId} />}/>
+
+        for( let i = 0; i < reviews.length; i++) {
+            let r = reviews[i]
+            if(!r.review) return null
+            if(user && r.User.firstName === user.firstName) {
+                console.log("r.review.id", r)
+                r.User.deleteOption = <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteReview id={r.id} spotId={spotId} />}/>
+            }
+            const date = new Date(r.createdAt)
+            const options = {
+                month: "long", year: "numeric"
+            }
+            r.createdAt = date.toLocaleString("en-US", options)
         }
-    }
+
+    
 
     return (
         <>

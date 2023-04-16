@@ -2,6 +2,8 @@ import {  useHistory, Redirect, NavLink } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteSpot from "../DeleteSpotModal";
 
+import './UserSpotList.css'
+import '../Spots/Spots.css'
 
 
 const { useEffect } = require("react");
@@ -43,7 +45,7 @@ const UserSpotList = () => {
           Create a New Spot
         </NavLink>}
         {userSpotList.map(({ city, state, price, previewImage, avgRating, name, id }) => (
-            <div onClick={ () => history.push(`/spots/${id}`)} key={id}>
+            <div onClick={ () => history.push(`/spots/${id}`)} key={id} className="userSpotTile">
                  <img alt='' className='previewImg' src={previewImage}></img>
                  <div className='spotInfo'>
                     <div className='localPrice'>
@@ -61,7 +63,8 @@ const UserSpotList = () => {
                 </div>
                 <div className="UDbuttons">
                     <button className="updateButton" onClick={(e) => handleButtonClick(id,e, 'edit')}>Update</button>
-                    <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteSpot id={id} />}/>
+                    <OpenModalButton buttonText="Delete" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteSpot id={id} />}/>
+                    <div></div>
                 </div>
             </div>
         ))}

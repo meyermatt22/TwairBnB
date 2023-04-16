@@ -3,6 +3,8 @@ import { deleteReview } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 
+import './DeleteReviewModal.css'
+
 
 const DeleteReview = ({id , spotId}) => {
     const dispatch = useDispatch();
@@ -19,11 +21,11 @@ const DeleteReview = ({id , spotId}) => {
 
     return (
         <>
-            <div className="deleteBox">
+            <div className="deleteBox2">
                 <h2>Confirm Delete</h2>
-                <p>Are you sure you want to remove this spot from the listings?</p>
-                <button onClick={handleDelete} >Yes (Delete Review)</button>
-                <button onClick={closeModal} >No (Keep Review)</button>
+                <p id="pText2">Are you sure you want to remove this spot from the listings?</p>
+                <button onClick={handleDelete} id="yesB2">Yes (Delete Review)</button>
+                <button onClick={closeModal} id="noB2">No (Keep Review)</button>
             </div>
         </>
     )

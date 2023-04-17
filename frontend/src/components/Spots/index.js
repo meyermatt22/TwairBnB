@@ -24,7 +24,7 @@ const SpotList = () => {
 
             {spotList?.map(({ id, city, state, previewImage, name, avgRating, price }) => (
 
-                <Link to={`/spots/${id}`} key={id} >
+                <Link to={`/spots/${id}`} key={id} className='price' >
                     <div className='spotTile' title={name}>
                     {/* <Tooltip> */}
                         <div data-role='tile' key={id}>
@@ -34,10 +34,10 @@ const SpotList = () => {
                             </div>
                             <div className='spotInfo'>
                                 <div className='localPrice'>
-                                    <div >
+                                    <div className='price'>
                                     {city}, {state}
                                     </div>
-                                    <div>
+                                    <div className='price'>
                                     ${price} per night
                                     </div>
                                 </div>

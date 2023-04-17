@@ -14,11 +14,13 @@
 
 #createSpotButton {
     text-decoration: none;
+    color: black;
     /* border: 3px red solid; */
 }
 
 .navLink {
     text-decoration: none;
+    color: black;
 }
 
 .hamburger {

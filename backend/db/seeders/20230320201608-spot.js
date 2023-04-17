@@ -20,7 +20,7 @@ module.exports = {
       lat: 0.33,
       lng: 0.33,
       name: 'Kennys House',
-      description: 'The McCormicks House is very bare with a minimal amount of furniture and luxuries. They do have a computer maintaining a World of Warcraft subscription, a Sony PSP console and a black-and-white TV with a ColecoVision (although it has been seen to show in colour in "Poor and Stupid").',
+      description: 'The McCormicks House is very bare with a minimal amount of furniture and luxuries. They do have a computer maintaining a World of Warcraft subscription.',
       price: 24.99,
       ownerId: 1
     },
@@ -32,7 +32,7 @@ module.exports = {
       lat: 0.33,
       lng: 0.33,
       name: 'Planet Express',
-      description: 'What is Planet Express? Planet Express is a package forwarding company that helps online shoppers who face problems during shopping because they dont live in the US or the UK. It gives them a US or UK address to send their shipments to or shops on their behalf and then forwards their packages to anywhere they like.',
+      description: 'What is Planet Express? Planet Express is a package forwarding company.',
       price: 2000.88,
       ownerId: 2
     },
@@ -56,7 +56,7 @@ module.exports = {
       lat: 0.33,
       lng: 0.33,
       name: 'Peaches Castle',
-      description: 'Peachs Castle (also known as Princess Peachs Castle or the Mushroom Castle) is the castle situated within the Mushroom Kingdom and its most prominent landmark. It is home to Princess Peach, as well as many Toads, including Toad and Toadsworth.',
+      description: 'Peachs Castle (also known as Princess Peachs Castle or the Mushroom Castle) is the castle situated within the Mushroom Kingdom and its most prominent landmark.',
       price: 2000.88,
       ownerId: 4
     },
@@ -68,7 +68,7 @@ module.exports = {
       lat: 0.33,
       lng: 0.33,
       name: 'The Hills Residence',
-      description: 'The house was built sometime between the 1920s and the 1950s by T. Anderson Kearney (descendant of the Texas Revolution hero, hero of the Battle of Gonzales). At some point, the Wakefield family moved into the house, at a point when Ms. Wakefield (a senior citizen) would have been a child; by the mid-1980s one of the Wakefield daughters will have died in the house, and the rest of the family will have moved out. In the mid-to-late-1980s the Hills bought the residence.',
+      description: 'The house was built sometime between the 1920s and the 1950s by T. Anderson Kearney (descendant of the Texas Revolution hero, hero of the Battle of Gonzale',
       price: 2000.88,
       ownerId: 5
     },

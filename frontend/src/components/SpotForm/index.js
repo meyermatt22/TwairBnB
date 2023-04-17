@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { createSpot, updateSpot } from "../../store/spots"
@@ -26,35 +26,37 @@ const SpotForm = ({ spot, formType }) => {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        const errorsObj = {}
+        if(country === "") errorsObj.country = "Country is required"
+
+        setErrors(errorsObj)
+    }, [address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview])
+
     const handleSubmit = async (e) => {
         console.log('SpotForm handle submit hit ***')
         e.preventDefault();
-        setErrors({});
+        
         spot = { ...spot, address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview };
 
         let images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
 
-        // console.log('images : ** ', images)
+        if(Object.values(errors).length) {
+            return
+        }
+
         if(formType === "Update Spot") {
             const editedSpot = await dispatch(updateSpot(spot))
             spot = editedSpot
-            // classForImgs = "hidden"
+            history.push(`/spots/${spot.id}`)
         } else if(formType === "Create Spot") {
             const newSpot = await dispatch(createSpot(spot, images))
-            // if(newSpot && newSpot.errors) {
-            //     setErrors(newSpot.errors)
-            // }
             spot = newSpot;
-        }
-        if(address.length < 4)
-
-        // console.log('new spot: ',spot)
-        if(spot.errors) {
-            setErrors(spot.errors)
-        } else {
             history.push(`/spots/${spot.id}`)
         }
-        // console.log('history update2: ',history)
+        console.log('country input ? : =============>', spot.country)
+
+
     };
     if(!formType) return
     const classForImgs = "spotImageForm" + (formType === "Update Spot" ? " hidden": "")
@@ -72,9 +74,7 @@ const SpotForm = ({ spot, formType }) => {
                 <div>
                     <label>
                     Country <div className="errors">
-                    {errors.country && (
-                       <p>{errors.country}</p>
-                     )}
+                    {errors.country && <p>{errors.country}</p>}
                         </div>
                     <input className="inputBox"
                         type="text"

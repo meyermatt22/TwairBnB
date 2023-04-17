@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 
 import './DeleteReviewModal.css'
+import { getOneSpotsReviews } from "../../store/reviews";
 
 
 const DeleteReview = ({id , spotId}) => {
@@ -14,6 +15,7 @@ const DeleteReview = ({id , spotId}) => {
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteReview(id));
+        dispatch(getOneSpotsReviews(spotId))
         history.push(`/spots/${spotId}`)
         closeModal()
     };

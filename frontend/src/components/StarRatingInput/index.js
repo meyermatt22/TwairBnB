@@ -4,7 +4,6 @@ import './StarRatingInput.css'
 const StarRatingInput = ({ stars, disabled, onChange }) => {
 
     const [activeRating , setActiveRating] = useState(stars);
-    console.log("onchange:", onChange);
 
     useEffect(() => {
 

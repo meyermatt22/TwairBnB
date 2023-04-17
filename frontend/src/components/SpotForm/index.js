@@ -6,7 +6,7 @@ import './SpotForm.css'
 
 
 const SpotForm = ({ spot, formType }) => {
-    console.log('SpotForm hit ***')
+    
     const history = useHistory();
     const [address, setAddress] = useState(spot?.address)
     const [city, setCity] = useState(spot?.city)
@@ -52,7 +52,7 @@ const SpotForm = ({ spot, formType }) => {
 
 
     const handleSubmit = async (e) => {
-        console.log('SpotForm handle submit hit ***')
+
         e.preventDefault();
 
         spot = { ...spot, address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview };
@@ -60,9 +60,6 @@ const SpotForm = ({ spot, formType }) => {
         let images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
 
         const errors = validate(address, city, state, country, name, description, price, url, url1, url2, url3, url4);
-        console.log('errors: ',errors)
-
-
 
         if(errors && Object.values(errors) && Object.values(errors).length) {
             return setErrors(errors)

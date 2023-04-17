@@ -16,14 +16,9 @@ const ReviewList = ({OwnerId}) => {
     const reviewsObj = useSelector((state) => state.reviews.spot)
     const reviews = Object.values(reviewsObj)
 
-    console.log('reviews length =======> ', reviews.length)
     useEffect(() => {
-        console.log('useEffect, reviewList: ')
         dispatch(getOneSpotsReviews(spotId))
     }, [dispatch, spotId, reviews.length]);
-
-
-    // console.log('spot Id =========> : ', spotId, OwnerId, user.id)
 
     let reviewFound = false
     if(user) {
@@ -58,7 +53,6 @@ const ReviewList = ({OwnerId}) => {
         let r = reviews[i]
         if(!r.review) return null
         if(user && r.User?.firstName === user.firstName) {
-            console.log("r.review.id", r)
             r.User.deleteOption = <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteReview id={r.id} spotId={spotId} />}/>
         }
         const date = new Date(r.createdAt)
@@ -70,13 +64,9 @@ const ReviewList = ({OwnerId}) => {
         r.createdAt = date.toLocaleString("en-US", options)
     }
 
-
        const sortedReviews = reviews.sort((r1, r2) => {
-            // console.log('created at =========>',r1.number)
             return r1.number - r2.number
         })
-
-
 
     return (
         <>

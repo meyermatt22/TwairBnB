@@ -30,13 +30,13 @@ export const removeSpot = (spotId) => ({
 
 export const getCurrentUsersSpots = () => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/current`)
-    console.log('res from get current user revviews', res)
+
     if(res.ok) {
         const userSpots = await res.json()
-        console.log('user spots', userSpots)
+
         dispatch(loadSpots(userSpots))
     } else {
-        console.log('res iss not ok')
+
         const errors = await res.json()
         return errors
     }
@@ -71,7 +71,7 @@ export const getOneSpot = (spotId) => async (dispatch) => {
 
     if(res.ok) {
         const spotDetails = await res.json()
-        console.log('spotdetails: ', spotDetails)
+
         dispatch(loadDetails(spotDetails))
     } else {
         const errors = await res.json()
@@ -87,7 +87,7 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
     });
     const newSpot = await res.json();
 
-    console.log('newspot: ', newSpot)
+
     if(res.ok) {
         dispatch(loadDetails(newSpot));
 
@@ -101,14 +101,11 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
 
             const newSpotImg = await res.json();
 
-            console.log('newspotimg: ', newSpotImg)
-
             if(res.ok) {
                 dispatch(loadDetails(newSpotImg));
                 // return newSpotImg;
             } else {
                 const errors = await res.json()
-                console.log(errors)
                 return errors
             }
      }
@@ -116,25 +113,21 @@ export const createSpot = (spot, imgs) => async (dispatch) => {
 }
 
 export const updateSpot = (spot) => async (dispatch) => {
-    const currentspots = await csrfFetch('/api/spots/current')
-
-    console.log('current spots: ', currentspots)
 
     let res = await csrfFetch(`/api/spots/${spot.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json"},
         body: JSON.stringify(spot)
     });
-    // console.log('res is here? :', res)
 
     if(res.ok) {
-        // console.log('res is ok: ', res)
+
         const updatedSpot = await res.json()
         dispatch(editSpot(updatedSpot));
         return updatedSpot;
     }  else {
         const errors = await res.json()
-        // console.log(errors)
+
         return errors
     }
 }
@@ -156,11 +149,7 @@ const spotsReducer = (state = initialState, action) => {
         }
         case REMOVE_SPOT: {
             const newState = {...state};
-            console.log('action review id: ', action.reviewId)
-            console.log('new state from reducer1: ', newState)
-            // console.log('newState here ; ', newState)
             delete newState.spot[action.spotId];
-            console.log('new state from reducer1: ', newState)
             return newState;
         }
         default:

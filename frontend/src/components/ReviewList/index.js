@@ -23,7 +23,7 @@ const ReviewList = ({OwnerId}) => {
     }, [dispatch, spotId, reviews.length]);
 
 
-    console.log('owner id : ', OwnerId)
+    console.log('spot Id =========> : ', spotId, OwnerId, user.id)
 
     let reviewFound = false
     if(user) {
@@ -37,7 +37,7 @@ const ReviewList = ({OwnerId}) => {
         reviewFound = true
     }
     function PostAReview() {
-        if(reviewFound === false) {
+        if(reviewFound === false && OwnerId !== user.id) {
             return (
                 <div >
                     <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review"/>
@@ -46,29 +46,35 @@ const ReviewList = ({OwnerId}) => {
         }
     }
     function BeTheFirst() {
-        if(reviewFound === false && reviews.length === 0) {
+        if(reviewFound === false && reviews.length === 0 && OwnerId !== user.id) {
             return (
                 <p>Be the first to post a review!</p>
             )
         }
     }
 
-
-
-
-        for( let i = 0; i < reviews.length; i++) {
-            let r = reviews[i]
-            if(!r.review) return null
-            if(user && r.User?.firstName === user.firstName) {
-                console.log("r.review.id", r)
-                r.User.deleteOption = <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteReview id={r.id} spotId={spotId} />}/>
-            }
-            const date = new Date(r.createdAt)
-            const options = {
-                month: "long", year: "numeric"
-            }
-            r.createdAt = date.toLocaleString("en-US", options)
+    let uniNum = 0
+    for( let i = 0; i < reviews.length; i++) {
+        let r = reviews[i]
+        if(!r.review) return null
+        if(user && r.User?.firstName === user.firstName) {
+            console.log("r.review.id", r)
+            r.User.deleteOption = <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteReview id={r.id} spotId={spotId} />}/>
         }
+        const date = new Date(r.createdAt)
+        uniNum = date.getTime()
+        r.number = uniNum
+        const options = {
+            month: "long", year: "numeric"
+        }
+        r.createdAt = date.toLocaleString("en-US", options)
+    }
+
+
+       const sortedReviews = reviews.sort((r1, r2) => {
+            // console.log('created at =========>',r1.number)
+            return r1.number - r2.number
+        })
 
 
 
@@ -77,7 +83,7 @@ const ReviewList = ({OwnerId}) => {
             <div className='spotReviews'>
                 <PostAReview/>
                 <BeTheFirst/>
-                {reviews?.map(({ review, User, createdAt }) => (
+                {sortedReviews?.map(({ review, User, createdAt }) => (
                     <div className='reviewSection' key={review.id}>
                         <div className='userInfo'>
                             <h1>

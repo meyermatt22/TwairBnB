@@ -29,6 +29,13 @@ const SpotForm = ({ spot, formType }) => {
     useEffect(() => {
         const errorsObj = {}
         if(country === "") errorsObj.country = "Country is required"
+        if(state === "") errorsObj.state = "State is required"
+        if(city === "") errorsObj.city = "City is required"
+        if(address === "") errorsObj.address = "Address is required"
+        if(name === "") errorsObj.name = "Name is required"
+        if(price === "") errorsObj.price = "Price per night is required"
+        if(description.length < 30) errorsObj.description = "Description needs to be 30 or more characters"
+        if(url === "") errorsObj.url = "Preview Image Url is reqiured"
 
         setErrors(errorsObj)
     }, [address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview])
@@ -36,7 +43,7 @@ const SpotForm = ({ spot, formType }) => {
     const handleSubmit = async (e) => {
         console.log('SpotForm handle submit hit ***')
         e.preventDefault();
-        
+
         spot = { ...spot, address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview };
 
         let images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]

@@ -12,7 +12,7 @@ import './PostReviewModal.css'
 const PostReviewModal = ({ spotId }) => {
 
     const dispatch = useDispatch();
-    const [review, setReview] = useState("")
+    const [review, setReview] = useState("Leave you review here...")
     const [stars, setStars] = useState(1)
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
@@ -41,6 +41,15 @@ const PostReviewModal = ({ spotId }) => {
         setStars(parseInt(number));
     };
 
+    let charCount = false
+
+    if(review.length < 9) {
+    charCount = true
+    } else {
+    charCount = false
+    }
+
+
     return (
         <form className="reviewModal" onSubmit={handleSubmit}>
             <h1>How was your stay?</h1>
@@ -54,7 +63,7 @@ const PostReviewModal = ({ spotId }) => {
                     disabled={false} onChange={onChange} stars={stars}
                 /> Stars
             </div>
-            <button type="submit" className="submitReview">Submit Your Review</button>
+            <button disabled={charCount} type="submit" className="submitReview" >Submit Your Review</button>
         </form>
     )
 }

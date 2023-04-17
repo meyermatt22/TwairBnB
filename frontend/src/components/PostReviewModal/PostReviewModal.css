@@ -1,0 +1,28 @@
+.reviewModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 300px;
+
+}
+
+.reviewBox {
+    border: black solid 2px;
+    width: 90%;
+    height: 40%;
+    margin-bottom: 15px;
+    background-color: rgb(224, 238, 240);
+}
+
+.starsInput {
+   display: flex;
+   margin-bottom: 10px;
+}
+
+.submitReview {
+    padding: 10px 100px;
+    box-shadow: 5px 5px 5px grey;
+    margin-bottom: 15px;
+}

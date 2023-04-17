@@ -20,7 +20,7 @@ const SpotDetails = () => {
         ownerFirstName = details.Owner.firstName
         ownerLastName = details.Owner.lastName
     }
-    // console.log('details: ',details.ownerId)
+    // console.log('details: ==================> ',details.numReviews)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const SpotDetails = () => {
     }, [dispatch, spotId]);
     useEffect(() => {
         dispatch(getOneSpotsReviews(spotId))
-    }, [dispatch, spotId]);
+    }, [dispatch, spotId, details?.numReviews]);
 
     const spotImgs = []
     if(details && details.SpotImages) {

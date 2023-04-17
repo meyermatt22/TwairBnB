@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import OpenModalButton from '../OpenModalButton';
 import PostReviewModal from '../PostReviewModal';
 import DeleteReview from '../DeleteReviewModal';
+import "./ReviewList.css"
 
 
 const ReviewList = ({OwnerId}) => {
@@ -15,14 +16,14 @@ const ReviewList = ({OwnerId}) => {
     const reviewsObj = useSelector((state) => state.reviews.spot)
     const reviews = Object.values(reviewsObj)
 
-    // console.log('reviews object: ', reviewsObj)
+    console.log('reviews length =======> ', reviews.length)
     useEffect(() => {
         console.log('useEffect, reviewList: ')
         dispatch(getOneSpotsReviews(spotId))
     }, [dispatch, spotId, reviews.length]);
 
 
-    console.log('owner id : ', OwnerId)
+    // console.log('spot Id =========> : ', spotId, OwnerId, user.id)
 
     let reviewFound = false
     if(user) {
@@ -36,49 +37,64 @@ const ReviewList = ({OwnerId}) => {
         reviewFound = true
     }
     function PostAReview() {
-        if(reviewFound === false) {
+        if(reviewFound === false && OwnerId !== user.id) {
             return (
-                <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review"/>
+                <div >
+                    <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review"/>
+                </div>
             )
         }
     }
     function BeTheFirst() {
-        if(reviewFound === false && reviews.length === 0) {
+        if(reviewFound === false && reviews.length === 0 && OwnerId !== user.id) {
             return (
                 <p>Be the first to post a review!</p>
             )
         }
     }
 
-
-    
-
+    let uniNum = 0
     for( let i = 0; i < reviews.length; i++) {
         let r = reviews[i]
         if(!r.review) return null
-        if(r.User.firstName === user.firstName) {
+        if(user && r.User?.firstName === user.firstName) {
             console.log("r.review.id", r)
             r.User.deleteOption = <OpenModalButton buttonText="DELETE" onButtonClick={(e) => e.stopPropagation()} modalComponent={<DeleteReview id={r.id} spotId={spotId} />}/>
         }
+        const date = new Date(r.createdAt)
+        uniNum = date.getTime()
+        r.number = uniNum
+        const options = {
+            month: "long", year: "numeric"
+        }
+        r.createdAt = date.toLocaleString("en-US", options)
     }
+
+
+       const sortedReviews = reviews.sort((r1, r2) => {
+            // console.log('created at =========>',r1.number)
+            return r1.number - r2.number
+        })
+
+
 
     return (
         <>
             <div className='spotReviews'>
                 <PostAReview/>
                 <BeTheFirst/>
-                {reviews?.map(({ review, User, createdAt }) => (
+                {sortedReviews?.map(({ review, User, createdAt }) => (
                     <div className='reviewSection' key={review.id}>
                         <div className='userInfo'>
                             <h1>
-                            {User.firstName}
+                            {User?.firstName}
                             </h1>
                             {createdAt}
                         </div>
                         <p>
                         {review}
                         </p>
-                        {User.deleteOption}
+                        {User?.deleteOption}
                     </div>
                 ))}
             </div>

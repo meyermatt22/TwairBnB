@@ -4,10 +4,11 @@ import * as sessionActions from '../../store/session';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 
 function ProfileButton({ user }) {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
@@ -37,6 +38,7 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    history.push('/')
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -44,11 +46,11 @@ function ProfileButton({ user }) {
   return (
     <>
     <button onClick={openMenu} id="rightSide">
-    <img className="hamburger" src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-hamburger-menu-button-list-content-png-image_5288864.png"></img>
-    </button>
-      <button onClick={openMenu} id="profButton">
+    <img className="hamburger" src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-hamburger-menu-button-list-content-png-image_5288864.png" alt=""></img>
         <i className="fas fa-user-circle" />
-      </button>
+    </button>
+      {/* <button onClick={openMenu} id="profButton">
+      </button> */}
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>

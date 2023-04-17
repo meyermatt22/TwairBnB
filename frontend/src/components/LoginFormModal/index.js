@@ -5,6 +5,7 @@ import { useModal } from "../../context/Modal";
 
 import "./LoginForm.css";
 
+
 function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
@@ -28,14 +29,35 @@ function LoginFormModal() {
           setErrors(data.errors);
         }
       });
-  };
+    };
+  const handleDemo = (e) => {
+    e.preventDefault();
+    setErrors({});
 
-  return (
-    <div className="loginModal">
+
+    return dispatch(sessionActions.login({ credential:"demo@user.io", password:"password" }))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
+    };
+
+
+
+    return (
+      <div className="loginModal">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+      {errors.credential && (
+        <p>{errors.credential}</p>
+      )}
+      <form onSubmit={handleSubmit} className="inputArea">
+        <label className="textBox">
+          <div>
           Username or Email
+          </div>
           <input
             type="text"
             value={credential}
@@ -43,21 +65,22 @@ function LoginFormModal() {
             required
           />
         </label>
-        <label>
+        <label className="textBox">
+          <div>
           Password
+          </div>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button type="submit" disabled={dis}>Log In</button>
-
+        </label >
+        <button type="submit" disabled={dis} className="loginButton" >Log In</button>
       </form>
+      <form onSubmit={handleDemo}>
+          <button className="textBox" type="submit">Demo User</button>
+          </form>
     </div>
   );
 }

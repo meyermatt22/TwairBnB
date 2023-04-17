@@ -1,4 +1,4 @@
-// import { use } from "../../../backend/routes/api/spots";
+ // import { use } from "../../../backend/routes/api/spots";
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_SPOTS = "/spots/getAllSpots"

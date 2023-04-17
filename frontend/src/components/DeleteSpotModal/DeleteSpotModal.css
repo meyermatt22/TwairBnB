@@ -1,0 +1,25 @@
+.deleteBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+    height: 260px;
+}
+
+#pText {
+    width: 90%;
+}
+
+#yesB {
+    width: 90%;
+    margin: 10px;
+    padding: 10px 100px;
+    background-color: rgba(190, 82, 82, 0.774);
+    box-shadow: 5px 5px 5px grey;
+}
+
+#noB {
+    width: 90%;
+    padding: 10px 100px;
+    box-shadow: 5px 5px 5px grey;
+}

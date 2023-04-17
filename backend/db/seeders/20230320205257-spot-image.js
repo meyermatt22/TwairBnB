@@ -11,139 +11,139 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     options.tableName = "SpotImages";
    return queryInterface.bulkInsert( options, [
-    {
-      url: 'https://freepngimg.com/thumb/temple/31704-3-buddha-temple-transparent-background.png',
+     {
+       url: 'https://i.imgur.com/fywlFjC.jpg',
+       preview: true,
+       spotId: 3
+      },
+      {
+        url: 'https://i.imgur.com/gXC0USv.jpg',
+        preview: true,
+        spotId: 3
+      },
+      {
+      url: 'https://i.imgur.com/hKimbER.jpg',
       preview: true,
       spotId: 3
     },
     {
-      url: 'https://freepngimg.com/thumb/temple/32338-1-temple-photos-thumb.png',
+      url: 'https://i.imgur.com/uJBQnxS.jpg',
       preview: true,
       spotId: 3
     },
     {
-      url: 'https://freepngimg.com/thumb/logo/84274-arts-flower-thrones-theon-of-greyjoy-visual-thumb.png',
+      url: 'https://i.imgur.com/WulZkLi.jpg',
       preview: true,
       spotId: 3
     },
     {
-      url: 'https://freepngimg.com/thumb/temple/32204-3-temple-transparent-image-thumb.png',
-      preview: true,
-      spotId: 3
-    },
-    {
-      url: 'https://freepngimg.com/thumb/house/155425-house-modern-luxurious-download-hq-thumb.png',
-      preview: true,
-      spotId: 3
-    },
-    {
-      url: 'https://freepngimg.com/thumb/dragon/88982-mythical-robert-tyrion-character-fictional-lannister-baratheon-thumb.png',
+      url: 'https://i.imgur.com/U6y4KyX.jpg',
       preview: true,
       spotId: 1
     },
     {
-      url: 'https://freepngimg.com/thumb/white_house/32365-9-white-house-hd-thumb.png',
+      url: 'https://i.imgur.com/XVgwV6U.jpg',
       preview: true,
       spotId: 1
     },
     {
-      url: 'https://freepngimg.com/thumb/tv_shows/33567-4-house-targaryen-file-thumb.png',
+      url: 'https://i.imgur.com/Y2hr41A.jpg',
       preview: true,
       spotId: 1
     },
     {
-      url: 'https://freepngimg.com/thumb/temple/32338-1-temple-photos-thumb.png',
+      url: 'https://i.imgur.com/TDZOYFH.jpg',
       preview: true,
       spotId: 1
     },
     {
-      url: 'https://freepngimg.com/thumb/signs/57113-6-biological-hazard-sign-image-free-hq-image-thumb.png',
+      url: 'https://i.imgur.com/5QKjszA.jpg',
       preview: true,
       spotId: 1
     },
     {
-      url: 'https://www.commonsensemedia.org/sites/default/files/styles/ratio_16_9_small/public/screenshots/csm-movie/monster-house-ss3.jpg',
+      url: 'https://i.imgur.com/ePKn0wx.jpg',
       preview: true,
       spotId: 4
     },
     {
-      url: 'https://freepngimg.com/thumb/gas_mask/11-2-gas-mask-png-file-thumb.png',
+      url: 'https://i.imgur.com/A5dQdE6.jpg',
       preview: true,
       spotId: 4
     },
     {
-      url: 'https://freepngimg.com/thumb/knife/9-2-knife-free-png-image-thumb.png',
+      url: 'https://i.imgur.com/2MQobFw.jpg',
       preview: true,
       spotId: 4
     },
     {
-      url: 'https://freepngimg.com/thumb/rocket_raccoon/171107-raccoon-cartoon-rocket-png-download-free-thumb.png',
+      url: 'https://i.imgur.com/QdTNNRS.jpg',
       preview: true,
       spotId: 4
     },
     {
-      url: 'https://freepngimg.com/thumb/kitten/160935-little-kitten-free-png-hq-thumb.png',
+      url: 'https://i.imgur.com/EAhScc1.jpg',
       preview: true,
       spotId: 4
     },
     {
-      url: 'https://freepngimg.com/thumb/home/36223-3-cabin-clipart-thumb.png',
+      url: 'https://i.imgur.com/rFf1Cto.jpg',
       preview: true,
       spotId: 2
     },
     {
-      url: 'https://freepngimg.com/thumb/mirror/10-2-mirror-free-download-png-thumb.png',
+      url: 'https://i.imgur.com/sPxTyS6.jpg',
       preview: true,
       spotId: 2
     },
     {
-      url: 'https://freepngimg.com/thumb/home/36223-3-cabin-clipart-thumb.png',
+      url: 'https://i.imgur.com/tGi2urv.jpg',
       preview: true,
       spotId: 2
     },
     {
-      url: 'https://freepngimg.com/thumb/the_addams_family/105235-character-the-addams-family-png-free-photo-thumb.png',
+      url: 'https://i.imgur.com/Sj749VT.jpg',
       preview: true,
       spotId: 2
     },
     {
-      url: 'https://freepngimg.com/thumb/gift/61358-family-silhouette-christ-parent-latter-day-of-child-thumb.png',
+      url: 'https://i.imgur.com/Jt5pZyt.jpg',
       preview: true,
       spotId: 2
     },
     {
-      url: 'https://freepngimg.com/thumb/warehouse/27129-9-warehouse-transparent-thumb.png',
+      url: 'https://i.imgur.com/ujCkYxZ.jpg',
       preview: true,
       spotId: 5
     },
     {
-      url: 'https://freepngimg.com/thumb/shopping%20bag/10-shopping-bag-png-image-thumb.png',
+      url: 'https://i.imgur.com/lHczcvC.jpg',
       preview: true,
       spotId: 5
     },
     {
-      url: 'https://freepngimg.com/thumb/cpu/34053-6-cpu-cabinet-photos-thumb.png',
+      url: 'https://i.imgur.com/XimwQVz.jpg',
       preview: true,
       spotId: 5
     },
     {
-      url: 'https://freepngimg.com/thumb/gift/175918-box-gift-free-download-png-hd-thumb.png',
+      url: 'https://i.imgur.com/39c0UOv.jpg',
       preview: true,
       spotId: 5
     },
     {
-      url: 'https://freepngimg.com/thumb/kirk_hammett/2-2-kirk-hammett-picture-thumb.png',
+      url: 'https://i.imgur.com/0ZLvVSv.jpg',
       preview: true,
       spotId: 5
     },
   ], {})
-  },
+},
 
-  async down (queryInterface, Sequelize) {
+async down (queryInterface, Sequelize) {
 
-    options.tableName = "SpotImages"
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
+  options.tableName = "SpotImages"
+  const Op = Sequelize.Op;
+  return queryInterface.bulkDelete(options, {
       url: { [Op.in]: ['http://runescape.com']}
     }, {});
   }

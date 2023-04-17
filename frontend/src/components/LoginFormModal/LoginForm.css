@@ -1,1 +1,22 @@
+.loginModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
 
+.inputArea {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.textBox {
+    padding: 10px 5px
+}
+
+.loginButton {
+    padding: 10px 5px;
+    background-color: rgb(255, 102, 102);
+    color: white;
+}

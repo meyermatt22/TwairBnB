@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
-import { deleteSpot } from "../../store/spots";
+import { deleteSpot, getCurrentUsersSpots } from "../../store/spots";
 import { useModal } from "../../context/Modal";
+
+import './DeleteSpotModal.css'
 
 
 const DeleteSpot = ({id}) => {
@@ -9,6 +11,7 @@ const DeleteSpot = ({id}) => {
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteSpot(id));
+        dispatch(getCurrentUsersSpots());
         closeModal()
     };
 
@@ -20,9 +23,9 @@ const DeleteSpot = ({id}) => {
         <>
             <div className="deleteBox">
                 <h2>Confirm Delete</h2>
-                <p>Are you sure you want to remove this spot from the listings?</p>
-                <button onClick={handleDelete} >Yes (Delete Spot)</button>
-                <button onClick={closeModal} >No (Keep Spot)</button>
+                <p id="pText">Are you sure you want to remove this spot from the listings?</p>
+                <button onClick={handleDelete} id="yesB">Yes (Delete Spot)</button>
+                <button onClick={closeModal} id="noB">No (Keep Spot)</button>
             </div>
         </>
     )

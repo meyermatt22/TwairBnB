@@ -144,7 +144,7 @@ async down (queryInterface, Sequelize) {
   options.tableName = "SpotImages"
   const Op = Sequelize.Op;
   return queryInterface.bulkDelete(options, {
-      url: { [Op.in]: ['http://runescape.com']}
+      spotId: { [Op.in]: [1,2,3,4,5]}
     }, {});
   }
 };

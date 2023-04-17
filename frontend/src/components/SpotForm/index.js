@@ -6,7 +6,7 @@ import './SpotForm.css'
 
 
 const SpotForm = ({ spot, formType }) => {
-    
+
     const history = useHistory();
     const [address, setAddress] = useState(spot?.address)
     const [city, setCity] = useState(spot?.city)
@@ -37,7 +37,7 @@ const SpotForm = ({ spot, formType }) => {
         if(price === "") errorsObj.price = "Price per night is required"
         if(description.length < 30) errorsObj.description = "Description needs to be 30 or more characters"
 
-        if(formType === "Create Spot") {
+        if(formType === "Create a new Spot") {
 
             if(url === "") errorsObj.url = "Preview Image Url is reqiured"
             if(url && !url.endsWith(".png") && !url.endsWith(".jpg") && !url.endsWith(".jpeg")) errorsObj.url = "Image URL must end in .png, .jpg, or .jpeg"
@@ -69,7 +69,7 @@ const SpotForm = ({ spot, formType }) => {
             const editedSpot = await dispatch(updateSpot(spot))
             spot = editedSpot
             history.push(`/spots/${spot.id}`)
-        } else if(formType === "Create Spot") {
+        } else if(formType === "Create a new Spot") {
             const newSpot = await dispatch(createSpot(spot, images))
             spot = newSpot;
             history.push(`/spots/${spot.id}`)
@@ -91,8 +91,6 @@ const SpotForm = ({ spot, formType }) => {
             <h1>{formType}</h1>
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
-            {/* {formType} */}
-            {/* <div className="errors">{errors.address}</div> */}
             <div className="locationInfo">
                 <div>
                     <label>
@@ -238,7 +236,7 @@ const SpotForm = ({ spot, formType }) => {
                 </div>
             </div>
                 <div className="submitButton">
-                 <button type="submit">{formType}</button>
+                 <button type="submit" id="subcrButton">{formType}</button>
                 </div>
             </div>
             <div></div>

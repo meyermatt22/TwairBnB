@@ -12,7 +12,7 @@ import './PostReviewModal.css'
 const PostReviewModal = ({ spotId }) => {
 
     const dispatch = useDispatch();
-    const [review, setReview] = useState("Leave you review here...")
+    const [review, setReview] = useState("")
     const [stars, setStars] = useState(1)
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal()
@@ -57,6 +57,7 @@ const PostReviewModal = ({ spotId }) => {
                 className="reviewBox"
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
+                placeholder="Leave your review here..."
             />
             <div className="starsInput">
                 <StarRatingInput

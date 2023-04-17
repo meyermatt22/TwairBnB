@@ -60,13 +60,13 @@ const SpotDetails = () => {
         e.preventDefault();
         alert("Feature coming soon");
     };
-   
+
     if(!details) return
     const OwnerId = details.ownerId
 
     if(details) { return (
-        <>
-         <div>
+
+         <div className="userSpots3">
             <h1>{details.name}</h1>
             <h4>{details.city}, {details.state}, {details.country}</h4>
             <div className="spotImages">
@@ -106,7 +106,7 @@ const SpotDetails = () => {
                 </div>
             </div>
          </div>
-        </>
+        
     )}
 }
 

@@ -36,12 +36,12 @@ const UserSpotList = () => {
 
 
     return (
-        <>
+        <div className="userSpots2">
         <h1>Manage Your Spots</h1>
+        <NavLink to={`/spots/new`} id='createSpotButton'>
+          <button >Create a New Spot</button>
+        </NavLink>
         <div className="userSpots">
-            {userSpotList.length < 1 && <NavLink to={`/spots/new`}>
-          Create a New Spot
-        </NavLink>}
         {userSpotList.map(({ city, state, price, previewImage, avgRating, name, id }) => (
             <div onClick={ () => history.push(`/spots/${id}`)} key={id} className="userSpotTile">
                  <img alt='' className='previewImg' src={previewImage}></img>
@@ -69,7 +69,7 @@ const UserSpotList = () => {
 
 
         </div>
-        </>
+        </div>
     )
 }
 

@@ -45,16 +45,14 @@ function ProfileButton({ user }) {
 
   return (
     <>
-    <button onClick={openMenu} id="rightSide">
+    <button  onClick={openMenu} id="rightSide" >
     <img className="hamburger" src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-hamburger-menu-button-list-content-png-image_5288864.png" alt=""></img>
         <i className="fas fa-user-circle" />
     </button>
-      {/* <button onClick={openMenu} id="profButton">
-      </button> */}
-      <ul className={ulClassName} ref={ulRef}>
+      <div  className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <div>Hello, {user.firstName} {user.lastName}</div>
+          <div className="LSmodalButtons2">
+            <div>Hello, {user.firstName}</div>
             <div>{user.email}</div>
             <NavLink to={`/spots/current`} className='navLink'>
               Manage Spots
@@ -62,26 +60,28 @@ function ProfileButton({ user }) {
             <div>
               <button onClick={logout}>Log Out</button>
             </div>
-          </>
+          </div>
         ) : (
-          <>
-            <div>
+          <div className="LSmodalButtons">
+            <div className="buttons2">
               <OpenModalButton
                 buttonText="Log In"
                 onButtonClick={closeMenu}
                 modalComponent={<LoginFormModal />}
               />
             </div>
-            <div>
+            <div className="buttons2">
               <OpenModalButton
                 buttonText="Sign Up"
                 onButtonClick={closeMenu}
                 modalComponent={<SignupFormModal />}
               />
             </div>
-          </>
+          </div>
         )}
-      </ul>
+      </div>
+
+
     </>
   );
 }

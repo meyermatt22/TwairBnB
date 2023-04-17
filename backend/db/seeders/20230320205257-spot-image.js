@@ -112,7 +112,7 @@ module.exports = {
       spotId: 2
     },
     {
-      url: 'https://i.imgur.com/ujCkYxZ.jpg',
+      url: 'https://i.imgur.com/vX6c99k.jpg',
       preview: true,
       spotId: 5
     },

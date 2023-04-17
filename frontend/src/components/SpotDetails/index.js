@@ -85,7 +85,7 @@ const SpotDetails = () => {
                 <div className="infoBox">
                     <div className="topInfoBox">
                         <div className="topInfoLeft">
-                        ${details.price} night
+                        ${details.price} per night
                         </div>
                         <div className="topInfoRight">
                         <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>

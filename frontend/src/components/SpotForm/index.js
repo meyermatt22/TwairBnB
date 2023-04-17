@@ -47,7 +47,7 @@ const SpotForm = ({ spot, formType }) => {
             if(url4 && !url4.endsWith(".png") && !url4.endsWith(".jpg") && !url4.endsWith(".jpeg")) errorsObj.url4 = "Image URL must end in .png, .jpg, or .jpeg"
         }
 
-        setErrors(errorsObj)
+        return errorsObj
       }
 
 
@@ -62,8 +62,10 @@ const SpotForm = ({ spot, formType }) => {
         const errors = validate(address, city, state, country, name, description, price, url, url1, url2, url3, url4);
         console.log('errors: ',errors)
 
+
+
         if(errors && Object.values(errors) && Object.values(errors).length) {
-            return
+            return setErrors(errors)
         }
 
         if(formType === "Update Spot") {
@@ -75,6 +77,8 @@ const SpotForm = ({ spot, formType }) => {
             spot = newSpot;
             history.push(`/spots/${spot.id}`)
         }
+
+
 
 
 

@@ -7,7 +7,7 @@
 .spotInfo {
     display: flex;
     justify-content: space-between;
-    /* text-decoration: none; */
+    text-decoration: none;
 }
 
 .spotTile {
@@ -16,12 +16,17 @@
     padding: 10px;
     text-decoration: none;
     /* object-fit: cover; */
+    text-decoration: none;
 }
 
 .localPrice {
     display: flex;
     flex-direction: column;
-    /* text-decoration: none; */
+    text-decoration: none;
+}
+.price {
+    text-decoration: none;
+    color: black;
 }
 
 .spotList {

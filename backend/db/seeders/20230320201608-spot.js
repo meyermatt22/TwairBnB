@@ -43,7 +43,7 @@ module.exports = {
       country: 'The Shire',
       lat: 0.33,
       lng: 0.33,
-      name: 'henry',
+      name: 'Hobbit Hole',
       description: 'Bag End is a smial situated at the end of Bagshot Row in Hobbiton. It was the home of Bilbo Baggins, afterwards of Frodo Baggins, and later of Samwise Gamgee and his wife Rosie Cotton.',
       price: 111.33,
       ownerId: 3
@@ -80,7 +80,7 @@ module.exports = {
     options.tableName = 'Spots'
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      address: { [Op.in]: ['1234 park haven'] }
+      address: { [Op.in]: ['635 Avenue de Los Mexicanos', 'West 57th Street and, most likely, Henry Hudson Parkway','Bag End','1 Rainbow Road','123 Rainey street'] }
     }, {})
   }
 };

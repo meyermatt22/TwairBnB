@@ -26,7 +26,8 @@ const SpotForm = ({ spot, formType }) => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    function validate(address, city, state, country, name, description, price, url, url1, url2, url3, url4) {
+
         const errorsObj = {}
         if(country === "") errorsObj.country = "Country is required"
         if(state === "") errorsObj.state = "State is required"
@@ -36,9 +37,15 @@ const SpotForm = ({ spot, formType }) => {
         if(price === "") errorsObj.price = "Price per night is required"
         if(description.length < 30) errorsObj.description = "Description needs to be 30 or more characters"
         if(url === "") errorsObj.url = "Preview Image Url is reqiured"
+        if(url && !url.endsWith(".png") && !url.endsWith(".jpg") && !url.endsWith(".jpeg")) errorsObj.url = "Image URL must end in .png, .jpg, or .jpeg"
+        if(url1 && !url1.endsWith(".png") && !url1.endsWith(".jpg") && !url1.endsWith(".jpeg")) errorsObj.url1 = "Image URL must end in .png, .jpg, or .jpeg"
+        if(url2 && !url2.endsWith(".png") && !url2.endsWith(".jpg") && !url2.endsWith(".jpeg")) errorsObj.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+        if(url3 && !url3.endsWith(".png") && !url3.endsWith(".jpg") && !url3.endsWith(".jpeg")) errorsObj.url3 = "Image URL must end in .png, .jpg, or .jpeg"
+        if(url4 && !url4.endsWith(".png") && !url4.endsWith(".jpg") && !url4.endsWith(".jpeg")) errorsObj.url4 = "Image URL must end in .png, .jpg, or .jpeg"
 
         setErrors(errorsObj)
-    }, [address, city, state, country, name, description, price, url, url1, url2, url3, url4, preview])
+      }
+
 
     const handleSubmit = async (e) => {
         console.log('SpotForm handle submit hit ***')
@@ -48,7 +55,10 @@ const SpotForm = ({ spot, formType }) => {
 
         let images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
 
+        const errors = validate(address, city, state, country, name, description, price, url, url1, url2, url3, url4);
+
         if(Object.values(errors).length) {
+            // errorsObj = Object.values(errors)
             return
         }
 
@@ -62,6 +72,7 @@ const SpotForm = ({ spot, formType }) => {
             history.push(`/spots/${spot.id}`)
         }
         console.log('country input ? : =============>', spot.country)
+
 
 
     };
@@ -81,22 +92,24 @@ const SpotForm = ({ spot, formType }) => {
                 <div>
                     <label>
                     Country <div className="errors">
-                    {errors.country && <p>{errors.country}</p>}
+                    { errors.country}
                         </div>
                     <input className="inputBox"
                         type="text"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
+                        placeholder="Country"
                     />
                     </label>
                 </div>
                 <div>
                     <label>
-                    Street Address <div className="errors">{errors.address}</div>
+                    Street Address <div className="errors">{ errors.address}</div>
                     <input className="inputBox"
                         type="text"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
+                        placeholder="Street Address"
                     />
                     </label>
                 </div>
@@ -107,6 +120,7 @@ const SpotForm = ({ spot, formType }) => {
                         type="text"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
+                        placeholder="City"
                     />
                     </label>
                     <label>
@@ -115,6 +129,7 @@ const SpotForm = ({ spot, formType }) => {
                         type="text"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
+                        placeholder="STATE"
                         />
                     </label>
                 </div>
@@ -127,6 +142,7 @@ const SpotForm = ({ spot, formType }) => {
                   <textarea className="textArea"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Please write at least 30 characters"
                   />
                 </label>
             </div>
@@ -139,6 +155,7 @@ const SpotForm = ({ spot, formType }) => {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    placeholder="Name of your spot"
                 />
                 </label>
             </div>
@@ -151,6 +168,7 @@ const SpotForm = ({ spot, formType }) => {
                     type="text"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
+                    placeholder="Price per night(USD)"
                 />
                 </label>
             </div>
@@ -165,6 +183,7 @@ const SpotForm = ({ spot, formType }) => {
                            type="text"
                            value={url}
                            onChange={(e) => setUrl(e.target.value)}
+                           placeholder="Preview Image URL"
                        />
                     </label>
                 </div>
@@ -175,7 +194,8 @@ const SpotForm = ({ spot, formType }) => {
                            type="text"
                            value={url1}
                            onChange={(e) => setUrl1(e.target.value)}
-                       />
+                           placeholder="Image URL"
+                           />
                     </label>
                 </div>
                 <div>
@@ -185,7 +205,8 @@ const SpotForm = ({ spot, formType }) => {
                            type="text"
                            value={url2}
                            onChange={(e) => setUrl2(e.target.value)}
-                       />
+                           placeholder="Image URL"
+                           />
                     </label>
                 </div>
                 <div>
@@ -195,7 +216,8 @@ const SpotForm = ({ spot, formType }) => {
                            type="text"
                            value={url3}
                            onChange={(e) => setUrl3(e.target.value)}
-                       />
+                           placeholder="Image URL"
+                           />
                     </label>
                 </div>
                 <div>
@@ -205,7 +227,8 @@ const SpotForm = ({ spot, formType }) => {
                            type="text"
                            value={url4}
                            onChange={(e) => setUrl4(e.target.value)}
-                       />
+                           placeholder="Image URL"
+                           />
                     </label>
                 </div>
             </div>

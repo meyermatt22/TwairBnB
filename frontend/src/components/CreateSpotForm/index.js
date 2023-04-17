@@ -4,20 +4,20 @@ import SpotForm from "../SpotForm";
 const CreateSpotForm = () => {
     console.log('CreateSpotForm hit **')
     const spot = {
-        address: "address",
-        city: "City",
-        state: "STATE",
-        country: "Country",
-        name: "Name of your spot",
-        description: "Please write at least 30 characters",
-        price: "Price per night(USD)",
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+        name: "",
+        description: "",
+        price: "",
         lat: 50,
         lng: -50,
-        url: "Preview Image URL",
-        url1: "Image URL",
-        url2: "Image URL",
-        url3: "Image URL",
-        url4: "Image URL",
+        url: "",
+        url1: "",
+        url2: "",
+        url3: "",
+        url4: "",
         preview: true
     }
 

@@ -33,7 +33,7 @@ module.exports = {
       lng: 0.33,
       name: 'Planet Express',
       description: 'What is Planet Express? Planet Express is a package forwarding company.',
-      price: 2000.88,
+      price: 1999999.99,
       ownerId: 2
     },
     {
@@ -45,7 +45,7 @@ module.exports = {
       lng: 0.33,
       name: 'henry',
       description: 'Bag End is a smial situated at the end of Bagshot Row in Hobbiton. It was the home of Bilbo Baggins, afterwards of Frodo Baggins, and later of Samwise Gamgee and his wife Rosie Cotton.',
-      price: 2000.88,
+      price: 111.33,
       ownerId: 3
     },
     {
@@ -57,19 +57,19 @@ module.exports = {
       lng: 0.33,
       name: 'Peaches Castle',
       description: 'Peachs Castle (also known as Princess Peachs Castle or the Mushroom Castle) is the castle situated within the Mushroom Kingdom and its most prominent landmark.',
-      price: 2000.88,
+      price: 1983.00,
       ownerId: 4
     },
     {
       address: '123 Rainey street',
-      city: 'melbourne',
-      state: 'kentucky',
-      country: 'Canada',
+      city: 'Arlen',
+      state: 'Texas',
+      country: 'United States',
       lat: 0.33,
       lng: 0.33,
       name: 'The Hills Residence',
       description: 'The house was built sometime between the 1920s and the 1950s by T. Anderson Kearney (descendant of the Texas Revolution hero, hero of the Battle of Gonzale',
-      price: 2000.88,
+      price: 86.45,
       ownerId: 5
     },
   ], {})

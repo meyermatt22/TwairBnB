@@ -1,23 +1,27 @@
 .previewImg {
     width: 100%;
-    height: 200px;
+    height: 300px;
     object-fit: cover;
 }
 
 .spotInfo {
     display: flex;
     justify-content: space-between;
+    /* text-decoration: none; */
 }
 
 .spotTile {
     display: flex;
     justify-content: center;
     padding: 10px;
+    text-decoration: none;
+    /* object-fit: cover; */
 }
 
 .localPrice {
     display: flex;
     flex-direction: column;
+    /* text-decoration: none; */
 }
 
 .spotList {
@@ -35,4 +39,9 @@
 .rating {
     display: flex;
     align-items: flex-start;
+
+}
+
+.imageBox {
+    object-fit: cover;
 }

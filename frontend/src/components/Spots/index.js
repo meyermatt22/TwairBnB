@@ -28,14 +28,17 @@ const SpotList = () => {
                     <div className='spotTile' title={name}>
                     {/* <Tooltip> */}
                         <div data-role='tile' key={id}>
-                            <img alt='' className='previewImg' src={previewImage} ></img>
+                            <div className='imageBox'>
+                            <img alt='' src={previewImage} className='previewImg'></img>
+
+                            </div>
                             <div className='spotInfo'>
                                 <div className='localPrice'>
-                                    <div>
+                                    <div >
                                     {city}, {state}
                                     </div>
                                     <div>
-                                    ${price} night
+                                    ${price} per night
                                     </div>
                                 </div>
                                 <div className='rating'>

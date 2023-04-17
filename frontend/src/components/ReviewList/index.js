@@ -23,7 +23,7 @@ const ReviewList = ({OwnerId}) => {
     }, [dispatch, spotId, reviews.length]);
 
 
-    console.log('spot Id =========> : ', spotId, OwnerId, user.id)
+    // console.log('spot Id =========> : ', spotId, OwnerId, user.id)
 
     let reviewFound = false
     if(user) {

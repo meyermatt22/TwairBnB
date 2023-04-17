@@ -9,7 +9,7 @@ export const Header = ({children}) => {
     return (
         <div className="header">
             <Link to={'/'}>
-            <img className="logoLeft" src="https://cdn.cdnlogo.com/logos/a/94/airbnb.png"></img>
+            <img className="logoLeft" src="https://i.imgur.com/q2bfjUk.png"></img>
             </Link>
             {children}
         </div>

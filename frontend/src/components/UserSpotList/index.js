@@ -22,7 +22,6 @@ const UserSpotList = () => {
     const userSpotList = Object.values(spotListObj)
 
     useEffect(() => {
-        console.log('useEffect on user spot list')
         dispatch(getCurrentUsersSpots())
     }, [dispatch])
 
@@ -35,7 +34,6 @@ const UserSpotList = () => {
         return <Redirect to={"/"}></Redirect>
     }
 
-    console.log('USERS SPOT LIST', userSpotList)
 
     return (
         <>

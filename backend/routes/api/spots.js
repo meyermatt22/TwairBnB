@@ -15,7 +15,7 @@ const user = require('../../db/models/user');
 
 router.get('/', async(req, res, next) => {
 
-    console.log('GET ALL SPOTS RUNNING *** SPOTS')
+    
     let { page, size} = req.query
 
     let errors = {}
@@ -179,7 +179,7 @@ router.get('/:spotId', async (req, res, next) => {
 
 router.post('/', requireAuth, async (req, res) => {
 
-    console.log('POST ROUTE RUNNING ****')
+
     const {user} = req
 
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
@@ -236,7 +236,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
 })
 
 router.put('/:spotId', requireAuth, async (req, res, next) => {
-    console.log('PUT ROUTE RUNNING ***')
+
     const { user } = req
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 
@@ -291,7 +291,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
 
 router.get('/:spotId/reviews', async (req, res, next) => {
 
-    console.log('*** GET REVIEWS ROUTE RUNNING ***')
+
 
     const { user } = req
     const {spotId} = req.params
@@ -326,7 +326,7 @@ router.get('/:spotId/reviews', async (req, res, next) => {
         }
     })
     const result = { Reviews: usersReviews }
-    console.log('END OF REVIEW BACKEND ROUTE: ', result)
+
     return res.json(result)
 
 })

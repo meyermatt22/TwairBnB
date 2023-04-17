@@ -17,7 +17,7 @@ const SpotList = () => {
         dispatch(getAllSpots());
     }, [dispatch]);
 
-    // console.log('preview', spotList[0])
+    
     return (
         <div className='spotList'>
 

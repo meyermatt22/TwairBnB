@@ -2,7 +2,7 @@
 import SpotForm from "../SpotForm";
 
 const CreateSpotForm = () => {
-    console.log('CreateSpotForm hit **')
+    
     const spot = {
         address: "",
         city: "",

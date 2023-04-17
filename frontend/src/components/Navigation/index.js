@@ -7,8 +7,6 @@ import './Navigation.css';
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
-  if(sessionUser) console.log('user logged in **')
-
   return (
     <div id='headerBoxRight'>
       {sessionUser ? (

@@ -20,7 +20,6 @@ const SpotDetails = () => {
         ownerFirstName = details.Owner.firstName
         ownerLastName = details.Owner.lastName
     }
-    // console.log('details: ==================> ',details.numReviews)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,14 +35,12 @@ const SpotDetails = () => {
             spotImgs.push(i)
         });
     }
-    console.log('spot images : ', spotImgs)
     if(details && details.avgStarRating) {
         if(details.avgStarRating === "NaN") details.avgStarRating = "New"
     }
     let reviewText = 'Reviews'
     let reviewNum;
     if(details ) {
-        console.log('details: ', details)
         reviewNum = details.numReviews
 
     }
@@ -63,7 +60,7 @@ const SpotDetails = () => {
         e.preventDefault();
         alert("Feature coming soon");
     };
-    // console.log('spotimgs: ', spotImgs)
+   
     if(!details) return
     const OwnerId = details.ownerId
 

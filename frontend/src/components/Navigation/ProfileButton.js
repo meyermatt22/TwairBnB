@@ -58,7 +58,7 @@ function ProfileButton({ user }) {
               Manage Spots
             </NavLink>
             <div>
-              <button onClick={logout}>Log Out</button>
+              <button onClick={logout} className="logoutB">Log Out</button>
             </div>
           </div>
         ) : (

@@ -2,7 +2,7 @@
 import SpotForm from "../SpotForm";
 
 const CreateSpotForm = () => {
-    
+
     const spot = {
         address: "",
         city: "",
@@ -23,7 +23,7 @@ const CreateSpotForm = () => {
 
     return (
         <div>
-            <SpotForm spot={spot} formType="Create Spot"/>
+            <SpotForm spot={spot} formType="Create a new Spot"/>
         </div>
     )
 }

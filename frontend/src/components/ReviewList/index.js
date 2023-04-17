@@ -35,7 +35,7 @@ const ReviewList = ({OwnerId}) => {
         if(reviewFound === false && OwnerId !== user.id) {
             return (
                 <div >
-                    <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review"/>
+                    <OpenModalButton modalComponent={<PostReviewModal spotId={spotId} />} buttonText="Post Your Review" />
                 </div>
             )
         }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import { createSpot, updateSpot } from "../../store/spots"
@@ -63,7 +63,6 @@ const SpotForm = ({ spot, formType }) => {
         console.log('errors: ',errors)
 
         if(errors && Object.values(errors) && Object.values(errors).length) {
-            // errorsObj = Object.values(errors)
             return
         }
 
@@ -76,14 +75,14 @@ const SpotForm = ({ spot, formType }) => {
             spot = newSpot;
             history.push(`/spots/${spot.id}`)
         }
-        console.log('country input ? : =============>', spot.country)
+
 
 
 
     };
     if(!formType) return
     const classForImgs = "spotImageForm" + (formType === "Update Spot" ? " hidden": "")
-    console.log('errors: ** : ', errors)
+
     return (
         <form onSubmit={handleSubmit} id="spotForm">
             <div></div>

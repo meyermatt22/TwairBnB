@@ -7,6 +7,12 @@
     border-radius: 20px;
 
 }
+.userSpots3 {
+    /* border: green dotted 2px; */
+    display: flex;
+    flex-direction: column;
+    margin: 10px 40px;
+}
 
 .topInfoBox {
     display: flex;
@@ -90,4 +96,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+#spotDetails {
+    width: 90%;
+    border: 2px solide green
 }

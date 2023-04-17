@@ -7,21 +7,22 @@
 }
 
 .userSpotTile {
-    border: cyan 2px dotted;
+    /* border: cyan 2px dotted; */
     margin: 10px;
     /* display: flex;
     justify-content: center;
     padding: 10px; */
 }
 
-/* .previewImg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-} */
+.userSpots2 {
+    /* border: green dotted 2px; */
+    display: flex;
+    flex-direction: column;
+    margin: 10px 30px;
+}
 
 .UDbuttons {
     display: flex;
-    border: 2px dotted cyan;
+    /* border: 2px dotted cyan; */
     justify-content: space-around;
 }

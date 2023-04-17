@@ -27,12 +27,13 @@
 .price {
     text-decoration: none;
     color: black;
+    ;
 }
 
 .spotList {
     display: grid;
     grid-template-columns:  1fr 1fr 1fr 1fr;
-    padding: 10px;
+    padding: 10px 40px;
 
 }
 

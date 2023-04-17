@@ -36,12 +36,16 @@ const SpotForm = ({ spot, formType }) => {
         if(name === "") errorsObj.name = "Name is required"
         if(price === "") errorsObj.price = "Price per night is required"
         if(description.length < 30) errorsObj.description = "Description needs to be 30 or more characters"
-        if(url === "") errorsObj.url = "Preview Image Url is reqiured"
-        if(url && !url.endsWith(".png") && !url.endsWith(".jpg") && !url.endsWith(".jpeg")) errorsObj.url = "Image URL must end in .png, .jpg, or .jpeg"
-        if(url1 && !url1.endsWith(".png") && !url1.endsWith(".jpg") && !url1.endsWith(".jpeg")) errorsObj.url1 = "Image URL must end in .png, .jpg, or .jpeg"
-        if(url2 && !url2.endsWith(".png") && !url2.endsWith(".jpg") && !url2.endsWith(".jpeg")) errorsObj.url2 = "Image URL must end in .png, .jpg, or .jpeg"
-        if(url3 && !url3.endsWith(".png") && !url3.endsWith(".jpg") && !url3.endsWith(".jpeg")) errorsObj.url3 = "Image URL must end in .png, .jpg, or .jpeg"
-        if(url4 && !url4.endsWith(".png") && !url4.endsWith(".jpg") && !url4.endsWith(".jpeg")) errorsObj.url4 = "Image URL must end in .png, .jpg, or .jpeg"
+
+        if(formType === "Create Spot") {
+
+            if(url === "") errorsObj.url = "Preview Image Url is reqiured"
+            if(url && !url.endsWith(".png") && !url.endsWith(".jpg") && !url.endsWith(".jpeg")) errorsObj.url = "Image URL must end in .png, .jpg, or .jpeg"
+            if(url1 && !url1.endsWith(".png") && !url1.endsWith(".jpg") && !url1.endsWith(".jpeg")) errorsObj.url1 = "Image URL must end in .png, .jpg, or .jpeg"
+            if(url2 && !url2.endsWith(".png") && !url2.endsWith(".jpg") && !url2.endsWith(".jpeg")) errorsObj.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+            if(url3 && !url3.endsWith(".png") && !url3.endsWith(".jpg") && !url3.endsWith(".jpeg")) errorsObj.url3 = "Image URL must end in .png, .jpg, or .jpeg"
+            if(url4 && !url4.endsWith(".png") && !url4.endsWith(".jpg") && !url4.endsWith(".jpeg")) errorsObj.url4 = "Image URL must end in .png, .jpg, or .jpeg"
+        }
 
         setErrors(errorsObj)
       }
@@ -56,8 +60,9 @@ const SpotForm = ({ spot, formType }) => {
         let images = [ {url, preview}, {url:url1, preview}, {url:url2, preview}, {url:url3, preview}, {url:url4, preview} ]
 
         const errors = validate(address, city, state, country, name, description, price, url, url1, url2, url3, url4);
+        console.log('errors: ',errors)
 
-        if(Object.values(errors).length) {
+        if(errors && Object.values(errors) && Object.values(errors).length) {
             // errorsObj = Object.values(errors)
             return
         }

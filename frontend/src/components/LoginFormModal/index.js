@@ -51,7 +51,7 @@ function LoginFormModal() {
       <div className="loginModal">
       <h1>Log In</h1>
       {errors.credential && (
-        <p>{errors.credential}</p>
+        <p className="errors">{errors.credential}</p>
       )}
       <form onSubmit={handleSubmit} className="inputArea">
         <label className="textBox">
@@ -79,7 +79,7 @@ function LoginFormModal() {
         <button type="submit" disabled={dis} className="loginButton" >Log In</button>
       </form>
       <form onSubmit={handleDemo}>
-          <button className="textBox" type="submit">Demo User</button>
+          <button className="loginDemo" type="submit">Log in as Demo User</button>
           </form>
     </div>
   );

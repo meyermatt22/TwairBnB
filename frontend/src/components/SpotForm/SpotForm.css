@@ -76,6 +76,7 @@
 #subcrButton {
     background-color: rgba(216, 91, 91, 0.74);
     box-shadow: 5px 5px 5px grey;
+    cursor: pointer;
 }
 
 .moneyLine {

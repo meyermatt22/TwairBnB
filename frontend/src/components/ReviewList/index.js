@@ -65,7 +65,7 @@ const ReviewList = ({OwnerId}) => {
     }
 
        const sortedReviews = reviews.sort((r1, r2) => {
-            return r1.number - r2.number
+            return r2.number - r1.number
         })
 
     return (

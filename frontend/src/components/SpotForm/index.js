@@ -38,7 +38,8 @@ const SpotForm = ({ spot, formType }) => {
         if(description.length < 30) errorsObj.description = "Description needs to be 30 or more characters"
 
         if(formType === "Create a new Spot") {
-
+            
+            if(isNaN(price)) errorsObj.price = "Price must be a valid integer!"
             if(url === "") errorsObj.url = "Preview Image Url is reqiured"
             if(url && !url.endsWith(".png") && !url.endsWith(".jpg") && !url.endsWith(".jpeg")) errorsObj.url = "Image URL must end in .png, .jpg, or .jpeg"
             if(url1 && !url1.endsWith(".png") && !url1.endsWith(".jpg") && !url1.endsWith(".jpeg")) errorsObj.url1 = "Image URL must end in .png, .jpg, or .jpeg"

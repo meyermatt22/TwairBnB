@@ -2,7 +2,7 @@
 
 
 
-Twairbnb is a website clone, inspired by [Airbnb](https://www.airbnb.com/). Twairbnb can be used to provide hosts a way to advertise their homes, rooms or neighborhoods for to rent. Interested parties can sign up to book a location at their leisure.
+FacePamphlet is a website clone, inspired by [Facebook](https://www.facebook.com/). Twairbnb can be used to provide hosts a way to advertise their homes, rooms or neighborhoods for to rent. Interested parties can sign up to book a location at their leisure.
 
 **Live Site: [Twairbnb](https://authenticate-mwm.onrender.com)**
 

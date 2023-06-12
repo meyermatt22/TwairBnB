@@ -2,9 +2,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: solid black 2px;
+    border-bottom: solid rgb(161,15,15) 8px;
+    box-shadow: 0px 5px 5px rgb(249,213,0);
+    background-color: rgb(219,125,47);
+    padding: 0px 20px;
+    /* padding-top: 10px; */
+    padding-bottom: 0px;
+    margin: 0px;
+    /* position: fixed;
+    width: 100%; */
 }
 
 .logoLeft {
-    width: 80px;
+    width: 150px;
+    border-radius: 20px;
+    border: solid rgb(161,15,15) 4px ;
 }
+
+.logoLeft:hover {
+    box-shadow: 0px 0px 5px 5px rgb(249,213,0);
+}
+
+body {
+    margin: 0px;
+}
+

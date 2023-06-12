@@ -46,8 +46,7 @@ function ProfileButton({ user }) {
   return (
     <>
     <button  onClick={openMenu} id="rightSide" >
-    <img className="hamburger" src="https://png.pngtree.com/png-vector/20220623/ourmid/pngtree-hamburger-menu-button-list-content-png-image_5288864.png" alt=""></img>
-        <i className="fas fa-user-circle" />
+    <img className="hamburger" src="https://i.imgur.com/7a22DTd.png" alt=""></img>
     </button>
       <div  className={ulClassName} ref={ulRef}>
         {user ? (
@@ -65,13 +64,15 @@ function ProfileButton({ user }) {
           <div className="LSmodalButtons">
             <div className="buttons2">
               <OpenModalButton
+                id="loginB"
                 buttonText="Log In"
                 onButtonClick={closeMenu}
                 modalComponent={<LoginFormModal />}
-              />
+                />
             </div>
             <div className="buttons2">
               <OpenModalButton
+                id="signupB"
                 buttonText="Sign Up"
                 onButtonClick={closeMenu}
                 modalComponent={<SignupFormModal />}

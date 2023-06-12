@@ -17,14 +17,14 @@ const SpotList = () => {
         dispatch(getAllSpots());
     }, [dispatch]);
 
-    
+
     return (
         <div className='spotList'>
 
 
             {spotList?.map(({ id, city, state, previewImage, name, avgRating, price }) => (
 
-                <Link to={`/spots/${id}`} key={id} className='price' >
+                <Link to={`/spots/${id}`} key={id} className='spotLink' >
                     <div className='spotTile' title={name}>
                     {/* <Tooltip> */}
                         <div data-role='tile' key={id}>

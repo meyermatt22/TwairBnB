@@ -19,6 +19,18 @@
     text-decoration: none;
 }
 
+.spotLink {
+    border: rgb(161,15,15) solid 4px;
+    background-color: rgb(219,125,47);
+    margin: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.spotLink:hover {
+    box-shadow: 0px 0px 5px 5px rgb(249,213,0);
+}
+
 .localPrice {
     display: flex;
     flex-direction: column;
@@ -27,13 +39,12 @@
 .price {
     text-decoration: none;
     color: black;
-    ;
 }
 
 .spotList {
     display: grid;
     grid-template-columns:  1fr 1fr 1fr 1fr;
-    padding: 10px 40px;
+    padding: 20px 100px;
 
 }
 

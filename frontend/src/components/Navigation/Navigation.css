@@ -27,7 +27,8 @@
     border-radius: 5px;
     text-decoration: none;
     cursor: pointer;
-    background-color: rgb(249,213,0);
+    background-color: grey;
+    /* border: 2px solid rgb(249,213,0); */
 }
 
 .logoutB {

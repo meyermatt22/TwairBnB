@@ -4,6 +4,9 @@
     align-items: center;
     width: 350px;
     height: 260px;
+    background-color: rgba(219,125,47);
+    border-radius: 15px;
+    padding-bottom: 20px;
 }
 
 #pText2 {
@@ -14,9 +17,15 @@
     width: 90%;
     margin: 10px;
     padding: 13px;
-    background-color: rgba(190, 82, 82, 0.774);
+    background-color: rgba(161,15,15);
     box-shadow: 5px 5px 5px grey;
     color: white;
+}
+
+#yesB2:hover {
+    background-color: rgb(0,0,0);
+    color: rgb(161,15,15);
+    box-shadow: 0px 0px 5px 5px rgb(161,15,15);
 }
 
 #noB2 {
@@ -24,5 +33,12 @@
     padding: 10px 100px;
     box-shadow: 5px 5px 5px grey;
     color: white;
-    background-color: rgba(0, 0, 0, 0.534);
+    background-color: rgba(249,213,0);
+}
+
+#noB2:hover {
+    background-color: rgb(49,52,90);
+    color: rgb(249,213,0);
+    box-shadow: 0px 0px 5px 5px rgb(249,213,0);
+
 }

@@ -65,7 +65,7 @@ const SpotDetails = () => {
     const OwnerId = details.ownerId
 
     if(details) { return (
-
+        <div className="extraSp">
          <div className="userSpots3">
             <h1>{details.name}</h1>
             <h4>{details.city}, {details.state}, {details.country}</h4>
@@ -106,7 +106,8 @@ const SpotDetails = () => {
                 </div>
             </div>
          </div>
-        
+        </div>
+
     )}
 }
 

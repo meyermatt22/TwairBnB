@@ -1,1 +1,40 @@
+.reviewSection {
+    /* border: cyan 2px solid; */
+    padding: 10px 30px;
+    margin: 30px 10px;
+    box-shadow: 0px 0px 5px 5px rgb(161,15,15);
+}
 
+.userInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reviewInfo {
+
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    /* margin: 31px */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+}
+
+.Rstars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 50px;
+    padding: 7px;
+    border-radius: 5px;
+    margin: 30px 20px;
+    /* border: 2px solid; */
+    box-shadow: 0px 0px 5px 5px rgb(249,213,0);
+    background-color: rgb(161,15,15);
+}
+
+.delBox {
+    display: flex;
+    justify-content: flex-end;
+}

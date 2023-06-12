@@ -61,4 +61,7 @@
 
 .imageBox {
     object-fit: cover;
+    border: rgb(0,0,0) 4px solid;
+    height: 300px;
+    padding: 0px;
 }

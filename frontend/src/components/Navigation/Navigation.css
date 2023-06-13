@@ -8,17 +8,25 @@
     padding-right: 20px;
 }
 
-#createSpotButton {
-    text-decoration: none;
-    color: black;
-}
-
 .navLink {
     text-decoration: none;
-    color: black;
-    border-bottom: black solid 2px;
-    border-top: black solid 2px;
-    /* margin: 5px */
+    color: rgb(0,0,0);
+    font-weight: bold;
+}
+
+#createSpotButton {
+    text-decoration: none;
+    color: white;
+    border: 2px rgb(161,15,15) solid;
+    padding: 10px;
+    width: 100%;
+    background-color: rgba(32, 32, 32, 0.801);
+    border-radius: 15px;
+}
+
+#createSpotButton:hover {
+    box-shadow: 0px 0px 5px 5px rgb(249,213,0);
+    color: rgb(249,213,0);
 }
 
 .hamburger {
@@ -29,6 +37,11 @@
     cursor: pointer;
     background-color: grey;
     /* border: 2px solid rgb(249,213,0); */
+}
+
+.hamburger:hover {
+    border-radius: 15px;
+    background-color: rgb(249,213,0);
 }
 
 .logoutB {
@@ -66,9 +79,9 @@
     justify-content: center;
 }
 
-#profileArea:hover {
+/* #profileArea:hover {
     box-shadow: 0px 0px 5px 5px rgb(249,213,0);
-}
+} */
 
 .LSmodalButtons {
     position: absolute;
@@ -86,16 +99,18 @@
 }
 .LSmodalButtons2 {
     position: absolute;
-    right: 40px;
+    right: 60px;
     top: 60px;
-    border: 2px solid black;
-    background-color: white;
+    border: 4px solid black;
+    border-radius: 10px;
+    background-color: rgb(219,125,47);
     width: 100px;
     height: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-weight: bold;
 }
 
 .buttons2 {
@@ -114,4 +129,5 @@ button:hover {
     color: rgb(249,213,0);
     cursor: pointer;
     box-shadow: 0px 0px 3px 3px rgb(249,213,0);
+    border-radius: 15px;
 }

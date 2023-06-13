@@ -15,6 +15,7 @@
 
     display: grid;
     grid-template-columns: 100px 1fr;
+    border-bottom: 2px solid rgb(0,0,0);
     /* margin: 31px */
     /* justify-content: space-between; */
     /* align-items: center; */

@@ -10,7 +10,7 @@ function Navigation({ isLoaded }){
   return (
     <div id='headerBoxRight'>
       {sessionUser ? (
-        <div id='createSpotButton'>
+        <div >
       <NavLink to={`/spots/new`} id='createSpotButton'>
           Create a New Spot
         </NavLink>

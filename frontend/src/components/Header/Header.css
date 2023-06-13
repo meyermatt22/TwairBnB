@@ -9,8 +9,10 @@
     /* padding-top: 10px; */
     padding-bottom: 0px;
     margin: 0px;
-    /* position: fixed;
-    width: 100%; */
+    position: sticky;
+    top: 0px;
+
+    width: 100%;
 }
 
 .logoLeft {
@@ -26,4 +28,3 @@
 body {
     margin: 0px;
 }
-

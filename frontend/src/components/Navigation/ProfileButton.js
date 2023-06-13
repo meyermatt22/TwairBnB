@@ -46,7 +46,7 @@ function ProfileButton({ user }) {
   return (
     <>
     <button  onClick={openMenu} id="rightSide" >
-    <img className="hamburger" src="https://i.imgur.com/7a22DTd.png" alt=""></img>
+    <img className="hamburger" src="https://i.imgur.com/7a22DTd.png" alt=""/>
     </button>
       <div  className={ulClassName} ref={ulRef}>
         {user ? (

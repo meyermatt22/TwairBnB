@@ -3,6 +3,8 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    background-color: rgba(219,125,47);
+    border-radius: 15px;
 }
 
 .inputArea {
@@ -15,13 +17,16 @@
     padding: 10px 5px
 }
 
-.loginDemo {
-    padding: 10px 30px;
-    margin: 10px
-}
-
 .loginButton {
     padding: 10px 5px;
-    background-color: rgb(255, 102, 102);
-    color: white;
+    background-color: rgb(161,15,15);
+    /* color: white; */
+    border: 2px solid rgb(0,0,0);
+    width: 200px;
+}
+
+.loginDemo {
+    width: 200px;
+    padding: 10px 30px;
+    margin: 10px
 }

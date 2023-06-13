@@ -4,6 +4,8 @@
     align-items: center;
     width: 350px;
     height: 260px;
+    background-color: rgba(219,125,47);
+    border-radius: 15px;
 }
 
 #pText {
@@ -14,12 +16,28 @@
     width: 90%;
     margin: 10px;
     padding: 10px 100px;
-    background-color: rgba(190, 82, 82, 0.774);
+    background-color: rgba(161,15,15);
     box-shadow: 5px 5px 5px grey;
+    color: white;
+}
+
+#yesB:hover {
+    background-color: rgb(0,0,0);
+    color: rgb(161,15,15);
+    box-shadow: 0px 0px 5px 5px rgb(161,15,15);
 }
 
 #noB {
     width: 90%;
     padding: 10px 100px;
     box-shadow: 5px 5px 5px grey;
+    color: white;
+    background-color: rgba(249,213,0);
+}
+
+#noB:hover {
+    background-color: rgb(49,52,90);
+    color: rgb(249,213,0);
+    box-shadow: 0px 0px 5px 5px rgb(249,213,0);
+
 }

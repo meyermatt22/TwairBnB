@@ -38,7 +38,7 @@ const SpotForm = ({ spot, formType }) => {
         if(description.length < 30) errorsObj.description = "Description needs to be 30 or more characters"
 
         if(formType === "Create a new Spot") {
-            
+
             if(isNaN(price)) errorsObj.price = "Price must be a valid integer!"
             if(url === "") errorsObj.url = "Preview Image Url is reqiured"
             if(url && !url.endsWith(".png") && !url.endsWith(".jpg") && !url.endsWith(".jpeg")) errorsObj.url = "Image URL must end in .png, .jpg, or .jpeg"
@@ -87,7 +87,7 @@ const SpotForm = ({ spot, formType }) => {
 
     return (
         <form onSubmit={handleSubmit} id="spotForm">
-            <div></div>
+            {/* <div></div> */}
             <div id="centerColumn">
             <h1>{formType}</h1>
             <h3>Where's your place located?</h3>
@@ -141,8 +141,8 @@ const SpotForm = ({ spot, formType }) => {
             <div className="description">
                 <h3>Describe your place to guests</h3>
                 <p>Mention the best features of your space, any special amentities like fast wif or parking, and what you love about the neighborhood.</p>
-                <label>
                   <div className="errors">{errors.description}</div>
+                <label className="textAWrap">
                   <textarea className="textArea"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -240,7 +240,7 @@ const SpotForm = ({ spot, formType }) => {
                  <button type="submit" id="subcrButton">{formType}</button>
                 </div>
             </div>
-            <div></div>
+            {/* <div></div> */}
         </form>
     )
 }

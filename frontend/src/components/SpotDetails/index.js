@@ -35,6 +35,8 @@ const SpotDetails = () => {
             spotImgs.push(i)
         });
     }
+
+
     if(details && details.avgStarRating) {
         if(details.avgStarRating === "NaN") details.avgStarRating = "New"
     }

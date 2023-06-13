@@ -1,11 +1,27 @@
 #spotForm {
-    display: grid;
+    display: flex;
     justify-content: center;
-    grid-template-columns: 32% 36% 32%;
+    margin: 30px 200px;
+    background-color: rgba(219,125,47);
+    border: 8px solid rgb(161,15,15);
+    box-shadow: 0px 0px 10px 7px rgb(249,213,0);
+}
+
+#centerColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 450px;
+    padding: 20px;
 }
 
 .errors {
     color: red;
+    text-shadow: 2px 2px rgb(0,0,0);
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 .inputBox {
@@ -30,6 +46,11 @@
     height: 140px;
     border: 2px solid black;
     margin-bottom: 15px;
+}
+
+.textAWrap {
+    display: flex;
+    justify-content: center;
 }
 
 .spotName {
@@ -74,17 +95,11 @@
 }
 
 #subcrButton {
-    background-color: rgba(216, 91, 91, 0.74);
-    box-shadow: 5px 5px 5px grey;
+    background-color: rgba(161,15,15);
+    /* box-shadow: 0px 0px 5px 5px rgb(249,213,0); */
     cursor: pointer;
 }
 
 .moneyLine {
     display: flex;
-}
-
-#centerColumn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }

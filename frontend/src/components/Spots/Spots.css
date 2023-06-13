@@ -8,6 +8,9 @@
     display: flex;
     justify-content: space-between;
     text-decoration: none;
+    padding: 10px;
+    color: rgb(0,0,0);
+    font-weight: bold;
 }
 
 .spotTile {

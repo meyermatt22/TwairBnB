@@ -153,7 +153,7 @@ module.exports = {
       lng: 0.33,
       name: "The Flintstones' Residence",
       description: "Fred Flintstone and his wife Wilma live next to Barney and Betty Rubble, in a one-storey abode with a large, grassy garden surrounded by palm trees. No word on how the grass stays that green in the middle of the desert.",
-      price: 92.33,
+      price: 0.01,
       ownerId: 6
     },
   ], {})

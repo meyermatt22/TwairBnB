@@ -14,6 +14,7 @@ import SpotDetails from './components/SpotDetails';
 import CreateSpotForm from './components/CreateSpotForm';
 import EditSpotForm from './components/EditSpotForm';
 import UserSpotList from './components/UserSpotList';
+import { Footer } from './components/Footer';
 
 
 
@@ -44,6 +45,7 @@ function Root() {
             <Route exact path='/spots/:spotId' component={SpotDetails} ></Route>
             <Route exact path='/spots/:spotId/edit' component={EditSpotForm} ></Route>
           </Switch>
+          <Footer />
         </BrowserRouter>
       </ReduxProvider>
     </ModalProvider>

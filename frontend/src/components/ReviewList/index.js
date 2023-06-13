@@ -84,7 +84,7 @@ const ReviewList = ({ OwnerId }) => {
           <div className="reviewSection" key={review.id}>
             <div className="reviewInfo">
               <div className="Rstars">{stars} stars</div>
-              <h1>{review}</h1>
+              <h1 className="reviewContent">{review}</h1>
             </div>
             <div className="userInfo">
               <h3>

@@ -56,6 +56,10 @@
     margin-top: 10px;
 }
 
+.reserve:hover {
+    cursor: not-allowed;
+}
+
 .dot {
     width: 20px;
 }

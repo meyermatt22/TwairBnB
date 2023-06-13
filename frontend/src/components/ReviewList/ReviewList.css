@@ -22,6 +22,11 @@
     /* align-items: center; */
 }
 
+.reviewContent {
+    flex-wrap: wrap;
+    overflow-wrap: anywhere;
+}
+
 .Rstars {
     display: flex;
     justify-content: center;

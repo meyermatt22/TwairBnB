@@ -18,12 +18,24 @@ const PostReviewModal = ({ spotId }) => {
     const { closeModal } = useModal()
     const history = useHistory()
 
+    function validate(review) {
+        const errorsObj = {}
+        if(review.length < 30) errorsObj.review = "review must be at least 30 characters"
+        return errorsObj
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors({})
 
         const newReview = {
             spotId, stars, review
+        }
+
+        const errors = validate(review)
+
+        if(errors && Object.values(errors) && Object.values(errors).length) {
+            return setErrors(errors)
         }
 
         const resReview = await dispatch(createSpotReview(newReview))
@@ -50,9 +62,11 @@ const PostReviewModal = ({ spotId }) => {
     }
 
 
+
     return (
         <form className="reviewModal" onSubmit={handleSubmit}>
             <h1>How was your stay?</h1>
+            <div className="errors"> {errors.review}</div>
             <textarea
                 className="reviewBox"
                 value={review}
@@ -64,7 +78,7 @@ const PostReviewModal = ({ spotId }) => {
                     disabled={false} onChange={onChange} stars={stars}
                 /> Stars
             </div>
-            <button disabled={charCount} type="submit" className="submitReview" >Submit Your Review</button>
+            <button type="submit" className="submitReview" >Submit Your Review</button>
         </form>
     )
 }

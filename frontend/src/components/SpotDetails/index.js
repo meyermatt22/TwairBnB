@@ -10,25 +10,27 @@ import { getOneSpotsReviews } from "../../store/reviews";
 const SpotDetails = () => {
     const { spotId } = useParams()
 
-    const details = useSelector((state) =>
-    state.spots ? state.spots[spotId] : null
-    );
 
     let ownerFirstName = ""
     let ownerLastName = ""
+    const dispatch = useDispatch();
+
+    const details = useSelector((state) =>
+    state.spots ? state.spots[spotId] : null
+    );
+    useEffect(() => {
+        dispatch(getOneSpot(spotId))
+        dispatch(getOneSpotsReviews(spotId))
+    }, [dispatch, spotId, details?.numReviews, details?.avgStarRating]);
+
+
     if(details && details.Owner) {
         ownerFirstName = details.Owner.firstName
         ownerLastName = details.Owner.lastName
     }
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getOneSpot(spotId))
-    }, [dispatch, spotId]);
-    useEffect(() => {
-        dispatch(getOneSpotsReviews(spotId))
-    }, [dispatch, spotId, details?.numReviews]);
-
+    if(details && details.avgStarRating) {
+        if(details.avgStarRating === "NaN") details.avgStarRating = "New"
+    }
     const spotImgs = []
     if(details && details.SpotImages) {
         details.SpotImages.forEach(i => {
@@ -37,9 +39,6 @@ const SpotDetails = () => {
     }
 
 
-    if(details && details.avgStarRating) {
-        if(details.avgStarRating === "NaN") details.avgStarRating = "New"
-    }
     let reviewText = 'Reviews'
     let reviewNum;
     if(details ) {

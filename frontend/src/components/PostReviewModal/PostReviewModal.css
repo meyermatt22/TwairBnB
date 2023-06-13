@@ -23,6 +23,6 @@
 
 .submitReview {
     padding: 10px 100px;
-    box-shadow: 5px 5px 5px grey;
+    box-shadow: 5px 5px 5px rgb(0,0,0);
     margin-bottom: 15px;
 }

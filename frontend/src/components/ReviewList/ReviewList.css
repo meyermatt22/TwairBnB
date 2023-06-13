@@ -3,6 +3,7 @@
     padding: 10px 30px;
     margin: 30px 10px;
     box-shadow: 0px 0px 5px 5px rgb(161,15,15);
+    border: 1px solid rgb(249,213,0);
 }
 
 .userInfo {

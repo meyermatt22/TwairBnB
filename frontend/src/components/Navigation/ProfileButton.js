@@ -52,7 +52,7 @@ function ProfileButton({ user }) {
         {user ? (
           <div className="LSmodalButtons2">
             <div>Hello, {user.firstName}</div>
-            <div>{user.email}</div>
+            <div className="emailDiv">{user.email}</div>
             <NavLink to={`/spots/current`} className='navLink'>
               Manage Spots
             </NavLink>

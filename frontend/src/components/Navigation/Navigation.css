@@ -2,6 +2,10 @@
     display: none;
 }
 
+.profile-dropdown:hover {
+    cursor: default;
+}
+
 #headerBoxRight {
     display: flex;
     align-items: center;
@@ -12,6 +16,11 @@
     text-decoration: none;
     color: rgb(0,0,0);
     font-weight: bold;
+    border-bottom: 1px solid rgb(0,0,0);
+}
+
+.navLink:hover {
+    background-color: rgb(0,0,0, .3);
 }
 
 #createSpotButton {
@@ -45,8 +54,18 @@
 }
 
 .logoutB {
-    margin-top: 5px;
+    margin-top: 15px;
 }
+
+.emailDiv {
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(0,0,0);
+    cursor: default;
+}
+
+/* .emailDiv:hover {
+    cursor: default;
+} */
 
 #rightSide {
     /* border: green dotted 2px; */
@@ -111,6 +130,7 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    padding: 10px;
 }
 
 .buttons2 {

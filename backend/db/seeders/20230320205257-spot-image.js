@@ -236,6 +236,81 @@ module.exports = {
       preview: true,
       spotId: 9
     },
+    {
+      url: 'https://i.imgur.com/rqlZV9x.jpg',
+      preview: true,
+      spotId: 10
+    },
+    {
+      url: 'https://i.imgur.com/sbOz4Ri.jpg',
+      preview: true,
+      spotId: 10
+    },
+    {
+      url: 'https://i.imgur.com/SmOyvWz.jpg',
+      preview: true,
+      spotId: 10
+    },
+    {
+      url: 'https://i.imgur.com/enSZi2x.jpg',
+      preview: true,
+      spotId: 10
+    },
+    {
+      url: 'https://i.imgur.com/oYOlgpH.jpg',
+      preview: true,
+      spotId: 10
+    },
+    {
+      url: 'https://i.imgur.com/fe3Ij0f.jpg',
+      preview: true,
+      spotId: 11
+    },
+    {
+      url: 'https://i.imgur.com/4rzW4dD.jpg',
+      preview: true,
+      spotId: 11
+    },
+    {
+      url: 'https://i.imgur.com/EkGNE1x.jpg',
+      preview: true,
+      spotId: 11
+    },
+    {
+      url: 'https://i.imgur.com/RzIlenR.jpg',
+      preview: true,
+      spotId: 11
+    },
+    {
+      url: 'https://i.imgur.com/7vsWlNu.jpg',
+      preview: true,
+      spotId: 11
+    },
+    {
+      url: 'https://i.imgur.com/yVwq1nu.jpg',
+      preview: true,
+      spotId: 12
+    },
+    {
+      url: 'https://i.imgur.com/FZtDRCt.jpg',
+      preview: true,
+      spotId: 12
+    },
+    {
+      url: 'https://i.imgur.com/FvhRT0X.jpg',
+      preview: true,
+      spotId: 12
+    },
+    {
+      url: 'https://i.imgur.com/t36PZMQ.jpg',
+      preview: true,
+      spotId: 12
+    },
+    {
+      url: 'https://i.imgur.com/O70W9Hw.jpg',
+      preview: true,
+      spotId: 12
+    },
   ], {})
 },
 

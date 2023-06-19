@@ -15,6 +15,7 @@ import CreateSpotForm from './components/CreateSpotForm';
 import EditSpotForm from './components/EditSpotForm';
 import UserSpotList from './components/UserSpotList';
 import { Footer } from './components/Footer';
+import BookingList from './components/BookingList';
 
 
 
@@ -44,6 +45,7 @@ function Root() {
             <Route exact path='/spots/current' component={UserSpotList}></Route>
             <Route exact path='/spots/:spotId' component={SpotDetails} ></Route>
             <Route exact path='/spots/:spotId/edit' component={EditSpotForm} ></Route>
+            <Route exact path='/spots/:spotId/bookings' component={BookingList} ></Route>
           </Switch>
           <Footer />
         </BrowserRouter>

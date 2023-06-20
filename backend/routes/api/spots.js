@@ -403,57 +403,58 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
   const { user } = req;
   const { startDate, endDate } = req.body;
   if (user) {
-    let errors = {};
-
-    const startTime = new Date(startDate).getTime();
-    const endTime = new Date(endDate).getTime();
-    const currentTime = new Date().getTime();
-
-    if (startTime > endTime) {
-      errors.endDate = "endDate cannot be on or before startDate";
-    }
-
     const spot = await Spot.findByPk(req.params.spotId);
+    // let errors = {};
+
+    // const startTime = new Date(startDate).getTime();
+    // const endTime = new Date(endDate).getTime();
+    // const currentTime = new Date().getTime();
+
+    // if (startTime > endTime) {
+    //   errors.endDate = "endDate cannot be on or before startDate";
+    // }
+
 
     if (!spot) {
       return res.status(404).json({ message: "Spot not found" });
     }
 
-    const bookings = await Booking.findAll({
-      where: {
-        spotId: spot.id,
-      },
-    });
+    // const bookings = await Booking.findAll({
+    //   where: {
+    //     spotId: spot.id,
+    //   },
+    // });
 
-    bookings.forEach((booking) => {
-      if (
-        startTime >= booking.dataValues.startDate.getTime() &&
-        startTime <= booking.dataValues.endDate.getTime()
-      ) {
-        errors.startDate = "Start date conflicts with an existing booking";
-      }
-      if (
-        endTime >= booking.dataValues.startDate.getTime() &&
-        endTime <= booking.dataValues.endDate.getTime()
-      ) {
-        errors.endDate = "End date conflicts with an existing booking";
-      }
-    });
+    // bookings.forEach((booking) => {
+    //   if (
+    //     startTime >= booking.dataValues.startDate.getTime() &&
+    //     startTime <= booking.dataValues.endDate.getTime()
+    //   ) {
+    //     errors.startDate = "Start date conflicts with an existing booking";
+    //   }
+    //   if (
+    //     endTime >= booking.dataValues.startDate.getTime() &&
+    //     endTime <= booking.dataValues.endDate.getTime()
+    //   ) {
+    //     errors.endDate = "End date conflicts with an existing booking";
+    //   }
+    // });
 
-    if (user.dataValues.id === spot.dataValues.ownerId) {
-      return res
-        .status(403)
-        .json({ message: "Bookings can not be made to spots you own" });
-    }
+    // if (user.dataValues.id === spot.dataValues.ownerId) {
+    //   return res
+    //     .status(403)
+    //     .json({ message: "Bookings can not be made to spots you own" });
+    // }
 
-    if (Object.keys(errors).length) {
-      res.status(403);
-      return res.json({ message: "Bad Request", errors: errors });
-    }
+    // if (Object.keys(errors).length) {
+    //   res.status(403);
+    //   return res.json({ message: "Bad Request", errors: errors });
+    // }
     const newBooking = await spot.createBooking({
       startDate: startDate,
       endDate: endDate,
       userId: user.id,
+      spotId: spot.id,
     });
     return res.json(newBooking);
   }

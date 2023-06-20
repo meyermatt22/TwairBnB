@@ -76,11 +76,6 @@ const SpotForm = ({ spot, formType }) => {
             history.push(`/spots/${spot.id}`)
         }
 
-
-
-
-
-
     };
     if(!formType) return
     const classForImgs = "spotImageForm" + (formType === "Update Spot" ? " hidden": "")

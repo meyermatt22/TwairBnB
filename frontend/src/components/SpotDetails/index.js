@@ -6,6 +6,8 @@ import '../Spots/Spots.css'
 import './SpotDetails.css'
 import ReviewList from "../ReviewList";
 import { getOneSpotsReviews } from "../../store/reviews";
+import OpenModalButton from "../OpenModalButton";
+import BookingModal from "../BookingModal";
 
 const SpotDetails = () => {
     const { spotId } = useParams()
@@ -91,7 +93,9 @@ const SpotDetails = () => {
                         </div>
                     </div>
                     <div className="bottomInfoBox">
-                        <button className="reserve" onClick={handleClick}>Reserve</button>
+                        <OpenModalButton
+                            className="reserve"
+                            modalComponent={<BookingModal spotId={spotId} spot={details}/>} />
                     </div>
                 </div>
             </div>

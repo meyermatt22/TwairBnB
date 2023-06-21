@@ -10,10 +10,18 @@ function Navigation({ isLoaded }){
   return (
     <div id='headerBoxRight'>
       {sessionUser ? (
+        <div id='xtraBtns'>
         <div >
       <NavLink to={`/spots/new`} id='createSpotButton'>
           Create a New Spot
         </NavLink>
+        </div>
+        <div>
+          <NavLink to={`/bookings/current`} id='userBookingsBtn' >
+            View your reservations
+          </NavLink>
+        </div>
+
         </div>
       ) : (
         <>

@@ -12,6 +12,7 @@ import BookingModal from "../BookingModal";
 const SpotDetails = () => {
     const { spotId } = useParams()
 
+    const sessionUser = useSelector(state => state.session.user);
 
     let ownerFirstName = ""
     let ownerLastName = ""
@@ -61,7 +62,7 @@ const SpotDetails = () => {
     }
     const handleClick = (e) => {
         e.preventDefault();
-        alert("Feature coming soon");
+        alert("To reserve a stay, please log in.");
     };
 
     if(!details) return
@@ -93,9 +94,15 @@ const SpotDetails = () => {
                         </div>
                     </div>
                     <div className="bottomInfoBox">
-                        <OpenModalButton
-                            className="reserve"
-                            modalComponent={<BookingModal spotId={spotId} spot={details}/>} />
+                        {sessionUser && (
+                            <OpenModalButton
+                                className="reserve"
+                                buttonText="Reserve"
+                                modalComponent={<BookingModal spotId={spotId} spot={details}/>} />
+                        )}
+                        {!sessionUser && (
+                            <button className="reserve" onClick={handleClick}>Reserve</button>
+                        )}
                     </div>
                 </div>
             </div>

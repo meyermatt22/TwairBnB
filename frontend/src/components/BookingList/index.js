@@ -5,7 +5,7 @@ import { getOneSpotsBookings } from "../../store/bookings";
 import './BookingList.css'
 
 
-const BookingList = () => {
+const BookingList = ({ spot }) => {
   const { spotId } = useParams();
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
@@ -17,20 +17,23 @@ const BookingList = () => {
   const bookingsObj = useSelector((state) => state.bookings.spot)
   const bookings = Object.values(bookingsObj)
 
-  console.log('bookinglist booking info: ', bookings)
+  const sortedBookings = bookings.sort((a,b) => {
+    return (a.startDate < b.startDate) ? -1 : ((a.startDate > b.startDate) ? 1 : 0);
+  })
+
+  // console.log('bookinglist booking info: ', bookings[0].startDate)
 
 
   if(!bookings.length) return null
   return (
     <div id="bookingList">
 
-        <h1>bookinglist component</h1>
-        <div>
-            {bookings?.map(({ startDate, endDate }) => (
-                <div>
-
-                    <div>{startDate}</div>
-                    <div>{endDate}</div>
+        <h1>Current Reservations for {spot.name}</h1>
+        <h3>Reservations must NOT interfere with the following dates:</h3>
+        <div id="bookingsScroll">
+            {sortedBookings?.map(({ startDate, endDate }) => (
+                <div className="booked">
+                    <div>{startDate.slice(0,10)} - {endDate.slice(0,10)}</div>
                 </div>
             ))}
         </div>

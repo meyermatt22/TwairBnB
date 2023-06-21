@@ -2,37 +2,38 @@ import { useState, useEffect } from "react";
 import { Modal, useModal } from "../../context/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { createSpotBooking, getOneSpotsBookings } from "../../store/bookings";
+import BookingList from "../BookingList";
+import './BookingModal.css'
 
 const BookingModal = ({ spotId, spot }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState({});
 
   const user = useSelector((state) => state.session.user);
-  const userId = user.id
+  const userId = user.id;
 
-  const bookingsObj = useSelector((state) => state.bookings.spot)
-  const bookings = Object.values(bookingsObj)
+  const bookingsObj = useSelector((state) => state.bookings.spot);
+  const bookings = Object.values(bookingsObj);
 
   useEffect(() => {
     dispatch(getOneSpotsBookings(spotId));
-  }, [dispatch, spotId])
+  }, [dispatch, spotId]);
 
   function validate(startDate, endDate) {
-
-    const errorsObj = {}
-    bookings.forEach(b => {
-      if( startDate >= b.startDate && startDate <= b.endDate ) {
-        errorsObj.startDate = "Start date conflicts with an existing booking"
-      } if ( endDate >= b.startDate && endDate <= b.endDate ) {
-        errorsObj.endDate = "End date conflicts with an existing booking"
+    const errorsObj = {};
+    bookings.forEach((b) => {
+      if (startDate >= b.startDate && startDate <= b.endDate) {
+        errorsObj.startDate = "Start date conflicts with an existing booking";
       }
-    })
-    return errorsObj
+      if (endDate >= b.startDate && endDate <= b.endDate) {
+        errorsObj.endDate = "End date conflicts with an existing booking";
+      }
+    });
+    return errorsObj;
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,26 +45,24 @@ const BookingModal = ({ spotId, spot }) => {
       startDate,
     };
 
-    const errors = validate(startDate, endDate)
+    const errors = validate(startDate, endDate);
 
-    if(errors && Object.values(errors) && Object.values(errors).length) {
-      return setErrors(errors)
-  }
+    if (errors && Object.values(errors) && Object.values(errors).length) {
+      return setErrors(errors);
+    }
 
-    if (errors.length) return errors
+    if (errors.length) return errors;
 
     const resBooking = await dispatch(createSpotBooking(newBooking));
 
-    if(resBooking.errors) {
-      setErrors(resBooking.errors)
-  } else {
-      dispatch(getOneSpotsBookings(spotId))
-      closeModal()
-  }
+    if (resBooking.errors) {
+      setErrors(resBooking.errors);
+    } else {
+      dispatch(getOneSpotsBookings(spotId));
+      closeModal();
+    }
 
-    console.log('inside booking Modal, resbooking ==>:', resBooking)
-
-
+    console.log("inside booking Modal, resbooking ==>:", resBooking);
   };
 
   return (
@@ -71,27 +70,37 @@ const BookingModal = ({ spotId, spot }) => {
       <h1>book a stay today!</h1>
       {/* <div className="errors"> {[errors]}</div> */}
       <div className="form-input-box">
-        <label for="startDate">startDate:</label>
-        {errors.startDate}
+        <label for="startDate">startDate: </label>
         <input
           type="date"
           name="startDate"
           required
           onChange={(e) => setStartDate(e.target.value)}
           min={new Date().toISOString().split("T")[0]}
-        ></input>
+          ></input>
       </div>
+          <div>
+          {errors.startDate}
+          </div>
       <div className="form-input-box">
-        <label for="endDate">endDate:</label>
+        <label for="endDate">endDate: </label>
         <input
           type="date"
           name="endDate"
           required
           onChange={(e) => setEndDate(e.target.value)}
           min={startDate}
-        ></input>
+          ></input>
       </div>
-      <button type="submit" className="submitReview" >Book it!</button>
+          <div>
+          {errors.endDate}
+          </div>
+      <div id="spotBookings">
+      <BookingList spot={spot}/>
+      </div>
+      <button type="submit" className="submitReview">
+        Book it!
+      </button>
     </form>
   );
 };

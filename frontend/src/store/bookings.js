@@ -63,7 +63,6 @@ export const createSpotBooking = (booking) => async (dispatch) => {
     body: JSON.stringify(newBooking),
   });
 
-  console.log('createSpotBooking thunk', res)
   if (res.ok) {
     const newBooking = await res.json();
     dispatch(createBooking(newBooking));

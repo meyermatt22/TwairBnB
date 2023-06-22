@@ -18,7 +18,7 @@ function Navigation({ isLoaded }){
         </div>
         <div>
           <NavLink to={`/bookings/current`} id='userBookingsBtn' >
-            View your reservations
+            Manage My Bookings
           </NavLink>
         </div>
 

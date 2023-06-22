@@ -41,7 +41,7 @@ const FutureBookings = () => {
         {sortedBookings?.map(({ startDate, endDate, spotId, id }) => (
           <div>
             {today < endDate && (
-              <div className="bookSingle">
+              <div className="bookSingle1">
                 <div className="spotInfo">
                   {spotList
                     ?.filter((s) => {
@@ -55,11 +55,15 @@ const FutureBookings = () => {
                 </div>
                 Booked from {startDate.slice(0, 10)} until{" "}
                 {endDate.slice(0, 10)}{" "}
+                <div id="removeB">
                 <OpenModalButton
+
                   buttonText="Remove Reservation"
                   onButtonClick={(e) => e.stopPropagation()}
                   modalComponent={<DeleteBooking bookingId={id} />}
                 />
+
+                </div>
               </div>
             )}
           </div>
@@ -68,7 +72,7 @@ const FutureBookings = () => {
           <h2 className="emptyDiv">
             {" "}
             It looks like you have no upcoming bookings. <br/> <br/> click{" "}
-            <button>here</button> to explore new places to stay!
+            <Link to={'/'} className="bookName">here</Link> to explore new places to stay!
           </h2>
         )}
       </div>

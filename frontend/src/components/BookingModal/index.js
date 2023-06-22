@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { createSpotBooking, getOneSpotsBookings } from "../../store/bookings";
 import BookingList from "../BookingList";
 import './BookingModal.css'
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const BookingModal = ({ spotId, spot }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [startDate, setStartDate] = useState("");
@@ -59,6 +61,7 @@ const BookingModal = ({ spotId, spot }) => {
       setErrors(resBooking.errors);
     } else {
       dispatch(getOneSpotsBookings(spotId));
+      history.push('/bookings/current')
       closeModal();
     }
 

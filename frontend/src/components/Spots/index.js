@@ -14,7 +14,7 @@ const SpotList = () => {
     }, [dispatch]);
     const spotList = useSelector((state) => Object.values(state.spots));
     const [maxPrice, setMaxPrice] = useState(100000000)
-    const [minPrice, setMinPrice] = useState(0)
+    const [minPrice, setMinPrice] = useState(0.001)
     const [query, setQuery] = useState('')
 
     if(spotList) {

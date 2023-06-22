@@ -28,6 +28,14 @@ router.post("/", requireAuth, async (req, res) => {
 
 
     const spots = await Spot.findAll({
+        include: [
+            {
+              model: Review,
+            },
+            {
+              model: SpotImage,
+            },
+          ],
         where: {
             price: {
                 [Op.between]: [minPrice, maxPrice],
@@ -35,7 +43,7 @@ router.post("/", requireAuth, async (req, res) => {
             name: {
                 [Op.like]: '%' + searchedProp + '%'
             }
-        }
+        },
     })
     console.log("====================>", spots)
 

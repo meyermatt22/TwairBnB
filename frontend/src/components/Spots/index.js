@@ -9,18 +9,20 @@ import { createSearchThunk } from '../../store/search';
 
 const SpotList = () => {
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAllSpots());
+    }, [dispatch]);
     const spotList = useSelector((state) => Object.values(state.spots));
-    const [maxPrice, setMaxPrice] = useState(1000000)
-    const [minPrice, setMinPrice] = useState(1)
+    const [maxPrice, setMaxPrice] = useState(100000000)
+    const [minPrice, setMinPrice] = useState(0)
     const [query, setQuery] = useState('')
 
     if(spotList) {
         spotList.forEach(s => {if(s.avgRating === "NaN") s.avgRating = "New"})
     }
+    const [queryList, setQueryList] = useState(spotList)
+    // console.log('spotlist info' , queryList)
 
-    useEffect(() => {
-        dispatch(getAllSpots());
-    }, [dispatch]);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -32,8 +34,9 @@ const SpotList = () => {
         const resSearch = await dispatch(createSearchThunk(search))
 
         console.log("=========> here =====>", resSearch)
+        setQueryList(resSearch)
 
-        
+
     }
 
     return (
@@ -45,14 +48,14 @@ const SpotList = () => {
             </form>
 
 
-            {spotList?.map(({ id, city, state, previewImage, name, avgRating, price }) => (
+            {queryList?.map(({ id, city, state, SpotImages, name, avgRating, price }) => (
 
                 <Link to={`/spots/${id}`} key={id} className='spotLink' >
                     <div className='spotTile' title={name}>
                     {/* <Tooltip> */}
                         <div data-role='tile' key={id}>
                             <div className='imageBox'>
-                            <img alt='' src={previewImage} className='previewImg'></img>
+                            <img alt='' src={SpotImages[0]['url']} className='previewImg'></img>
 
                             </div>
                             <div className='spotInfo'>

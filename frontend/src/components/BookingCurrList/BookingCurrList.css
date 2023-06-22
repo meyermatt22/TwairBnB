@@ -63,6 +63,7 @@
     text-decoration: none;
     color: black;
     padding: 5px;
+    background-color: rgb(0,0,0, .2);
 }
 
 .bookName:hover {
@@ -82,4 +83,8 @@
     /* margin: 20px; */
     background-color: rgb(161,15,15);
     min-width: 350px;
+}
+
+.emptyDiv {
+    padding: 20px;
 }

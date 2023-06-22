@@ -6,33 +6,40 @@ import "./BookingCurrList.css";
 import { getAllSpots } from "../../store/spots";
 import OpenModalButton from "../OpenModalButton";
 import DeleteBooking from "../BookingDeleteModal";
+import FutureBookings from "./FutureBookings";
+import PastBookings from "./PastBookings";
 
 const BookingCurrList = () => {
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
+  const bookingsObj = useSelector((state) => state.bookings.spot);
+  const bookings = Object.values(bookingsObj);
 
   useEffect(() => {
     dispatch(getCurrentUsersBookings());
     dispatch(getAllSpots());
-  }, [dispatch]);
+  }, [dispatch, bookings.length]);
 
   const today = new Date().toISOString();
 
-  console.log("==========> newnew :", today);
+  console.log("==========> newnew :", bookings);
   const spotList = useSelector((state) => Object.values(state.spots));
-  const bookingsObj = useSelector((state) => state.bookings.spot);
-  const bookings = Object.values(bookingsObj);
   const sortedBookings = bookings.sort((a, b) => {
     return a.startDate < b.startDate ? -1 : a.startDate > b.startDate ? 1 : 0;
   });
+
   //   console.log("===========>: ", spotList);
 
   if (!bookings.length) return <h1>yoyoyo</h1>;
   return (
+    <div id="bookWrap">
+
     <div id="currentBookings">
       <h1> My Bookings </h1>
       <div id="bookingsArea">
-        {sortedBookings?.map(({ startDate, endDate, spotId, id }) => (
+        <PastBookings />
+        <FutureBookings />
+        {/* {sortedBookings?.map(({ startDate, endDate, spotId, id }) => (
           <div className="bookSingle">
             <div className="bookContent">
               {spotList
@@ -54,8 +61,9 @@ const BookingCurrList = () => {
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
+    </div>
     </div>
   );
 };

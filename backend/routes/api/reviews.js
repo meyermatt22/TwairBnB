@@ -40,24 +40,24 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
         })
 
-        reviewsList.forEach(review => {
+        // reviewsList.forEach(review => {
 
-                if(review.User) {
-                    delete review.User.username
-                }
-                if(review.ReviewImages) {
-                    review.ReviewImages.forEach( review => {
-                        delete review.reviewId
-                        delete review.createdAt
-                        delete review.updatedAt
-                    })
-                }
-                if(review.Spot) {
-                    delete review.Spot.createdAt
-                    delete review.Spot.updatedAt
-                }
+        //         if(review.User) {
+        //             delete review.User.username
+        //         }
+        //         if(review.ReviewImages) {
+        //             review.ReviewImages.forEach( review => {
+        //                 delete review.reviewId
+        //                 delete review.createdAt
+        //                 delete review.updatedAt
+        //             })
+        //         }
+        //         if(review.Spot) {
+        //             delete review.Spot.createdAt
+        //             delete review.Spot.updatedAt
+        //         }
 
-        })
+        // })
 
 
         let reviewsListed = { Reviews: reviewsList}

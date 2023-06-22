@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 
 const GET_REVIEWS = "/spots/:spotId/reviews";
+const GET_REVIEWS_CURR = "/reviews/GET_REVIEWS_CURR";
 const CREATE_REVIEW = "/reviews/CREATE_REVIEW";
 const REMOVE_REVIEW = "/reviews/REMOVE_REVIEWS";
 
@@ -10,6 +11,11 @@ export const loadReviews = (reviews) => {
     reviews,
   };
 };
+
+export const loadReviewsAction = (reviews) => ({
+  type: GET_REVIEWS_CURR,
+  reviews,
+});
 
 export const createReview = (review) => ({
   type: CREATE_REVIEW,
@@ -66,6 +72,22 @@ export const getOneSpotsReviews = (spotId) => async (dispatch) => {
   }
 };
 
+export const getCurrentUsersReviews = () => async (dispatch) => {
+  const res = await csrfFetch(`/api/reviews/current`)
+
+
+  if(res.ok) {
+    const userReviews = await res.json()
+    // console.log("inside getcurr thunk., ", userReviews)
+
+      dispatch(loadReviewsAction(userReviews))
+  } else {
+
+      const errors = await res.json()
+      return errors
+  }
+}
+
 const initialState = { spot: {} };
 
 const reviewReducer = (state = initialState, action) => {
@@ -73,6 +95,11 @@ const reviewReducer = (state = initialState, action) => {
     case GET_REVIEWS: {
       const newState = { ...state, spot: {} };
       action.reviews.forEach((r) => (newState.spot[r.id] = r));
+      return newState;
+    }
+    case GET_REVIEWS_CURR: {
+      const newState = { ...state, spot: {} };
+      action.reviews.Reviews.forEach((r) => (newState.spot[r.id] = r));
       return newState;
     }
     case CREATE_REVIEW: {

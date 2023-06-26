@@ -60,7 +60,7 @@ const SpotList = () => {
             <input id='searchBar' placeholder='spot name' onChange={event => setQuery(event.target.value)}/>
 
             <select className='minPrice' name='minimumP' onChange={(e) => setMinPrice(e.target.value)}>
-                <option value={0}>Minimum $0.00</option>
+                <option value={0}>Minimum [none]</option>
                 <option value={50}>Minimum $50.00</option>
                 <option value={100}>Minimum $100.00</option>
                 <option value={150}>Minimum $150.00</option>
@@ -130,7 +130,7 @@ const SpotList = () => {
             <input id='searchBar' placeholder='spot name' onChange={event => setQuery(event.target.value)}/>
 
             <select className='minPrice' name='minimumP' onChange={(e) => setMinPrice(e.target.value)}>
-                <option value={0}>Minimum $0.00</option>
+                <option value={0}>Minimum [none]</option>
                 <option value={50}>Minimum $50.00</option>
                 <option value={100}>Minimum $100.00</option>
                 <option value={150}>Minimum $150.00</option>
@@ -167,7 +167,7 @@ const SpotList = () => {
             <input id='searchBar' placeholder='spot name' onChange={event => setQuery(event.target.value)}/>
 
             <select className='minPrice' name='minimumP' onChange={(e) => setMinPrice(e.target.value)}>
-                <option value={0}>Minimum $0.00</option>
+                <option value={0}>Minimum [none]</option>
                 <option value={50}>Minimum $50.00</option>
                 <option value={100}>Minimum $100.00</option>
                 <option value={150}>Minimum $150.00</option>

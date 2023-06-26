@@ -42,28 +42,21 @@ Twairbnb is a website clone, inspired by [Airbnb](https://www.airbnb.com/). Twai
 
 # Features 
 
-## Profiles
-* Users can create a Profile
-* Users can view profiles
-* Users can update their Profile
-* Users can delete their Profile
+## Spots
+* Users can create Spots
+* Users can view all Spots
+* Users can update their Spots
+* Users can delete their Spots
 
-## Posts
-* Users can post content
-* Users can read/view all of the posts on FacePamphlet
-* Users can edit their posts
-* Users can delete their posts
+## Spot Search
+* Users can query the spots by name and price per night
+* Users can display spots that meet their search criteria
 
-## Comments
-* Users can publish comments on posts
-* Users can read/view all of the comments on a post
-* Users can edit their comments
-* Users can delete their comments
-
-## Likes
-* Users can like and dislike posts
-* users can read/view all of the likes on a post
-* Users can delete (unlike) their likes on a Post
+## Reviews
+* Users can publish reviews on spots (text & stars)
+* Users can read/view all of the comments on a spot
+* Users can edit their reviews
+* Users can delete their reviews
 
 ## Bookings
 Logged-in Users can
@@ -71,10 +64,6 @@ Logged-in Users can
 * Update their booking at a spot
 * Read all of their bookings
 * Delete/Cancel their booking
-
-## AWS
-Logged-in Users can
-* Upload multiple images to their profiles using AWS
 
 ## Landing Page
 You can access the Login and Signup page here. Also, we have a demo user button for you to check the website.

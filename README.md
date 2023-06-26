@@ -1,4 +1,4 @@
-## <img className="logoLeft" src="https://i.imgur.com/q2bfjUk.png"></img>
+## <img className="logoLeft" src="https://i.imgur.com/HK1MoK8.jpg"></img>
 
 
 

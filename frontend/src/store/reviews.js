@@ -109,7 +109,7 @@ const reviewReducer = (state = initialState, action) => {
     }
     case REMOVE_REVIEW: {
       const newState = { ...state, spot: { ...state.spot } };
-      delete newState[action.reviewId];
+      delete newState.spot[action.reviewId];
       return newState;
     }
     default:

@@ -27,10 +27,10 @@ const BookingModal = ({ spotId, spot }) => {
   function validate(startDate, endDate) {
     const errorsObj = {};
     bookings.forEach((b) => {
-      if (startDate >= b.startDate && startDate <= b.endDate) {
+      if (startDate > b.startDate && startDate <= b.endDate) {
         errorsObj.startDate = "Start date conflicts with an existing booking";
       }
-      if (endDate >= b.startDate && endDate <= b.endDate) {
+      if (endDate > b.startDate && endDate < b.endDate) {
         errorsObj.endDate = "End date conflicts with an existing booking";
       }
     });

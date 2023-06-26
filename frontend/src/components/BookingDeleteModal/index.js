@@ -12,8 +12,8 @@ const DeleteBooking = ({bookingId}) => {
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteBookingThunk(bookingId))
-        history.push(`/bookings/current`)
         closeModal()
+        history.push(`/bookings/current`)
     }
 
     return (

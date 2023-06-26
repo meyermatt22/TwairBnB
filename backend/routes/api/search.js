@@ -22,7 +22,7 @@ const user = require("../../db/models/user");
 const { Op } = require("sequelize");
 
 
-router.post("/", requireAuth, async (req, res) => {
+router.post("/", async (req, res) => {
     const { user } = req
     const { searchedProp, minPrice, maxPrice } = req.body
 

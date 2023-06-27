@@ -58,6 +58,15 @@ const FutureBookings = () => {
                 </div>
                 Booked from {startDate.slice(0, 10)} until{" "}
                 {endDate.slice(0, 10)}{" "}
+                <div id="editB">
+                <OpenModalButton
+
+                  buttonText="Edit Reservation"
+                  onButtonClick={(e) => e.stopPropagation()}
+                  modalComponent={<EditBooking id={id} spotId={spotId} starting={startDate} ending={endDate} />}
+                />
+
+                </div>
                 <div id="removeB">
                 <OpenModalButton
 
@@ -68,15 +77,6 @@ const FutureBookings = () => {
 
                 </div>
 
-                <div id="editB">
-                <OpenModalButton
-
-                  buttonText="Edit Reservation"
-                  onButtonClick={(e) => e.stopPropagation()}
-                  modalComponent={<EditBooking id={id} spotId={spotId} starting={startDate} ending={endDate} />}
-                />
-
-                </div>
               </div>
             )}
           </div>

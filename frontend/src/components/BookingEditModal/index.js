@@ -68,7 +68,7 @@ const EditBooking = ({ id, spotId, starting, ending }) => {
           required
           onChange={(e) => setStartDate(e.target.value)}
           min={new Date().toISOString().split("T")[0]}
-          defaultValue={startDate}
+          defaultValue={startDate.slice(0,10)}
         ></input>
       </div>
       <div>{errors.startDate}</div>
@@ -80,6 +80,7 @@ const EditBooking = ({ id, spotId, starting, ending }) => {
           required
           onChange={(e) => setEndDate(e.target.value)}
           min={startDate}
+          defaultValue={endDate.slice(0,10)}
         ></input>
       </div>
       <div>{errors.endDate}</div>

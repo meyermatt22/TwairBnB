@@ -24,6 +24,9 @@ const SpotList = () => {
     const [queryList, setQueryList] = useState(spotList)
     // console.log('spotlist info' , queryList)
 
+    if(queryList) {
+        queryList.forEach(s => {if(s.avgRating === "NaN") s.avgRating = "New"})
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -44,7 +47,13 @@ const SpotList = () => {
             s.Reviews.forEach( r => {
                 total += r.stars
             })
-            s.avgRating = total / rNum
+            if(total === 0) {
+                s.avgRating = "New"
+            } else {
+                s.avgRating = (total / rNum).toFixed(2)
+            }
+            console.log('tuesday look here ===>',s.avgRating)
+
         })
         console.log("=========> here =====>", resSearch)
         setQueryList(resSearch)
@@ -57,7 +66,7 @@ const SpotList = () => {
             <div className='formDiv'>
             <div className='SearchArea'>
             <form onSubmit={handleSubmit}>
-            <input id='searchBar' placeholder='spot name' onChange={event => setQuery(event.target.value)}/>
+            <input id='searchBar' placeholder='city, state, or country' onChange={event => setQuery(event.target.value)}/>
 
             <select className='minPrice' name='minimumP' onChange={(e) => setMinPrice(e.target.value)}>
                 <option value={0}>Minimum [none]</option>
@@ -127,7 +136,7 @@ const SpotList = () => {
             <div className='formDiv'>
             <div className='SearchArea'>
             <form onSubmit={handleSubmit}>
-            <input id='searchBar' placeholder='spot name' onChange={event => setQuery(event.target.value)}/>
+            <input id='searchBar' placeholder='city, state, or country' onChange={event => setQuery(event.target.value)}/>
 
             <select className='minPrice' name='minimumP' onChange={(e) => setMinPrice(e.target.value)}>
                 <option value={0}>Minimum [none]</option>
@@ -164,7 +173,7 @@ const SpotList = () => {
              <div className='formDiv'>
             <div className='SearchArea'>
             <form onSubmit={handleSubmit}>
-            <input id='searchBar' placeholder='spot name' onChange={event => setQuery(event.target.value)}/>
+            <input id='searchBar' placeholder='city, state, or country' onChange={event => setQuery(event.target.value)}/>
 
             <select className='minPrice' name='minimumP' onChange={(e) => setMinPrice(e.target.value)}>
                 <option value={0}>Minimum [none]</option>

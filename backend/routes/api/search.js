@@ -40,8 +40,16 @@ router.post("/", async (req, res) => {
             price: {
                 [Op.between]: [minPrice, maxPrice],
             },
-            name: {
-                [Op.like]: '%' + searchedProp + '%'
+            [Op.or]: {
+              country: {
+                  [Op.like]: '%' + searchedProp + '%'
+              },
+              state: {
+                  [Op.like]: '%' + searchedProp + '%'
+              },
+              city: {
+                  [Op.like]: '%' + searchedProp + '%'
+              },
             }
         },
     })

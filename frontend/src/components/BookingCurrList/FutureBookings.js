@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteBooking from "../BookingDeleteModal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import EditBooking from "../BookingEditModal";
 
 const FutureBookings = () => {
   const user = useSelector((state) => state.session.user);
@@ -31,6 +32,8 @@ const FutureBookings = () => {
   bookings.forEach((b) => {
     if (today < b.endDate) empty = false;
   });
+
+
 
   console.log("=========> ====>", empty);
 
@@ -60,7 +63,17 @@ const FutureBookings = () => {
 
                   buttonText="Remove Reservation"
                   onButtonClick={(e) => e.stopPropagation()}
-                  modalComponent={<DeleteBooking bookingId={id} />}
+                  modalComponent={<DeleteBooking bookingId={id}/>}
+                />
+
+                </div>
+
+                <div id="editB">
+                <OpenModalButton
+
+                  buttonText="Edit Reservation"
+                  onButtonClick={(e) => e.stopPropagation()}
+                  modalComponent={<EditBooking id={id} spotId={spotId} starting={startDate} ending={endDate} />}
                 />
 
                 </div>

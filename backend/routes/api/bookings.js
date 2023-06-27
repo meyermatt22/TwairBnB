@@ -69,45 +69,45 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
     if (!booking) {
       return res.status(404).json({ message: "Booking not found" });
     }
-    const startTime = new Date(startDate).getTime();
-    const endTime = new Date(endDate).getTime();
-    const currentTime = new Date().getTime();
+    // const startTime = new Date(startDate).getTime();
+    // const endTime = new Date(endDate).getTime();
+    // const currentTime = new Date().getTime();
 
-    if (startTime > endTime) {
-      errors.endDate = "endDate cannot be on or before startDate";
-    }
+    // if (startTime > endTime) {
+    //   errors.endDate = "endDate cannot be on or before startDate";
+    // }
 
-    if (currentTime > endTime) {
-      return res
-        .status(403)
-        .json({ message: "Past bookings can't be modified" });
-    }
+    // if (currentTime > endTime) {
+    //   return res
+    //     .status(403)
+    //     .json({ message: "Past bookings can't be modified" });
+    // }
 
-    const bookings = await Booking.findAll({
-      where: {
-        spotId: user.id,
-      },
-    });
+    // const bookings = await Booking.findAll({
+    //   where: {
+    //     spotId: user.id,
+    //   },
+    // });
 
-    bookings.forEach((booking) => {
-      if (
-        startTime >= booking.dataValues.startDate.getTime() &&
-        startTime <= booking.dataValues.endDate.getTime()
-      ) {
-        errors.startDate = "Start date conflicts with an existing booking";
-      }
-      if (
-        endTime >= booking.dataValues.startDate.getTime() &&
-        endTime <= booking.dataValues.endDate.getTime()
-      ) {
-        errors.endDate = "End date conflicts with an existing booking";
-      }
-    });
+    // bookings.forEach((booking) => {
+    //   if (
+    //     startTime >= booking.dataValues.startDate.getTime() &&
+    //     startTime <= booking.dataValues.endDate.getTime()
+    //   ) {
+    //     errors.startDate = "Start date conflicts with an existing booking";
+    //   }
+    //   if (
+    //     endTime >= booking.dataValues.startDate.getTime() &&
+    //     endTime <= booking.dataValues.endDate.getTime()
+    //   ) {
+    //     errors.endDate = "End date conflicts with an existing booking";
+    //   }
+    // });
 
-    if (Object.keys(errors).length) {
-      res.status(403);
-      return res.json({ message: "bad request", errors: errors });
-    }
+    // if (Object.keys(errors).length) {
+    //   res.status(403);
+    //   return res.json({ message: "bad request", errors: errors });
+    // }
 
     if (user.dataValues.id === booking.dataValues.userId) {
       booking.startDate = startDate;

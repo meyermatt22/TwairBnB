@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const GET_BOOKINGS = "/spots/GET_BOOKINGS";
 const GET_BOOKINGS_CURR = "/spots/GET_BOOKINGS_CURR";
 const CREATE_BOOKING = "/spots/CREATE_BOOKING";
+const UPDATE_BOOKING = "/bookings/UPDATE_BOOKING"
 const REMOVE_BOOKING = "/bookings/REMOVE_BOOKINGS";
 
 export const loadBookings = (bookings) => ({
@@ -19,6 +20,11 @@ export const createBooking = (booking) => ({
   type: CREATE_BOOKING,
   booking,
 });
+
+export const editBookingAction = (booking) => ({
+  type: UPDATE_BOOKING,
+  booking
+})
 
 export const removeBookingAction = (bookingId) => ({
   type: REMOVE_BOOKING,
@@ -73,6 +79,25 @@ export const createSpotBooking = (booking) => async (dispatch) => {
   }
 };
 
+export const updateBookingThunk = (booking) => async (dispatch) => {
+
+  let res = await csrfFetch(`/api/bookings/${booking.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json"},
+      body: JSON.stringify(booking)
+  });
+
+  if(res.ok) {
+
+      const updatedBooking = await res.json()
+      dispatch(editBookingAction(updatedBooking));
+      return updatedBooking;
+  }  else {
+      const errors = await res.json()
+      return errors
+  }
+}
+
 export const deleteBookingThunk = (bookingId) => async (dispatch) => {
   const res = await csrfFetch(`/api/bookings/${bookingId}`, {
     method: "DELETE",
@@ -104,6 +129,11 @@ const bookingReducer = (state = initialState, action) => {
       const newState = { ...state, spot: { ...state.spot } };
       newState.spot[action.booking.id] = action.booking;
       return newState;
+    }
+    case UPDATE_BOOKING: {
+      const newState = { ...state, spot: { ...state.spot}};
+      newState.spot[action.booking.id] = action.booking;
+      return newState
     }
     case REMOVE_BOOKING: {
       const newState = { ...state, spot: { ...state.spot } };

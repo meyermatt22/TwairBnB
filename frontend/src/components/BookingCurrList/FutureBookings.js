@@ -27,12 +27,16 @@ const FutureBookings = () => {
     dispatch(getAllSpots());
   }, [dispatch, bookings.length, empty]);
 
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    alert("This booking has begun and can not be removed.");
+};
   const today = new Date().toISOString();
 
   bookings.forEach((b) => {
     if (today < b.endDate) empty = false;
   });
-
 
   return (
     <div id="futureBookings">
@@ -55,7 +59,7 @@ const FutureBookings = () => {
                 </div>
                 Booked from {startDate.slice(0, 10)} until{" "}
                 {endDate.slice(0, 10)}{" "}
-                <div id="editB">
+                {/* <div id="editB">
                 <OpenModalButton
 
                   buttonText="Edit Reservation"
@@ -63,17 +67,22 @@ const FutureBookings = () => {
                   modalComponent={<EditBooking id={id} spotId={spotId} starting={startDate} ending={endDate} />}
                 />
 
-                </div>
-                <div id="removeB">
-                <OpenModalButton
-
-                  buttonText="Remove Reservation"
-                  onButtonClick={(e) => e.stopPropagation()}
-                  modalComponent={<DeleteBooking bookingId={id}/>}
-                />
-
-                </div>
-
+                </div> */}
+                {today < startDate && (
+                  <div id="removeB">
+                    <OpenModalButton
+                      buttonText="Remove Reservation"
+                      onButtonClick={(e) => e.stopPropagation()}
+                      modalComponent={<DeleteBooking bookingId={id} />}
+                    />
+                  </div>
+                )}
+                {today > startDate && today < endDate && <div id="removeB">
+                    <button
+                      className="CurrRes"
+                      onClick={handleClick}
+                    >Remove Reservation</button>
+                  </div>}
               </div>
             )}
           </div>
@@ -81,8 +90,11 @@ const FutureBookings = () => {
         {empty && (
           <h2 className="emptyDiv">
             {" "}
-            It looks like you have no upcoming bookings. <br/> <br/> click{" "}
-            <Link to={'/'} className="bookName">here</Link> to explore new places to stay!
+            It looks like you have no upcoming bookings. <br /> <br /> click{" "}
+            <Link to={"/"} className="bookName">
+              here
+            </Link>{" "}
+            to explore new places to stay!
           </h2>
         )}
       </div>

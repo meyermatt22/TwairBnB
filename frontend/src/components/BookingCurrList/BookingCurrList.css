@@ -104,3 +104,7 @@
 #removeB {
     padding: 15px
 }
+
+.CurrRes:hover {
+    cursor: not-allowed;
+}

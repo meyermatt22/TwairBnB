@@ -21,6 +21,15 @@ const SpotDetails = () => {
     const details = useSelector((state) =>
     state.spots ? state.spots[spotId] : null
     );
+    const reviewsObj = useSelector(state => state.reviews.spot)
+    const reviews = Object.values(reviewsObj)
+    // let count = reviews.length
+    let avgRating = 0
+    reviews.forEach(r => {
+        avgRating += r.stars
+
+    })
+    let avgStarRating = (avgRating / reviews.length).toFixed(2)
     useEffect(() => {
         dispatch(getOneSpot(spotId))
         dispatch(getOneSpotsReviews(spotId))
@@ -90,7 +99,7 @@ const SpotDetails = () => {
                         </div>
                         <div className="topInfoRight">
                         <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
-                        {details.avgStarRating} {dot} {reviewNum} {reviewText}
+                        {avgStarRating} {dot} {reviews.length} {reviewText}
                         </div>
                     </div>
                     <div className="bottomInfoBox">
@@ -109,7 +118,7 @@ const SpotDetails = () => {
             <div className="reviewDiv">
                 <div className="infoBar">
                     <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
-                    {details.avgStarRating} {dot} {reviewNum} {reviewText}
+                    {avgStarRating} {dot} {reviews.length} {reviewText}
                 </div>
                 <div className="orderedReviews">
                     <div>

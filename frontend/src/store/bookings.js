@@ -49,7 +49,6 @@ export const getCurrentUsersBookings = () => async (dispatch) => {
 
   if(res.ok) {
     const userBookings = await res.json()
-    console.log("inside getcurr thunk., ", userBookings)
 
       dispatch(loadBookingsAction(userBookings))
   } else {
@@ -80,11 +79,13 @@ export const createSpotBooking = (booking) => async (dispatch) => {
 };
 
 export const updateBookingThunk = (booking) => async (dispatch) => {
+  const { spotId, startDate, endDate, userId } = booking;
+  const updatedBooking = { startDate, endDate, spotId, userId };
 
   let res = await csrfFetch(`/api/bookings/${booking.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json"},
-      body: JSON.stringify(booking)
+      body: JSON.stringify(updatedBooking)
   });
 
   if(res.ok) {

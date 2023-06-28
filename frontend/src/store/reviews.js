@@ -78,7 +78,6 @@ export const getCurrentUsersReviews = () => async (dispatch) => {
 
   if(res.ok) {
     const userReviews = await res.json()
-    // console.log("inside getcurr thunk., ", userReviews)
 
       dispatch(loadReviewsAction(userReviews))
   } else {

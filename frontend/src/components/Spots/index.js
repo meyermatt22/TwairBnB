@@ -22,7 +22,7 @@ const SpotList = () => {
         spotList.forEach(s => {if(s.avgRating === "NaN") s.avgRating = "New"})
     }
     const [queryList, setQueryList] = useState(spotList)
-    // console.log('spotlist info' , queryList)
+
 
     if(queryList) {
         queryList.forEach(s => {if(s.avgRating === "NaN") s.avgRating = "New"})
@@ -32,13 +32,11 @@ const SpotList = () => {
         e.preventDefault()
         setHasSubmitted(true)
         let searchedProp = query
-        console.log(query)
 
         const search = { searchedProp, minPrice, maxPrice }
 
         const resSearch = await dispatch(createSearchThunk(search))
 
-        // let realRes = []
 
         resSearch.forEach( s => {
             s.previewImage = s.SpotImages[0]['url']
@@ -52,10 +50,9 @@ const SpotList = () => {
             } else {
                 s.avgRating = (total / rNum).toFixed(2)
             }
-            console.log('tuesday look here ===>',s.avgRating)
 
         })
-        console.log("=========> here =====>", resSearch)
+    
         setQueryList(resSearch)
         // setHasSubmitted(false)
 

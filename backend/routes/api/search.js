@@ -53,7 +53,6 @@ router.post("/", async (req, res) => {
             }
         },
     })
-    console.log("====================>", spots)
 
     res.json(spots)
 })

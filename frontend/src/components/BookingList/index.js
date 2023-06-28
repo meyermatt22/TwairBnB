@@ -26,7 +26,6 @@ const BookingList = ({ spot }) => {
     if (today <= b.endDate) return b;
   });
 
-  // console.log('bookinglist booking info: ', bookings[0].startDate)
 
   // if(!bookings.length) return null
   return (

@@ -22,13 +22,11 @@ const BookingCurrList = () => {
 
   const today = new Date().toISOString();
 
-  console.log("==========> newnew :", bookings);
   const spotList = useSelector((state) => Object.values(state.spots));
   const sortedBookings = bookings.sort((a, b) => {
     return a.startDate < b.startDate ? -1 : a.startDate > b.startDate ? 1 : 0;
   });
 
-  //   console.log("===========>: ", spotList);
 
   if (!bookings.length) return <h1>yoyoyo</h1>;
   return (

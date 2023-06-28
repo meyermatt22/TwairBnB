@@ -25,11 +25,11 @@ router.get("/current", requireAuth, async (req, res, next) => {
       where: {
         userId: user.id,
       },
-      include: [
-        {
-          model: Spot,
-        },
-      ],
+      // include: [
+      //   {
+      //     model: Spot,
+      //   },
+      // ],
     });
 
     let bookingsList = [];
@@ -38,21 +38,21 @@ router.get("/current", requireAuth, async (req, res, next) => {
       bookingsList.push(booking.toJSON());
     });
 
-    const previewImages = await SpotImage.findAll({
-      where: {
-        spotId: user.id,
-      },
-    });
+    // const previewImages = await SpotImage.findAll({
+    //   where: {
+    //     spotId: user.id,
+    //   },
+    // });
 
-    bookingsList.forEach((booking) => {
-      delete booking.Spot.createdAt;
-      delete booking.Spot.updatedAt;
-      previewImages.forEach((image) => {
-        if (image.dataValues.preview === true) {
-          booking.Spot.previewImage = image.dataValues.url;
-        }
-      });
-    });
+    // bookingsList.forEach((booking) => {
+    //   // delete booking.Spot.createdAt;
+    //   // delete booking.Spot.updatedAt;
+    //   previewImages.forEach((image) => {
+    //     if (image.dataValues.preview === true) {
+    //       booking.Spot.previewImage = image.dataValues.url;
+    //     }
+    //   });
+    // });
 
     res.json({ Bookings: bookingsList });
   }

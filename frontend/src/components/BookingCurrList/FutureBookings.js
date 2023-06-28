@@ -34,9 +34,6 @@ const FutureBookings = () => {
   });
 
 
-
-  console.log("=========> ====>", empty);
-
   return (
     <div id="futureBookings">
       <h2> Future Bookings </h2>

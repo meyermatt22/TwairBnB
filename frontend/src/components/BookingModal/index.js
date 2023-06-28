@@ -64,8 +64,6 @@ const BookingModal = ({ spotId, spot }) => {
       history.push('/bookings/current')
       closeModal();
     }
-
-    console.log("inside booking Modal, resbooking ==>:", resBooking);
   };
 
   return (

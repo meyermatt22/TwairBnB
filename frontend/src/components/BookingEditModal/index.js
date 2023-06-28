@@ -17,22 +17,6 @@ const EditBooking = ({ id, spotId, starting, ending }) => {
   const [errors, setErrors] = useState({});
 
 
-
-//   useEffect(() => {
-//     dispatch(getOneSpotsBookings(spotId));
-//   }, [dispatch]);
-
-//   const bookingsObj = useSelector((state) => state.bookings.spot);
-//   const bookings = Object.values(bookingsObj);
-//   console.log("tuesday edit booking look here===>", bookings);
-
-//   bookings.forEach((b) => {
-//     if (b.id === bookingId) {
-//       setEndDate(b.endDate);
-//       setStartDate(b.startDate);
-//     }
-//   });
-
   const handleEdit = async (e) => {
     e.preventDefault();
 
@@ -42,7 +26,6 @@ const EditBooking = ({ id, spotId, starting, ending }) => {
       spotId,
       id,
     };
-    console.log('extra info here ==> ', updatedBooking)
 
     const resBooking = await dispatch(editBookingAction(updatedBooking));
 

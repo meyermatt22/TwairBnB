@@ -26,6 +26,8 @@ router.post("/", async (req, res) => {
     const { user } = req
     const { searchedProp, minPrice, maxPrice } = req.body
 
+    const searched = searchedProp.toLowerCase()
+
 
     const spots = await Spot.findAll({
         include: [
@@ -42,13 +44,13 @@ router.post("/", async (req, res) => {
             },
             [Op.or]: {
               country: {
-                  [Op.like]: '%' + searchedProp + '%'
+                  [Op.like]: '%' + searched + '%'
               },
               state: {
-                  [Op.like]: '%' + searchedProp + '%'
+                  [Op.like]: '%' + searched + '%'
               },
               city: {
-                  [Op.like]: '%' + searchedProp + '%'
+                  [Op.like]: '%' + searched + '%'
               },
             }
         },

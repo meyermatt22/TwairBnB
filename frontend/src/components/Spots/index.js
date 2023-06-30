@@ -52,7 +52,7 @@ const SpotList = () => {
             }
 
         })
-    
+
         setQueryList(resSearch)
         // setHasSubmitted(false)
 

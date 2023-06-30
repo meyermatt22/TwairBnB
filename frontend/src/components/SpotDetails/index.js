@@ -30,6 +30,7 @@ const SpotDetails = () => {
 
     })
     let avgStarRating = (avgRating / reviews.length).toFixed(2)
+    // if(avgStarRating === NaN) avgStarRating = "New"
     useEffect(() => {
         dispatch(getOneSpot(spotId))
         dispatch(getOneSpotsReviews(spotId))
@@ -40,8 +41,8 @@ const SpotDetails = () => {
         ownerFirstName = details.Owner.firstName
         ownerLastName = details.Owner.lastName
     }
-    if(details && details.avgStarRating) {
-        if(details.avgStarRating === "NaN") details.avgStarRating = "New"
+    if(avgStarRating) {
+        if(avgStarRating === "NaN") avgStarRating = "New"
     }
     const spotImgs = []
     if(details && details.SpotImages) {
@@ -99,7 +100,7 @@ const SpotDetails = () => {
                         </div>
                         <div className="topInfoRight">
                         <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
-                        {avgStarRating} {dot} {reviews.length} {reviewText}
+                        {avgStarRating} {dot} {reviews.length ? reviews.legnth : ""} {reviewText}
                         </div>
                     </div>
                     <div className="bottomInfoBox">
@@ -118,7 +119,7 @@ const SpotDetails = () => {
             <div className="reviewDiv">
                 <div className="infoBar">
                     <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
-                    {avgStarRating} {dot} {reviews.length} {reviewText}
+                    {avgStarRating} {dot} {reviews.length ? reviews.legnth : ""} {reviewText}
                 </div>
                 <div className="orderedReviews">
                     <div>

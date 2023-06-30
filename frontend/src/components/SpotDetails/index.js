@@ -100,7 +100,7 @@ const SpotDetails = () => {
                         </div>
                         <div className="topInfoRight">
                         <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
-                        {avgStarRating} {dot} {reviews.length ? reviews.legnth : ""} {reviewText}
+                        {avgStarRating} {dot} {reviews.length} {reviewText ? reviewText : "Reviews"}
                         </div>
                     </div>
                     <div className="bottomInfoBox">
@@ -119,7 +119,7 @@ const SpotDetails = () => {
             <div className="reviewDiv">
                 <div className="infoBar">
                     <img className='icon' alt='' src='https://cdn-icons-png.flaticon.com/128/929/929495.png'></img>
-                    {avgStarRating} {dot} {reviews.length ? reviews.legnth : ""} {reviewText}
+                    {avgStarRating} {dot} {reviews.length} {reviewText ? reviewText : "Reviews"}
                 </div>
                 <div className="orderedReviews">
                     <div>

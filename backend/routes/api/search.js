@@ -43,13 +43,13 @@ router.post("/", async (req, res) => {
             },
             [Op.or]: {
               country: {
-                  [Op.like]: '%' + searchedProp + '%'
+                  [Op.iLike]: '%' + searchedProp + '%'
               },
               state: {
-                  [Op.like]: '%' + searchedProp + '%'
+                  [Op.iLike]: '%' + searchedProp + '%'
               },
               city: {
-                  [Op.like]: '%' + searchedProp + '%'
+                  [Op.iLike]: '%' + searchedProp + '%'
               },
             }
         },

@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meyermatt22/AuthenticateMe.git"
+    "url": "git+https://github.com/meyermatt22/TwairBnB.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/meyermatt22/AuthenticateMe/issues"
+    "url": "https://github.com/meyermatt22/TwairBnB/issues"
   },
-  "homepage": "https://github.com/meyermatt22/AuthenticateMe#readme",
+  "homepage": "https://github.com/meyermatt22/TwairBnB#readme",
   "description": ""
 }

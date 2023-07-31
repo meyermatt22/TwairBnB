@@ -4,7 +4,7 @@
 
 Twairbnb is a website clone, inspired by [Airbnb](https://www.airbnb.com/). Twairbnb can be used to provide hosts a way to advertise their homes, rooms or neighborhoods for to rent. Interested parties can sign up to book a location at their leisure.
 
-**Live Site: [Twairbnb](https://authenticate-mwm.onrender.com)**
+**Live Site: [Twairbnb](https://twairbnb.onrender.com)**
 
 
 #### Please see below links to project Wiki:
@@ -68,4 +68,4 @@ Logged-in Users can
 ## Landing Page
 You can access the Login and Signup page here. Also, we have a demo user button for you to check the website.
 
-**Home Page: [Twairbnb](https://authenticate-mwm.onrender.com)**
+**Home Page: [Twairbnb](https://twairbnb.onrender.com)**

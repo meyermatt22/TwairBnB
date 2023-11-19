@@ -44,7 +44,6 @@ if (!isProduction) {
     })
   );
 
-
 app.use(routes); // Connect all the routes
 
 

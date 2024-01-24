@@ -38,6 +38,7 @@ const FutureBookings = () => {
     if (today < b.endDate) empty = false;
   });
 
+  
   return (
     <div id="futureBookings">
       <h2> Future Bookings </h2>

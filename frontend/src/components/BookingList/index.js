@@ -26,7 +26,6 @@ const BookingList = ({ spot }) => {
     if (today <= b.endDate) return b;
   });
 
-
   // if(!bookings.length) return null
   return (
     <div id="bookingList">

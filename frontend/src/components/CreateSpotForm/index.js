@@ -21,7 +21,6 @@ const CreateSpotForm = () => {
         preview: true
     }
 
-    
     return (
         <div>
             <SpotForm spot={spot} formType="Create a new Spot"/>

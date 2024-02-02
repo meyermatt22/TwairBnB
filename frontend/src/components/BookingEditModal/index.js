@@ -29,7 +29,6 @@ const EditBooking = ({ id, spotId, starting, ending }) => {
 
     const resBooking = await dispatch(editBookingAction(updatedBooking));
 
-
     if (resBooking.errors) {
       setErrors(resBooking.errors);
     } else {

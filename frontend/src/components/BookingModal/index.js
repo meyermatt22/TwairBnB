@@ -37,6 +37,7 @@ const BookingModal = ({ spotId, spot }) => {
     return errorsObj;
   }
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
